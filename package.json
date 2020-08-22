@@ -2,10 +2,11 @@
   "name": "bild",
   "version": "0.1.0",
   "description": "A web API to host images",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
-    "start": "babel-node app.js/",
-    "dev": "nodemon --exec babel-node app.js --ignore public/",
+    "dev": "nodemon --exec babel-node . --ignore public/",
+    "build": "babel ./src --out-dir ./dist --source-maps --copy-files",
+    "prod": "NODE_ENV=production node ./dist/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
