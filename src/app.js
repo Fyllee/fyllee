@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import express from 'express';
 import helmet from 'helmet';
+import mongoose from 'mongoose';
 import morgan from 'morgan';
 
 import index from './routes';
@@ -15,6 +16,14 @@ const app = express();
 
 export const port = Number(process.env.PORT) || 5050;
 export const baseUrl = `http://localhost:${port}`;
+
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useUnifiedTopology', true);
+mongoose.connect(process.env.MONGO_URI);
+mongoose.connection.on('error', (err) => {
+  console.log('MongoDB connection error. Please make sure MongoDB is running.');
+  throw err;
+});
 
 app.set('port', port);
 app.set('trust proxy', 1);
