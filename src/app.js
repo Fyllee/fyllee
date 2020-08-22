@@ -2,11 +2,14 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
 import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
 import index from './routes';
+
+dotenv.config();
 
 const app = express();
 
