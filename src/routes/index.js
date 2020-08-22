@@ -9,6 +9,6 @@ router.get('/', (req, res) => {
   res.status(200).json({ title: '' });
 });
 
-router.use(routes);
+routes.then(r => router.use(r));
 
 export default router;
