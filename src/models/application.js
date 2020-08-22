@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 
-const UserSchema = new Schema({
+const ApplicationSchema = new Schema({
   name: {
     type: String,
     trim: true,
@@ -12,21 +12,15 @@ const UserSchema = new Schema({
     required: true,
     unique: true,
   },
-  email: {
+  website: {
     type: String,
     trim: true,
-    lowercase: true,
-    required: [true, "can't be blank"],
-    match: [/\S+@\S+\.\S+/, 'is invalid'],
-    index: true,
-    unique: true,
   },
-  password: {
+  description: {
     type: String,
-    required: true,
     trim: true,
   },
   // Missing the fields id
 });
 
-export default model('User', UserSchema);
+export default model('Application', ApplicationSchema);
