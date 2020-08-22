@@ -30,7 +30,7 @@ jobs:
 
       - name: Install ESLint Configs and Plugins
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install <PLUGINS_LIST>
+        run: npm install eslint-config-noftalint eslint-plugin-import eslint-plugin-node eslint-plugin-unicorn
 
       - name: Run ESLint
         run: npm run lint
