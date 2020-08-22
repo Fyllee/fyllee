@@ -1,0 +1,35 @@
+{
+  "name": "bild",
+  "version": "0.1.0",
+  "description": "A web API to host images",
+  "main": "app.js",
+  "scripts": {
+    "start": "babel-node app.js/",
+    "dev": "nodemon --exec babel-node app.js --ignore public/",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "authors": [
+    "Mathis Le Bonniec",
+    "Elliot 'noftaly' Maisl <elliot.maisl@gmail.com>"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "helmet": "^3.23.3",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.4",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.11.0",
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "nodemon": "^2.0.4"
+  }
+}
