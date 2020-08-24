@@ -1,4 +1,3 @@
-import path from 'path';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
@@ -7,10 +6,13 @@ import express from 'express';
 import helmet from 'helmet';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
+import passport from 'passport';
 
+import configPassport from './config/passport';
 import index from './routes';
 
 dotenv.config();
+configPassport();
 
 const app = express();
 
@@ -19,6 +21,7 @@ export const baseUrl = `http://localhost:${port}`;
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
+mongoose.set('useCreateIndex', true);
 mongoose.connect(process.env.MONGO_URI);
 mongoose.connection.on('error', (err) => {
   console.log('MongoDB connection error. Please make sure MongoDB is running.');
@@ -27,12 +30,12 @@ mongoose.connection.on('error', (err) => {
 
 app.set('port', port);
 app.set('trust proxy', 1);
-app.use(express.static(path.join(__dirname, 'public/')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(compression());
 app.use(helmet());
 app.use(cookieParser());
+app.use(passport.initialize());
 app.use(morgan('dev'));
 
 // Routes
