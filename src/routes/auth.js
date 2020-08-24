@@ -25,8 +25,8 @@ router.post('/login', async (req, res, next) => {
       // Generate a signed json web token with the contents of user object and return it in the response
       const token = jwt.sign(user, process.env.JWT_SECRET);
       return res.json({ user, token });
-    })(req, res);
-  });
+    });
+  })(req, res, next);
 });
 
 export default router;
