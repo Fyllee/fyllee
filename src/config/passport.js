@@ -11,14 +11,14 @@ export default function configPassport() {
     },
     async (email, password, done) => {
       try {
-        // This one is typically a DB call. Assume that the returned user object
-        // is pre-formatted and ready for storing in JWT
-        console.log('password', password);
-        // TODO: find only by email, and then check the password with a `verifyPassword`
-        // method on the User model
-        const user = await User.findOne({ email, password });
+        const user = await User.findOne({ email });
         if (!user)
-          return done(null, false, { message: 'Incorrect email or password.' });
+          return done(null, false, { message: 'Incorrect email' });
+
+        const validate = await user.isValidPassword(password);
+        if (!validate)
+          return done(null, false, { message: 'Incorrect password' });
+
         return done(null, user, { message: 'Logged In Successfully' });
       } catch (err) {
         return done(err);
