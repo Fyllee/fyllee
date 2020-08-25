@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import passport from 'passport';
+import applications from './applications';
 import auth from './auth';
 import user from './user';
 
@@ -12,5 +13,6 @@ router.get('/', (req, res) => {
 
 router.use('/user', passport.authenticate('jwt', { session: false }), user);
 router.use('/auth', auth);
+router.use('/applications', passport.authenticate('jwt', { session: false }), applications);
 
 export default router;
