@@ -1,6 +1,7 @@
 node_modules/
+public/uploads/
 .idea/
-.vscode/*
+.vscode/
 .env
 .DS_Store
 /dist
