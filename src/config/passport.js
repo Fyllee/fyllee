@@ -36,7 +36,7 @@ export default function configPassport() {
       try {
         // Find the user in db if needed. This functionality may be
         // Omitted if you store everything you'll need in JWT payload.
-        const user = await User.findOneById(jwtPayload.id);
+        const user = (await User.findById(jwtPayload._id)).getUserData();
         if (!user)
           return done(user);
         return done(null, user);

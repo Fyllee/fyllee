@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/profile', async (req, res) => {
-  res.send(req.user);
+  res.json(req.user);
 });
 
 export default router;
