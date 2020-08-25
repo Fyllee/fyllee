@@ -2,6 +2,8 @@ import { Router } from 'express';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
 
+import User from '../models/user';
+
 const router = Router();
 
 router.post('/login', async (req, res, next) => {
@@ -16,13 +18,30 @@ router.post('/login', async (req, res, next) => {
       });
 
     req.login(user, { session: false }, (err2) => {
-      if (err2) res.send(err2);
+      if (err2)
+        res.send(err2);
 
-      // Generate a signed json web token with the contents of user object and return it in the response
       const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET);
       return res.json({ user, token });
     });
   })(req, res, next);
+});
+
+/* eslint-disable no-unused-vars */
+router.post('/register', async (req, res, next) => {
+  // Vérifier qu'il n'existe pas
+  // const user = await User.find({ email: req.body.email });
+  // Vérifier que tous les champs sont ok
+  // L'ajouter à la bdd
+
+  // Temporary test
+  // new User({
+  //   name: 'Emmanuel Macron',
+  //   email: 'abc@defg.com',
+  //   password: 'test',
+  // }).save();
+
+  res.json({ message: '/auth/register coming soon...' });
 });
 
 export default router;
