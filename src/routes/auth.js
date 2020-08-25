@@ -19,7 +19,7 @@ router.post('/login', async (req, res, next) => {
         res.send(err2);
 
       const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET);
-      return res.json({ user: user.toUserData(), token });
+      return res.json({ user: user.toData(), token });
     });
   })(req, res, next);
 });
@@ -28,19 +28,19 @@ router.post('/register', async (req, res, _next) => {
   const bodyContainsAllRequired = req.requiredParameters(User);
 
   if (!bodyContainsAllRequired)
-    return res.status(400).json({ message: 'Missing body parameters' });
+    return res.message('Missing body parameters', 400);
 
   try {
     const user = await User.findOne({ email: req.body.email });
     if (user)
-      return res.status(409).json({ message: 'User already exists' });
+      return res.message('User already exists.', 409);
 
     const newUser = await User.create(req.body);
 
-    return res.json({ user: newUser.getUserData() });
+    return res.json({ user: newUser.toData() });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ message: 'Oops... Something went wrong.' });
+    return res.message('Oops... Something went wrong.', 500);
   }
 });
 
