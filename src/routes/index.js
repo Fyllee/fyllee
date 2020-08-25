@@ -1,14 +1,16 @@
 import { Router } from 'express';
-import loadRoutes from '../helpers/loadRoutes';
+import passport from 'passport';
+import auth from './auth';
+import user from './user';
 
 const router = Router();
-const routes = loadRoutes(__dirname);
 
 // GET /
 router.get('/', (req, res) => {
   res.status(200).json({ title: '' });
 });
 
-routes.then(r => router.use(r));
+router.use('/user', passport.authenticate('jwt', { session: false }), user);
+router.use('/auth', auth);
 
 export default router;

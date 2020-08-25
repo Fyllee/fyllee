@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
 
 const UserSchema = new Schema({
@@ -26,7 +27,18 @@ const UserSchema = new Schema({
     required: true,
     trim: true,
   },
-  // Missing the fields id
 });
+
+UserSchema.methods.isValidPassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
+
+UserSchema.methods.getUserData = function () {
+  const doc = this.toObject();
+
+  delete doc._id;
+  delete doc.password;
+  return doc;
+};
 
 export default model('User', UserSchema);
