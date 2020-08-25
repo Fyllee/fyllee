@@ -9,6 +9,8 @@ import morgan from 'morgan';
 import passport from 'passport';
 
 import configPassport from './config/passport';
+import message from './middlewares/message';
+import requiredParameters from './middlewares/requiredParameters';
 import index from './routes';
 
 dotenv.config();
@@ -30,13 +32,17 @@ mongoose.connection.on('error', (err) => {
 
 app.set('port', port);
 app.set('trust proxy', 1);
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(compression());
 app.use(helmet());
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(morgan('dev'));
+
+// Custom middlewares
+app.use(message);
+app.use(requiredParameters);
 
 // Routes
 app.use('/', index);
