@@ -25,7 +25,7 @@ const ApplicationSchema = new Schema({
   },
 }, { versionKey: false });
 
-ApplicationSchema.methods.getAppData = function () {
+ApplicationSchema.methods.toData = function () {
   const doc = this.toObject();
 
   delete doc._id;

@@ -36,7 +36,7 @@ UserSchema.methods.isValidPassword = async function (password) {
   return isMatch;
 };
 
-UserSchema.methods.getUserData = function () {
+UserSchema.methods.toData = function () {
   const doc = this.toObject();
 
   delete doc._id;
