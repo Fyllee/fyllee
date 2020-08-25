@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
+import { nanoid } from 'nanoid';
+
 
 const UserSchema = new Schema({
   name: {
@@ -11,7 +13,7 @@ const UserSchema = new Schema({
     type: String,
     trim: true,
     unique: true,
-    // required: true,
+    default: nanoid(10),
   },
   email: {
     type: String,
@@ -27,17 +29,16 @@ const UserSchema = new Schema({
     required: true,
     trim: true,
   },
-});
+}, { versionKey: false });
 
-UserSchema.methods.isValidPassword = async (password) => {
+UserSchema.methods.isValidPassword = async function (password) {
   const isMatch = await bcrypt.compare(password, this.password);
   return isMatch;
 };
 
-UserSchema.methods.getUserData = () => {
+UserSchema.methods.getUserData = function () {
   const doc = this.toObject();
 
-  delete doc.__v;
   delete doc._id;
   delete doc.password;
   return doc;

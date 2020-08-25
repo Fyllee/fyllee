@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { nanoid } from 'nanoid';
 
 const ApplicationSchema = new Schema({
   name: {
@@ -9,18 +10,26 @@ const ApplicationSchema = new Schema({
   id: {
     type: String,
     trim: true,
-    required: true,
     unique: true,
+    default: nanoid(10),
   },
   website: {
     type: String,
     trim: true,
+    default: '',
   },
   description: {
     type: String,
     trim: true,
+    default: '',
   },
-  // Missing the fields id
-});
+}, { versionKey: false });
+
+ApplicationSchema.methods.getAppData = function () {
+  const doc = this.toObject();
+
+  delete doc._id;
+  return doc;
+};
 
 export default model('Application', ApplicationSchema);
