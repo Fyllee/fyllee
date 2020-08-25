@@ -3,6 +3,7 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import express from 'express';
+import fileUpload from 'express-fileupload';
 import helmet from 'helmet';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
@@ -39,6 +40,9 @@ app.use(helmet());
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(morgan('dev'));
+app.use(fileUpload({
+  limits: { fileSize: 5 * 1024 * 1024 },
+}));
 
 // Custom middlewares
 app.use(message);
@@ -48,9 +52,15 @@ app.use(requiredParameters);
 app.use('/', index);
 
 // 404 Handler
-app.use((req, res) => {
+app.use((_req, res) => {
   res.status(404).json({ code: 404, message: 'Not Found' });
 });
+
+// Doesn't work
+// app.use((err, _req, res, _next) => {
+//   if (err.name === 'JsonWebTokenError')
+//     res.status(400).json({ message: 'No authorization was provided, or it was incorrect.' });
+// });
 
 app.listen(port, () => {
   console.log('Listening at http://localhost:%d.', port);
