@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import passport from 'passport';
-import apiv1 from './apiv1';
+import v1 from './api/v1';
 import applications from './applications';
 import auth from './auth';
 import user from './user';
@@ -15,6 +15,6 @@ router.get('/', (req, res) => {
 router.use('/user', passport.authenticate('jwt', { session: false }), user);
 router.use('/auth', auth);
 router.use('/applications', passport.authenticate('jwt', { session: false }), applications);
-router.use('/api/v1/', passport.authenticate('jwt', { session: false }), apiv1);
+router.use('/api/v1', passport.authenticate('jwt', { session: false }), v1);
 
 export default router;
