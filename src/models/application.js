@@ -13,6 +13,11 @@ const ApplicationSchema = new Schema({
     unique: true,
     default: nanoid(10),
   },
+  owner: {
+    type: String,
+    trim: true,
+    required: true,
+  },
   website: {
     type: String,
     trim: true,
