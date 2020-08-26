@@ -5,4 +5,7 @@ module.exports = {
   env: {
     node: true,
   },
+  rules: {
+    "guard-for-in": false
+  },
 };
