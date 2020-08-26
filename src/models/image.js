@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { nanoid } from 'nanoid';
 
-const ApplicationSchema = new Schema({
+const ImageSchema = new Schema({
   name: {
     type: String,
     trim: true,
@@ -13,28 +13,19 @@ const ApplicationSchema = new Schema({
     unique: true,
     default: nanoid(10),
   },
-  owner: {
+  application: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'Application',
     required: true,
-  },
-  website: {
-    type: String,
-    trim: true,
-    default: '',
-  },
-  description: {
-    type: String,
-    trim: true,
-    default: '',
   },
 }, { versionKey: false });
 
-ApplicationSchema.methods.toData = function () {
+ImageSchema.methods.toData = function () {
   const doc = this.toObject();
 
   delete doc._id;
+  delete doc.application;
   return doc;
 };
 
-export default model('Application', ApplicationSchema);
+export default model('Image', ImageSchema);
