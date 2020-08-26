@@ -18,8 +18,8 @@ router.post('/login', async (req, res, next) => {
       if (err2)
         res.send(err2);
 
-      const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET);
-      return res.json({ user: user.toData(), token });
+      const token = jwt.sign({ email: user.toJSON().email }, process.env.JWT_SECRET);
+      return res.json({ message: 'You are now logged in.', user: user.toData(), token });
     });
   })(req, res, next);
 });

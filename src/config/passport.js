@@ -9,6 +9,7 @@ export default function configPassport() {
       usernameField: 'email',
       passwordField: 'password',
     },
+
     async (email, password, done) => {
       try {
         const user = await User.findOne({ email });
@@ -34,13 +35,15 @@ export default function configPassport() {
     },
 
     async (jwtPayload, done) => {
+      console.log(jwtPayload);
       try {
         // Find the user in db if needed. This functionality may be
         // Omitted if you store everything you'll need in JWT payload.
-        const user = (await User.findById(jwtPayload._id)).toData();
+        const user = await User.findOne({ email: jwtPayload.email });
         if (!user)
           return done(user);
-        return done(null, user);
+
+        return done(null, user.toData());
       } catch (err) {
         return done(err);
       }
