@@ -9,12 +9,12 @@ const UserSchema = new Schema({
     trim: true,
     required: true,
   },
-  // id: {
-  //   type: String,
-  //   trim: true,
-  //   unique: true,
-  //   default: nanoid(10),
-  // },
+  id: {
+    type: String,
+    trim: true,
+    unique: true,
+    default: nanoid(10),
+  },
   email: {
     type: String,
     trim: true,
