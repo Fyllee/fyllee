@@ -3,7 +3,7 @@ import { Router } from 'express';
 const router = Router();
 
 router.get('/', async (req, res) => {
-  res.send('respond with a resource');
+  res.message("There's nothing here... but you're authenticate!");
 });
 
 router.get('/profile', async (req, res) => {
