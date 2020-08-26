@@ -6,6 +6,6 @@ module.exports = {
     node: true,
   },
   rules: {
-    "guard-for-in": false
+    'guard-for-in': 'off',
   },
 };
