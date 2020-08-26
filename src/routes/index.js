@@ -12,9 +12,9 @@ router.get('/', (req, res) => {
   res.message("Welcome to Bild! There's nothing here...");
 });
 
-router.use('/user', passport.authenticate('jwt', { session: false }), user);
+router.use('/user', passport.authenticate('jwtUser', { session: false }), user);
 router.use('/auth', auth);
-router.use('/applications', passport.authenticate('jwt', { session: false }), applications);
-router.use('/api/v1', passport.authenticate('jwt', { session: false }), v1);
+router.use('/applications', passport.authenticate('jwtUser', { session: false }), applications);
+router.use('/api/v1', passport.authenticate('jwtApp', { session: false }), v1);
 
 export default router;

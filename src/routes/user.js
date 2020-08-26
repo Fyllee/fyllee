@@ -7,6 +7,9 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/profile', async (req, res) => {
+  console.log('req.user', req.user);
+  console.log('req.application', req.application);
+
   res.json(req.user);
 });
 
