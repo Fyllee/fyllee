@@ -13,7 +13,7 @@ export default (req, res, next) => {
     if (Object.keys(error).length !== 0)
       console.error(error); // Must be replaced by a logger
 
-    res.statusCode(statusCode).json({ message, ...error });
+    res.status(statusCode).json({ message, ...error });
   };
 
   next();
