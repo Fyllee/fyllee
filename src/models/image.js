@@ -2,7 +2,12 @@ import { Schema, model } from 'mongoose';
 import { nanoid } from 'nanoid';
 
 const ImageSchema = new Schema({
-  name: {
+  originalName: {
+    type: String,
+    trim: true,
+    required: true,
+  },
+  savedName: {
     type: String,
     trim: true,
     required: true,

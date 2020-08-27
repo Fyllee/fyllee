@@ -24,7 +24,9 @@ router.post('/image', async (req, res, _next) => {
   const appId = req.application.id;
 
   // /public/uploads/APP_ID/IMG_ID.ext
-  const path = join(uploadPath, appId, `${nanoid(16)}${extname(image.name)}`);
+  const imageId = nanoid(10);
+  const savedName = `${imageId}${extname(image.name)}`;
+  const path = join(uploadPath, appId, savedName);
 
   image.mv(path, async (err) => {
     if (err)
@@ -34,7 +36,9 @@ router.post('/image', async (req, res, _next) => {
       const application = await Application.findOne({ id: appId });
       const newImage = await Image.create({
         application: application._id,
-        name: image.name,
+        originalName: image.name,
+        savedName,
+        id: imageId,
       });
 
       res.success('Success!', 200, { image: newImage.toData() });
@@ -53,7 +57,7 @@ router.delete('/image/:id', async (req, res, _next) => {
 
   try {
     const image = await Image.findOne({ id }).populate('application');
-    const filePath = join(uploadPath, image.application.id, image.name);
+    const filePath = join(uploadPath, image.application.id, image.savedName);
     const file = await fs.stat(filePath);
     if (!file)
       return res.error('Image not found', 404);
