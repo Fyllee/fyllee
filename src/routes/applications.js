@@ -1,3 +1,5 @@
+import { promises as fs } from 'fs';
+import { join } from 'path';
 import { Router } from 'express';
 import jwt from 'jsonwebtoken';
 import Application from '../models/application';
@@ -20,6 +22,8 @@ router.post('/', async (req, res, _next) => {
       owner: owner._id,
       ...req.body,
     });
+
+    await fs.mkdir(join(process.cwd(), 'public', 'uploads', newApp.id));
 
     const token = jwt.sign({ id: newApp.id }, process.env.JWT_SECRET);
     return res.json({ message: 'Application created.', application: newApp.toData(), token });
