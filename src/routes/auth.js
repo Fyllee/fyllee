@@ -28,19 +28,19 @@ router.post('/register', async (req, res, _next) => {
   const bodyContainsAllRequired = req.requiredParameters(User);
 
   if (!bodyContainsAllRequired)
-    return res.message('Missing body parameters', 400);
+    return res.error('Missing body parameters', 400);
 
   try {
     const user = await User.findOne({ email: req.body.email });
     if (user)
-      return res.message('User already exists.', 409);
+      return res.error('User already exists.', 409);
 
     const newUser = await User.create(req.body);
 
     return res.json({ user: newUser.toData() });
   } catch (err) {
     console.error(err);
-    return res.message('Oops... Something went wrong.', 500);
+    return res.error('Oops... Something went wrong.', 500);
   }
 });
 

@@ -18,17 +18,17 @@ router.get('/', async (req, res, _next) => {
 
 router.post('/image', async (req, res, _next) => {
   if (!req.files || Object.keys(req.files).length === 0)
-    return res.message('No file was provided', 400);
+    return res.error('No file was provided', 400);
 
   const { image } = req.files;
-  const appId = 'id'; // TODO: Find the app ID with the JWT
+  const appId = req.application.id;
 
   // /public/uploads/APP_ID/IMG_ID.ext
-  const path = join(uploadPath, appId, `${nanoid(16)}.${extname(image.name)}`);
+  const path = join(uploadPath, appId, `${nanoid(16)}${extname(image.name)}`);
 
   image.mv(path, async (err) => {
     if (err)
-      return res.message('Something went wrong...', 500);
+      return res.success('Something went wrong...', 500);
 
     try {
       const application = await Application.findOne({ id: appId });
@@ -36,10 +36,11 @@ router.post('/image', async (req, res, _next) => {
         application: application._id,
         name: image.name,
       });
-      res.message('Success!', { image: newImage.toData() });
+
+      res.success('Success!', 200, { image: newImage.toData() });
     } catch (error) {
       console.error(error);
-      return res.message('Oops... Something went wrong.', 500);
+      return res.error('Oops... Something went wrong.', 500);
     }
   });
 });
@@ -48,20 +49,20 @@ router.delete('/image/:id', async (req, res, _next) => {
   const { id } = req.params;
 
   if (!id)
-    return res.message('No id was provided', 400);
+    return res.error('No id was provided', 400);
 
   try {
     const image = await Image.findOne({ id }).populate('application');
     const filePath = join(uploadPath, image.application.id, image.name);
     const file = await fs.stat(filePath);
     if (!file)
-      return res.message('Image not found', 404);
+      return res.error('Image not found', 404);
 
     await fs.unlink(filePath);
-    res.message('Success!');
+    res.success('Success!', 200);
   } catch (err) {
     console.error(err);
-    return res.message('Something went wrong...', 500);
+    return res.error('Something went wrong...', 500);
   }
 });
 

@@ -9,7 +9,7 @@ const router = Router();
 
 // GET /
 router.get('/', (req, res) => {
-  res.message("Welcome to Bild! There's nothing here...");
+  res.success("Welcome to Bild! There's nothing here...", 200);
 });
 
 router.use('/auth', auth);
