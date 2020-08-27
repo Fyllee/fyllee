@@ -12,11 +12,13 @@ router.post('/login', async (req, res, next) => {
       return next(err);
 
     if (!user)
-      return res.status(400).json({ message: 'Something is not right' });
+      return res.error('Something went wrong.', 400);
 
     req.login(user, { session: false }, (err2) => {
-      if (err2)
-        res.send(err2);
+      if (err2) {
+        console.log(err2);
+        return res.error('Something went wrong.', 400);
+      }
 
       const token = jwt.sign({ email: user.toJSON().email }, process.env.JWT_SECRET);
       return res.json({ message: 'You are now logged in.', user: user.toData(), token });
@@ -28,7 +30,7 @@ router.post('/register', async (req, res, _next) => {
   const bodyContainsAllRequired = req.requiredParameters(User);
 
   if (!bodyContainsAllRequired)
-    return res.error('Missing body parameters', 400);
+    return res.error('Missing body parameters.', 400);
 
   try {
     const user = await User.findOne({ email: req.body.email });
