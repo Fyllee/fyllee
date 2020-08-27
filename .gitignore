@@ -1,5 +1,5 @@
-node_modules/
-public/uploads/
+/node_modules
+/uploads
 .idea/
 .vscode/
 .env

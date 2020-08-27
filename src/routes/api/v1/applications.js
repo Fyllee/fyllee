@@ -6,7 +6,8 @@ import Application from '../../../models/application';
 import User from '../../../models/user';
 
 const router = Router();
-const uploadPath = join(process.cwd(), 'public', 'uploads');
+const uploadPath = join(process.cwd(), 'uploads');
+
 
 router.post('/', async (req, res, _next) => {
   const bodyContainsAllRequired = req.requiredParameters(Application, 'owner');

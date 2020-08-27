@@ -7,7 +7,8 @@ import Application from '../../../models/application';
 import Image from '../../../models/image';
 
 const router = Router();
-const uploadPath = join(process.cwd(), 'public', 'uploads');
+const uploadPath = join(process.cwd(), 'uploads');
+
 
 router.post('/', async (req, res, _next) => {
   if (!req.files || Object.keys(req.files).length === 0)
