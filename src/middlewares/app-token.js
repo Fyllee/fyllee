@@ -20,7 +20,7 @@ export default async (req, res, next) => {
     return next();
   } catch (err) {
     if (err.message === 'Bad token')
-      return res.message('Bad token', 401);
-    return res.message('Application not found', 404);
+      return res.error('Bad token', 401);
+    return res.error('Application not found', 404);
   }
 };
