@@ -3,7 +3,7 @@ import { Router } from 'express';
 const router = Router();
 
 router.get('/', async (req, res) => {
-  res.message("There's nothing here... but you're authenticate!");
+  res.success("There's nothing here... but you're authenticate!", 200);
 });
 
 router.get('/profile', async (req, res) => {

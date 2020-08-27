@@ -28,6 +28,7 @@ export default function configPassport() {
     }),
   );
 
+  // User JWT
   passport.use(
     new JwtStrategy({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -35,7 +36,6 @@ export default function configPassport() {
     },
 
     async (jwtPayload, done) => {
-      console.log(jwtPayload);
       try {
         // Find the user in db if needed. This functionality may be
         // Omitted if you store everything you'll need in JWT payload.

@@ -9,12 +9,12 @@ const router = Router();
 
 // GET /
 router.get('/', (req, res) => {
-  res.message("Welcome to Bild! There's nothing here...");
+  res.success("Welcome to Bild! There's nothing here...", 200);
 });
 
-router.use('/user', passport.authenticate('jwt', { session: false }), user);
 router.use('/auth', auth);
+router.use('/api/v1', v1);
+router.use('/user', passport.authenticate('jwt', { session: false }), user);
 router.use('/applications', passport.authenticate('jwt', { session: false }), applications);
-router.use('/api/v1', passport.authenticate('jwt', { session: false }), v1);
 
 export default router;

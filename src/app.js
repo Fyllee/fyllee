@@ -11,7 +11,7 @@ import passport from 'passport';
 
 import configPassport from './config/passport';
 import message from './middlewares/message';
-import requiredParameters from './middlewares/requiredParameters';
+import requiredParameters from './middlewares/required-parameters';
 import index from './routes';
 
 dotenv.config();
@@ -53,14 +53,8 @@ app.use('/', index);
 
 // 404 Handler
 app.use((_req, res) => {
-  res.status(404).json({ code: 404, message: 'Not Found' });
+  res.error('Not Found', 404);
 });
-
-// Doesn't work
-// app.use((err, _req, res, _next) => {
-//   if (err.name === 'JsonWebTokenError')
-//     res.status(400).json({ message: 'No authorization was provided, or it was incorrect.' });
-// });
 
 app.listen(port, () => {
   console.log('Listening at http://localhost:%d.', port);
