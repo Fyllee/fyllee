@@ -11,7 +11,7 @@ import passport from 'passport';
 
 import configPassport from './config/passport';
 import message from './middlewares/message';
-import requiredParameters from './middlewares/requiredParameters';
+import requiredParameters from './middlewares/required-parameters';
 import index from './routes';
 
 dotenv.config();
