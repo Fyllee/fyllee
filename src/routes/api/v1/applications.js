@@ -8,6 +8,15 @@ import User from '../../../models/user';
 const router = Router();
 const uploadPath = join(process.cwd(), 'uploads');
 
+router.get('/', async (req, res, _next) => {
+  const { id } = req.body;
+
+  const application = await Application.findOne({ id });
+  if (!application)
+    return res.error('Application not found', 404);
+
+  res.json({ application: application.toData() });
+});
 
 router.post('/', async (req, res, _next) => {
   const bodyContainsAllRequired = req.requiredParameters(Application, 'owner');
