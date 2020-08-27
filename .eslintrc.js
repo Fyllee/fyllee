@@ -8,4 +8,10 @@ module.exports = {
   rules: {
     'guard-for-in': 'off',
   },
+  overrides: [{
+    files: ['./src/controllers/**/*.js'],
+    rules: {
+      'import/prefer-default-export': 'off',
+    },
+  }],
 };
