@@ -3,7 +3,7 @@ import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import { Strategy as LocalStrategy } from 'passport-local';
 import User from '../models/user';
 
-export default function configPassportUser() {
+export default function configPassport() {
   passport.use(
     new LocalStrategy({
       usernameField: 'email',
