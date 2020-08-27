@@ -9,6 +9,15 @@ import Image from '../../../models/image';
 const router = Router();
 const uploadPath = join(process.cwd(), 'uploads');
 
+router.get('/', async (req, res, _next) => {
+  const { id } = req.body;
+
+  const image = await Image.findOne({ id }).populate('application');
+  if (!image)
+    return res.error('Image not found', 404);
+
+  res.sendFile(join(uploadPath, image.application.id, image.savedName));
+});
 
 router.post('/', async (req, res, _next) => {
   if (!req.files || Object.keys(req.files).length === 0)
