@@ -1,10 +1,9 @@
 import passport from 'passport';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import { Strategy as LocalStrategy } from 'passport-local';
-import Application from '../models/application';
 import User from '../models/user';
 
-export default function configPassport() {
+export default function configPassportUser() {
   passport.use(
     new LocalStrategy({
       usernameField: 'email',
@@ -31,14 +30,12 @@ export default function configPassport() {
 
   // User JWT
   passport.use(
-    'jwtUser',
     new JwtStrategy({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: process.env.JWT_SECRET,
     },
 
     async (jwtPayload, done) => {
-      console.log(jwtPayload);
       try {
         // Find the user in db if needed. This functionality may be
         // Omitted if you store everything you'll need in JWT payload.
@@ -47,29 +44,6 @@ export default function configPassport() {
           return done(user);
 
         return done(null, user.toData());
-      } catch (err) {
-        return done(err);
-      }
-    }),
-  );
-
-  // Application JWT
-  passport.use(
-    'jwtApp',
-    new JwtStrategy({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.JWT_SECRET,
-    },
-
-    async (jwtPayload, done) => {
-      console.log(jwtPayload);
-      try {
-        const app = await Application.findOne({ id: jwtPayload.appId });
-        console.log(app);
-        if (!app)
-          return done(app);
-
-        return done(null, app.toData());
       } catch (err) {
         return done(err);
       }
