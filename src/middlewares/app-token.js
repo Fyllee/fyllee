@@ -6,8 +6,11 @@ export default (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    if (!decoded.appId)
+    if (!decoded.id)
       throw new Error('Bad token');
+
+    delete decoded.iat;
+    req.application = decoded;
 
     return next();
   } catch (err) {
