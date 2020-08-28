@@ -37,6 +37,7 @@ ApplicationSchema.plugin(autopopulate);
 ApplicationSchema.methods.toData = function () {
   const doc = this.toObject();
 
+  doc.owner = this.owner.id;
   delete doc._id;
   return doc;
 };

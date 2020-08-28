@@ -32,8 +32,8 @@ ImageSchema.plugin(autopopulate);
 ImageSchema.methods.toData = function () {
   const doc = this.toObject();
 
+  doc.application = this.application.id;
   delete doc._id;
-  delete doc.application;
   return doc;
 };
 
