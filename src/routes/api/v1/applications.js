@@ -1,17 +1,21 @@
 import { Router } from 'express';
 import {
-  getAllApplications,
   getApplication,
+  getAllApplications,
   createApplication,
   deleteApplication,
+  deleteAllApplications,
 } from '../../../controllers/applications';
 
 const router = Router();
 
-router.get('/:id', getApplication);
+router.route('/:id')
+  .get(getApplication)
+  .delete(deleteApplication);
+
 router.route('/')
   .get(getAllApplications)
   .post(createApplication)
-  .delete(deleteApplication);
+  .delete(deleteAllApplications);
 
 export default router;

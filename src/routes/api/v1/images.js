@@ -1,17 +1,21 @@
 import { Router } from 'express';
 import {
-  getAllImages,
   getImage,
+  getAllImages,
   createImage,
   deleteImage,
+  deleteAllImages,
 } from '../../../controllers/images';
 
 const router = Router();
 
-router.get('/:id', getImage);
+router.route('/:id')
+  .get(getImage)
+  .delete(deleteImage);
+
 router.route('/')
   .get(getAllImages)
   .post(createImage)
-  .delete(deleteImage);
+  .delete(deleteAllImages);
 
 export default router;
