@@ -36,5 +36,5 @@ export async function getAllApplications(req, res, _next) {
   for (const application of applications)
     saneApplications.push(application.toData());
 
-  res.json({ images: saneApplications });
+  res.json({ applications: saneApplications });
 }
