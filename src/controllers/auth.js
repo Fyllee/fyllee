@@ -19,10 +19,8 @@ export async function login(req, res, next) {
       return res.error('Something went wrong.', 400);
 
     req.login(user, { session: false }, (err2) => {
-      if (err2) {
-        console.log(err2);
-        return res.error('Something went wrong.', 400);
-      }
+      if (err2)
+        return res.error('Something went wrong.', 400, err2);
 
       const token = jwt.sign({ email: user.toJSON().email }, process.env.JWT_SECRET);
       return res.json({ message: 'You are now logged in.', user: user.toData(), token });
