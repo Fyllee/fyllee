@@ -16,6 +16,7 @@ import configPassport from './config/passport';
 import message from './middlewares/message';
 import requiredParameters from './middlewares/required-parameters';
 import index from './routes';
+import existsAsync from './helpers/exists-async';
 
 dotenv.config();
 configPassport();
@@ -60,14 +61,9 @@ app.use((_req, res) => {
 });
 
 app.listen(port, async () => {
-  try {
-    await fs.stat(constants.uploadPath);
-  } catch (err) {
-    if (err.code === 'ENOENT')
-      await fs.mkdir(constants.uploadPath).catch(console.error);
-    else
-      console.error(err);
-  }
+  const folder = existsAsync(constants.uploadPath);
+  if (!folder)
+    await fs.mkdir(constants.uploadPath).catch(console.error);
 
   console.log('Listening at http://localhost:%d.', port);
 });
