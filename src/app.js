@@ -61,7 +61,7 @@ app.use((_req, res) => {
 });
 
 app.listen(port, async () => {
-  const folder = existsAsync(constants.uploadPath);
+  const folder = await existsAsync(constants.uploadPath);
   if (!folder)
     await fs.mkdir(constants.uploadPath).catch(console.error);
 
