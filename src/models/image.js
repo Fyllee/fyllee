@@ -17,7 +17,7 @@ const ImageSchema = new Schema({
     type: String,
     trim: true,
     unique: true,
-    default: nanoid(10),
+    default: () => nanoid(10),
   },
   application: {
     type: Schema.Types.ObjectId,

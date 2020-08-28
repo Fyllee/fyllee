@@ -13,7 +13,7 @@ const UserSchema = new Schema({
     type: String,
     trim: true,
     unique: true,
-    default: nanoid(10),
+    default: () => nanoid(10),
   },
   email: {
     type: String,

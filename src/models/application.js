@@ -12,7 +12,7 @@ const ApplicationSchema = new Schema({
     type: String,
     trim: true,
     unique: true,
-    default: nanoid(10),
+    default: () => nanoid(10),
   },
   owner: {
     type: Schema.Types.ObjectId,
