@@ -13,10 +13,10 @@ import passport from 'passport';
 
 import constants from './config/constants';
 import configPassport from './config/passport';
+import existsAsync from './helpers/exists-async';
 import message from './middlewares/message';
 import requiredParameters from './middlewares/required-parameters';
 import index from './routes';
-import existsAsync from './helpers/exists-async';
 
 dotenv.config();
 configPassport();
