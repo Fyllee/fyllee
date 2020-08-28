@@ -41,15 +41,15 @@ export async function deleteApplication(req, res, _next) {
  */
 export async function deleteAllApplications(req, res, _next) {
   try {
-    const user = await User.findOne({ id: req.user.id });
-    const applications = await Application.find({ owner: user._id });
+    const ownerId = req.user._id;
+    const applications = await Application.find({ owner: ownerId });
     if (applications.length === 0)
       return res.success('Success!');
 
     for (const application of applications)
       await removeApplicationFromDisk(application); // eslint-disable-line no-await-in-loop
 
-    await Application.deleteMany({ owner: user._id });
+    await Application.deleteMany({ owner: ownerId });
 
     res.success('Success!');
   } catch (err) {

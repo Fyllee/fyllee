@@ -27,10 +27,8 @@ export async function getApplication(req, res, _next) {
  * @param {Function} next - The next callback
  */
 export async function getAllApplications(req, res, _next) {
-  const { id } = req.user;
-
-  const user = await User.findOne({ id });
-  const applications = await Application.find({ owner: user._id });
+  const ownerId = req.user._id;
+  const applications = await Application.find({ owner: ownerId });
 
   const saneApplications = [];
   for (const application of applications)

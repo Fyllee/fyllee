@@ -39,16 +39,15 @@ export async function deleteImage(req, res, _next) {
  */
 export async function deleteAllImages(req, res, _next) {
   try {
-    const appId = req.application.id;
-    const application = await Application.findOne({ id: appId });
-    const images = await Image.find({ application: application._id });
+    const appId = req.application._id;
+    const images = await Image.find({ application: appId });
     if (images.length === 0)
       return res.success('Success');
 
     for (const image of images)
       await removeImageFromDisk(image); // eslint-disable-line no-await-in-loop
 
-    await Image.deleteMany({ application: application._id });
+    await Image.deleteMany({ application: appId });
 
     res.success('Success!');
   } catch (err) {

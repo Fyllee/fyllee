@@ -41,7 +41,7 @@ export default function configPassport() {
         if (!user)
           return done(user);
 
-        return done(null, user.toData());
+        return done(null, user.toJWT());
       } catch (err) {
         return done(err);
       }

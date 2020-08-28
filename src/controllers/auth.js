@@ -16,9 +16,9 @@ export async function login(req, res, next) {
       return next(err);
 
     if (!user)
-      return res.error('Something went wrong.', 400);
+      return res.error('User does not exist.', 400);
 
-    req.login(user, { session: false }, (err2) => {
+    req.login(user.toJWT(), { session: false }, (err2) => {
       if (err2)
         return res.error('Something went wrong.', 400, err2);
 
