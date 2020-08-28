@@ -1,10 +1,16 @@
 import { Router } from 'express';
-import { getImage, createImage, deleteImage } from '../../../controllers/images';
+import {
+  getAllImages,
+  getImage,
+  createImage,
+  deleteImage,
+} from '../../../controllers/images';
 
 const router = Router();
 
+router.get('/:id', getImage);
 router.route('/')
-  .get(getImage)
+  .get(getAllImages)
   .post(createImage)
   .delete(deleteImage);
 

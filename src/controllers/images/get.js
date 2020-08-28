@@ -1,5 +1,6 @@
 import { join } from 'path';
 import constants from '../../config/constants';
+import Application from '../../models/application';
 import Image from '../../models/image';
 
 
@@ -10,11 +11,32 @@ import Image from '../../models/image';
  * @param {Function} next - The next callback
  */
 export async function getImage(req, res) {
-  const { id } = req.body;
+  const { id } = req.params;
 
   const image = await Image.findOne({ id }).populate('application');
   if (!image)
     return res.error('Image not found', 404);
 
   res.sendFile(join(constants.uploadPath, image.application.id, image.savedName));
+}
+
+/**
+ * GET controller for the 'images' route
+ * @param {Request} req - The request object
+ * @param {Response} res - The response object
+ * @param {Function} next - The next callback
+ */
+export async function getAllImages(req, res) {
+  try {
+    const application = await Application.findOne({ id: req.application.id });
+    const images = await Image.find({ application: application._id });
+
+    const saneImages = [];
+    for (const image of images)
+      saneImages.push(image.toData());
+
+    res.json({ images: saneImages });
+  } catch (err) {
+    res.error('Something went wrong...', 500, err);
+  }
 }
