@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import autopopulate from 'mongoose-autopopulate';
 import { nanoid } from 'nanoid';
 
 const ApplicationSchema = new Schema({
@@ -17,6 +18,7 @@ const ApplicationSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,
+    autopopulate: true,
   },
   website: {
     type: String,
@@ -29,6 +31,8 @@ const ApplicationSchema = new Schema({
     default: '',
   },
 }, { versionKey: false });
+
+ApplicationSchema.plugin(autopopulate);
 
 ApplicationSchema.methods.toData = function () {
   const doc = this.toObject();

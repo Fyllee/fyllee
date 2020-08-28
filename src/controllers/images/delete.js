@@ -18,7 +18,7 @@ export async function deleteImage(req, res, _next) {
     return res.error('No id was provided', 400);
 
   try {
-    const image = await Image.findOne({ id }).populate('application');
+    const image = await Image.findOne({ id });
     if (!image)
       return res.error('Image not found', 404);
 

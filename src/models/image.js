@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import autopopulate from 'mongoose-autopopulate';
 import { nanoid } from 'nanoid';
 
 const ImageSchema = new Schema({
@@ -22,8 +23,11 @@ const ImageSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Application',
     required: true,
+    autopopulate: true,
   },
 }, { versionKey: false });
+
+ImageSchema.plugin(autopopulate);
 
 ImageSchema.methods.toData = function () {
   const doc = this.toObject();
