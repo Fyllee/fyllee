@@ -76,9 +76,9 @@ Authorization: 'Bearer your_token'
 <details>
 <summary><b>POST</b> Create a new account</summary>
 
-<br>
+<br />
 
-**Endpoint:** `/auth/register`
+**Endpoint:** `/auth/register`\
 **Body:**
 ```json
 {
@@ -102,9 +102,9 @@ Authorization: 'Bearer your_token'
 <details>
 <summary><b>POST</b> Login to your account, to get your token</summary>
 
-<br>
+<br />
 
-**Endpoint:** `/auth/login`
+**Endpoint:** `/auth/login`\
 **Body:**
 ```json
 {
@@ -131,14 +131,14 @@ Authorization: 'Bearer your_token'
 <details>
 <summary>🔐 <b>GET</b> Get user data</summary>
 
-<br>
+<br />
 
-**Endpoint:** `/user`
+**Endpoint:** `/user`\
 **Header:**
 ```
 Authorization: 'Bearer user_token'
 ```
-**Body:** *none*
+**Body:** *none*\
 **Response:** `200 OK`
 ```json
 {
@@ -154,14 +154,14 @@ Authorization: 'Bearer user_token'
 <details>
 <summary>🔐 <b>GET</b> Get an application by its ID</summary>
 
-<br>
+<br />
 
-**Endpoint:** `/api/v1/applications/:id`
+**Endpoint:** `/api/v1/applications/:id`\
 **Header:**
 ```
 Authorization: 'Bearer user_token'
 ```
-**Body:** *none*
+**Body:** *none*\
 **Response:** `200 OK`
 ```json
 {
@@ -179,14 +179,14 @@ Authorization: 'Bearer user_token'
 <details>
 <summary>🔐 <b>DELETE</b> Remove an application by its ID</summary>
 
-<br>
+<br />
 
-**Endpoint:** `/api/v1/applications/:id`
+**Endpoint:** `/api/v1/applications/:id`\
 **Header:**
 ```
 Authorization: 'Bearer user_token'
 ```
-**Body:** *none*
+**Body:** *none*\
 **Response:** `200 OK`
 ```json
 {
@@ -198,14 +198,14 @@ Authorization: 'Bearer user_token'
 <details>
 <summary>🔐 <b>GET</b> Get all applications of the user the token belongs to</summary>
 
-<br>
+<br />
 
-**Endpoint:** `/api/v1/applications`
+**Endpoint:** `/api/v1/applications`\
 **Header:**
 ```
 Authorization: 'Bearer user_token'
 ```
-**Body:** *none*
+**Body:** *none*\
 **Response:** `200 OK`
 ```json
 {
@@ -223,14 +223,14 @@ Authorization: 'Bearer user_token'
 <details>
 <summary>🔐 <b>DELETE</b> Remove all applications of the user the token belongs to</summary>
 
-<br>
+<br />
 
-**Endpoint:** `/api/v1/applications`
+**Endpoint:** `/api/v1/applications`\
 **Header:**
 ```
 Authorization: 'Bearer user_token'
 ```
-**Body:** *none*
+**Body:** *none*\
 **Response:** `200 OK`
 ```json
 {
@@ -242,9 +242,9 @@ Authorization: 'Bearer user_token'
 <details>
 <summary>🔐 <b>POST</b> Create a new application</summary>
 
-<br>
+<br />
 
-**Endpoint:** `/api/v1/applications`
+**Endpoint:** `/api/v1/applications`\
 **Header:**
 ```
 Authorization: 'Bearer user_token'
@@ -278,10 +278,10 @@ Authorization: 'Bearer user_token'
 <details>
 <summary><b>GET</b> Get an image by its ID</summary>
 
-<br>
+<br />
 
-**Endpoint:** `/api/v1/images/:id`
-**Body:** *none*
+**Endpoint:** `/api/v1/images/:id`\
+**Body:** *none*\
 **Response:** `200 OK`
 The image
 </details>
@@ -289,14 +289,14 @@ The image
 <details>
 <summary>🔐 <b>DELETE</b> Remove an image by its ID</summary>
 
-<br>
+<br />
 
-**Endpoint:** `/api/v1/images/:id`
+**Endpoint:** `/api/v1/images/:id`\
 **Header:**
 ```
 Authorization: 'Bearer application_token'
 ```
-**Body:** *none*
+**Body:** *none*\
 **Response:** `200 OK`
 ```json
 {
@@ -308,14 +308,14 @@ Authorization: 'Bearer application_token'
 <details>
 <summary>🔐 <b>GET</b> Get all images of the application the token belongs to</summary>
 
-<br>
+<br />
 
-**Endpoint:** `/api/v1/images`
+**Endpoint:** `/api/v1/images`\
 **Header:**
 ```
 Authorization: 'Bearer application_token'
 ```
-**Body:** *none*
+**Body:** *none*\
 **Response:** `200 OK`
 ```json
 {
@@ -332,14 +332,14 @@ Authorization: 'Bearer application_token'
 <details>
 <summary>🔐 <b>DELETE</b> Remove all images of the application the token belongs to</summary>
 
-<br>
+<br />
 
-**Endpoint:** `/api/v1/images`
+**Endpoint:** `/api/v1/images`\
 **Header:**
 ```
 Authorization: 'Bearer application_token'
 ```
-**Body:** *none*
+**Body:** *none*\
 **Response:** `200 OK`
 ```json
 {
@@ -351,9 +351,9 @@ Authorization: 'Bearer application_token'
 <details>
 <summary>🔐 <b>POST</b> Add a new image to the application the token belongs to</summary>
 
-<br>
+<br />
 
-**Endpoint:** `/api/v1/images`
+**Endpoint:** `/api/v1/images`\
 **Header:**
 ```
 Authorization: 'Bearer application_token'
