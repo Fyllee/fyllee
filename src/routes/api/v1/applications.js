@@ -1,10 +1,16 @@
 import { Router } from 'express';
-import { getApplication, createApplication, deleteApplication } from '../../../controllers/applications';
+import {
+  getAllApplications,
+  getApplication,
+  createApplication,
+  deleteApplication,
+} from '../../../controllers/applications';
 
 const router = Router();
 
+router.get('/:id', getApplication);
 router.route('/')
-  .get(getApplication)
+  .get(getAllApplications)
   .post(createApplication)
   .delete(deleteApplication);
 
