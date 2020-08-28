@@ -1,6 +1,12 @@
 # Bild
 
-A REST API to host images
+A REST API image hosting platform.
+
+Bild was born from a problem I was encountering while creating SPAs with NextJS.
+I couldn't dynamically add images to the images folder. So I had no place to store my
+images. From there came the idea to create my own image storage system. Configured
+according to my needs, and potentially those of other developers who were facing the
+same problem as me.
 
 <a href="./LICENSE" alt="Contributors">
     <img src="https://img.shields.io/badge/License-Apache-green" />
@@ -23,18 +29,10 @@ A REST API to host images
 
 ## Table of contents
 
-- [Origin of creation](#origin-of-creation)
 - [Installation](#installation)
+- [Usage](#usage)
 - [API Endpoints](#api-endpoints)
 - [License](#license)
-
-## Origin of creation
-
-Bild was born from a problem I was encountering while creating SPAs with NextJS.
-I couldn't dynamically add images to the images folder. So I had no place to store my
-images. From there came the idea to create my own image storage system. Configured
-according to my needs, and potentially those of other developers who were facing the
-same problem as me.
 
 ## Installation
 
@@ -48,6 +46,21 @@ $ cp .env.example .env
 ```
 
 You can then fill in your personnal informations.
+
+## Usage
+To launch Bild, you have 2 possibilities. Either in development mode, or in production mode (or you will have to launch a building script).
+Server will be launched on `localhost:5050`. Unless you add `PORT=your port` in the `.env` file.
+
+**Development**
+```
+$ npm run dev
+```
+
+**Production**
+```
+$ npm run build
+$ npm run prod
+```
 
 ## API Endpoints
 
@@ -371,4 +384,4 @@ image: <image>
 
 ## License
 
-Copyright © 2020 Mathis Le Bonniec & Elliot Maisl. Licensed under the Apache-2.0 license, see [the license](./LICENSE)
+Copyright © 2020 Mathis Le Bonniec & Elliot Maisl. Licensed under the Apache-2.0 license, see [the license](./LICENSE).
