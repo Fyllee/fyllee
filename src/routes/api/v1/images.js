@@ -6,14 +6,16 @@ import {
   deleteImage,
   deleteAllImages,
 } from '../../../controllers/images';
+import appToken from '../../../middlewares/app-token';
 
 const router = Router();
 
 router.route('/:id')
   .get(getImage)
-  .delete(deleteImage);
+  .delete(appToken, deleteImage);
 
-router.route('/')
+router.use(appToken)
+  .route('/')
   .get(getAllImages)
   .post(createImage)
   .delete(deleteAllImages);

@@ -276,15 +276,11 @@ Authorization: 'Bearer user_token'
 ### Images
 
 <details>
-<summary>🔐 <b>GET</b> Get an image by its ID</summary>
+<summary><b>GET</b> Get an image by its ID</summary>
 
 <br>
 
 **Endpoint:** `/api/v1/images/:id`
-**Header:**
-```
-Authorization: 'Bearer application_token'
-```
 **Body:** *none*
 **Response:** `200 OK`
 The image
