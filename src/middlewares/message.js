@@ -5,7 +5,7 @@ export default (req, res, next) => {
    * @param {Object} objects Optional objects to display to the user
    * @param {Number | 200} statusCode Status code to return
    */
-  res.success = (message, statusCode, objects = {}) => {
+  res.success = (message, statusCode = 200, objects = {}) => {
     res.status(statusCode).json({ message, ...objects });
   };
 
