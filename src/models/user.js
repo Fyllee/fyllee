@@ -24,6 +24,14 @@ const UserSchema = new Schema({
     index: true,
     unique: true,
   },
+  verified: {
+    type: Boolean,
+    default: false,
+  },
+  verifyKey: {
+    type: String,
+    default: nanoid(64),
+  },
   password: {
     type: String,
     required: true,
@@ -42,6 +50,11 @@ UserSchema.methods.toData = function () {
   delete doc._id;
   delete doc.password;
   return doc;
+};
+
+UserSchema.methods.toJWT = function () {
+  const doc = this.toObject();
+  return { _id: doc._id };
 };
 
 // TODO: verify fields before save

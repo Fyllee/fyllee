@@ -22,7 +22,7 @@ export async function login(req, res, next) {
       if (err2)
         return res.error('Something went wrong.', 400, err2);
 
-      const token = jwt.sign({ email: user.toJSON().email }, process.env.JWT_SECRET);
+      const token = jwt.sign(user.toJWT(), process.env.JWT_SECRET);
       return res.json({ message: 'You are now logged in.', user: user.toData(), token });
     });
   })(req, res, next);
