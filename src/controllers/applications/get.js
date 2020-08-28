@@ -1,5 +1,4 @@
 import Application from '../../models/application';
-import User from '../../models/user';
 
 /**
  * GET controller for the 'application' route
