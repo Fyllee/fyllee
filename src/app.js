@@ -1,3 +1,5 @@
+import { promises as fs } from 'fs';
+
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
@@ -9,6 +11,7 @@ import mongoose from 'mongoose';
 import morgan from 'morgan';
 import passport from 'passport';
 
+import constants from './config/constants';
 import configPassport from './config/passport';
 import message from './middlewares/message';
 import requiredParameters from './middlewares/required-parameters';
@@ -56,6 +59,15 @@ app.use((_req, res) => {
   res.error('Not Found', 404);
 });
 
-app.listen(port, () => {
+app.listen(port, async () => {
+  try {
+    await fs.stat(constants.uploadPath);
+  } catch (err) {
+    if (err.code === 'ENOENT')
+      await fs.mkdir(constants.uploadPath).catch(console.error);
+    else
+      console.error(err);
+  }
+
   console.log('Listening at http://localhost:%d.', port);
 });
