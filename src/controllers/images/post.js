@@ -18,29 +18,32 @@ export async function createImage(req, res, _next) {
     return res.error('No file was provided', 400);
 
   const { image } = req.files;
-  const appId = req.application.id;
+  try {
+    const application = await Application.findById(req.application._id);
 
-  // /public/uploads/APP_ID/IMG_ID.ext
-  const imageId = nanoid(10);
-  const savedName = `${imageId}${extname(image.name)}`;
-  const path = join(constants.uploadPath, appId, savedName);
+    // /public/uploads/APP_ID/IMG_ID.ext
+    const imageId = nanoid(10);
+    const savedName = `${imageId}${extname(image.name)}`;
+    const path = join(constants.uploadPath, application.id, savedName);
 
-  image.mv(path, async (err) => {
-    if (err)
-      return res.success('Something went wrong...', 500);
+    image.mv(path, async (err) => {
+      if (err)
+        return res.success('Something went wrong...', 500);
 
-    try {
-      const application = await Application.findOne({ id: appId });
-      const newImage = await Image.create({
-        application: application._id,
-        originalName: image.name,
-        savedName,
-        id: imageId,
-      });
+      try {
+        const newImage = await Image.create({
+          application: application._id,
+          originalName: image.name,
+          savedName,
+          id: imageId,
+        });
 
-      res.success('Success!', 200, { image: newImage.toData() });
-    } catch (error) {
-      return res.error('Oops... Something went wrong.', 500, error);
-    }
-  });
+        res.success('Success!', 200, { image: newImage.toData() });
+      } catch (error) {
+        return res.error('Oops... Something went wrong.', 500, error);
+      }
+    });
+  } catch (error) {
+    return res.error('Oops... Something went wrong.', 500, error);
+  }
 }

@@ -7,10 +7,10 @@ export default async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    if (!decoded.id)
+    if (!decoded._id)
       throw new Error('Bad token');
 
-    const app = await Application.findOne({ id: decoded.id });
+    const app = await Application.findById(decoded._id);
     if (!app)
       throw new Error('Application not found');
 

@@ -31,8 +31,8 @@ export async function getImage(req, res) {
  */
 export async function getAllImages(req, res) {
   try {
-    const application = await Application.findOne({ id: req.application.id });
-    const images = await Image.find({ application: application._id });
+    const appId = req.application._id;
+    const images = await Image.find({ application: appId });
 
     const saneImages = [];
     for (const image of images)

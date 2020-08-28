@@ -42,4 +42,9 @@ ApplicationSchema.methods.toData = function () {
   return doc;
 };
 
+ApplicationSchema.methods.toJWT = function () {
+  const doc = this.toObject();
+  return { _id: doc._id };
+};
+
 export default model('Application', ApplicationSchema);
