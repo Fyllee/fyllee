@@ -8,6 +8,7 @@ import Image from '../../models/image';
 
 /**
  * POST controller for the 'images' route
+ * @description Create a new image
  * @param {Request} req - The request object
  * @param {Response} res - The response object
  * @param {Function} next - The next callback

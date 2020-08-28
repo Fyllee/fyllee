@@ -7,6 +7,7 @@ import Image from '../../models/image';
 
 /**
  * DELETE controller for the 'images' route
+ * @description Delete an image from disk and database
  * @param {Request} req - The request object
  * @param {Response} res - The response object
  * @param {Function} next - The next callback

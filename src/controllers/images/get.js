@@ -6,6 +6,7 @@ import Image from '../../models/image';
 
 /**
  * GET controller for the 'images' route
+ * @description Send back the given image
  * @param {Request} req - The request object
  * @param {Response} res - The response object
  * @param {Function} next - The next callback
@@ -22,6 +23,8 @@ export async function getImage(req, res) {
 
 /**
  * GET controller for the 'images' route
+ * @description Send back an array of all images the application has,
+ * with data about them.
  * @param {Request} req - The request object
  * @param {Response} res - The response object
  * @param {Function} next - The next callback

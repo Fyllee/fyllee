@@ -5,6 +5,7 @@ import User from '../models/user';
 
 /**
  * POST controller for the '/auth/login' route
+ * @description Login the user, for him to have his user Token
  * @param {Request} req - The request object
  * @param {Response} res - The response object
  * @param {Function} next - The next callback
@@ -32,6 +33,7 @@ export async function login(req, res, next) {
 
 /**
  * POST controller for the '/auth/register' route
+ * @description Create a new user
  * @param {Request} req - The request object
  * @param {Response} res - The response object
  * @param {Function} next - The next callback

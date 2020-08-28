@@ -2,6 +2,7 @@ import Application from '../../models/application';
 
 /**
  * GET controller for the 'application' route
+ * @description Send back the application data
  * @param {Request} req - The request object
  * @param {Response} res - The response object
  * @param {Function} next - The next callback

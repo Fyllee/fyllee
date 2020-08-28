@@ -8,6 +8,7 @@ import User from '../../models/user';
 
 /**
  * POST controller for the 'application' route
+ * @description Create a new application
  * @param {Request} req - The request object
  * @param {Response} res - The response object
  * @param {Function} next - The request object
