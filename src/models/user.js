@@ -24,14 +24,6 @@ const UserSchema = new Schema({
     index: true,
     unique: true,
   },
-  verified: {
-    type: Boolean,
-    default: false,
-  },
-  verifyKey: {
-    type: String,
-    default: nanoid(64),
-  },
   password: {
     type: String,
     required: true,
@@ -57,8 +49,6 @@ UserSchema.methods.toJWT = function () {
   return { _id: doc._id };
 };
 
-// TODO: verify fields before save
-// Password hash is done
 UserSchema.pre('save', async function () {
   const user = this;
 
