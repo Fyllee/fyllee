@@ -36,7 +36,7 @@ same problem as me.
 
 ## Installation
 
-To install Bild, clone the Github repository and install the nodes modules. Then create a `.env` file.
+To install Bild, clone the Github repository and install the node modules. Then create a `.env` file.
 
 ```bash
 $ git clone https://github.com/mlbonniec/bild
@@ -45,11 +45,12 @@ $ npm install
 $ cp .env.example .env
 ```
 
-You can then fill in your personnal informations.
+You can then fill in your personnal informations in the `.env` file.
 
 ## Usage
+
 To launch Bild, you have 2 possibilities. Either in development mode, or in production mode (or you will have to launch a building script).
-Server will be launched on `localhost:5050`. Unless you add `PORT=your port` in the `.env` file.
+Server will be launched on `localhost:5050`, unless you add `PORT=your port` in the `.env` file.
 
 **Development**
 ```
@@ -58,18 +59,17 @@ $ npm run dev
 
 **Production**
 ```
+$ npm run start
+# or
 $ npm run build
 $ npm run prod
 ```
 
+
 ## API Endpoints
 
 Endpoints with a 🔐 require a token.
-The token type (user or app) will be specified righ after.
-The token has to be in the header, presented like this
-```
-Authorization: 'Bearer your_token'
-```
+The token type (user or application) will be specified in the header template.
 
 ### Authentication
 
