@@ -4,6 +4,7 @@
   "description": "A web API to host images",
   "main": "src/app.js",
   "scripts": {
+    "start": "npm run build && npm run prod",
     "dev": "nodemon --exec babel-node . --ignore public/",
     "build": "babel ./src --out-dir ./dist --source-maps --copy-files",
     "prod": "NODE_ENV=production node ./dist/index.js",
