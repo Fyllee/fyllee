@@ -1,5 +1,4 @@
 import removeImageFromDisk from '../../helpers/remove-image-from-disk';
-import Application from '../../models/application';
 import Image from '../../models/image';
 
 /**

@@ -1,7 +1,5 @@
 import removeApplicationFromDisk from '../../helpers/remove-application-from-disk';
 import Application from '../../models/application';
-import User from '../../models/user';
-
 
 /**
  * DELETE controller for the 'applications' route

@@ -1,8 +1,6 @@
 import { join } from 'path';
 import constants from '../../config/constants';
-import Application from '../../models/application';
 import Image from '../../models/image';
-
 
 /**
  * GET controller for the 'images' route
