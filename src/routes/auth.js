@@ -4,6 +4,8 @@ import { login, register } from '../controllers/auth';
 const router = Router();
 
 router.post('/login', login);
-router.post('/register', register);
+
+if (process.env.AUTH_REGISTRATION !== false)
+  router.post('/register', register);
 
 export default router;
