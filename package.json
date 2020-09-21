@@ -6,8 +6,8 @@
   "scripts": {
     "start": "npm run build && npm run prod",
     "dev": "nodemon --exec babel-node . --ignore public/",
-    "build": "babel ./src --out-dir ./dist --source-maps --copy-files",
-    "prod": "NODE_ENV=production node ./dist/index.js",
+    "build": "babel ./src --out-dir ./dist --source-maps",
+    "prod": "NODE_ENV=production node ./dist/app.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
