@@ -36,7 +36,7 @@ mongoose.connection.on('error', (err) => {
 });
 
 app.set('port', port);
-app.set('trust proxy', 1);
+app.set('trust proxy', true);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(compression());
