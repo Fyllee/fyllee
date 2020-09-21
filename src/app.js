@@ -43,7 +43,7 @@ app.use(compression());
 app.use(helmet());
 app.use(cookieParser());
 app.use(passport.initialize());
-app.use(morgan('dev'));
+app.use(morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev'));
 app.use(fileUpload({
   limits: { fileSize: 5 * 1024 * 1024 },
 }));
