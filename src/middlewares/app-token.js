@@ -4,6 +4,8 @@ import Application from '../models/application';
 
 export default async (req, res, next) => {
   const token = ExtractJwt.fromAuthHeaderAsBearerToken()(req);
+  if (!token)
+    return res.error('No token provided', 404);
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -19,7 +21,7 @@ export default async (req, res, next) => {
 
     return next();
   } catch (err) {
-    if (err.message === 'Bad token')
+    if (err.message === 'Bad token' || err.message === 'invalid signature')
       return res.error('Bad token', 401);
     return res.error('Application not found', 404);
   }
