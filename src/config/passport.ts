@@ -3,7 +3,7 @@ import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
 import { Strategy as LocalStrategy } from 'passport-local';
 import User from '../models/user';
 
-export default function configPassport() {
+export default function configPassport(): void {
   passport.use(
     new LocalStrategy({
       usernameField: 'email',
@@ -14,16 +14,20 @@ export default function configPassport() {
       try {
         const user = await User.findOne({ email });
 
-        if (!user)
-          return done(null, false, { message: 'Incorrect email' });
+        if (!user) {
+          done(null, false, { message: 'Incorrect email' });
+          return;
+        }
 
         const validate = await user.isValidPassword(password);
-        if (!validate)
-          return done(null, false, { message: 'Incorrect password' });
+        if (!validate) {
+          done(null, false, { message: 'Incorrect password' });
+          return;
+        }
 
-        return done(null, user, { message: 'Logged In Successfully' });
-      } catch (err) {
-        return done(err);
+        done(null, user, { message: 'Logged In Successfully' });
+      } catch (unknownError: unknown) {
+        done(unknownError as Error);
       }
     }),
   );
@@ -38,12 +42,14 @@ export default function configPassport() {
     async (jwtPayload, done) => {
       try {
         const user = await User.findById(jwtPayload._id);
-        if (!user)
-          return done(user);
+        if (!user) {
+          done(user);
+          return;
+        }
 
-        return done(null, user.toJWT());
-      } catch (err) {
-        return done(err);
+        done(null, user.toJWT());
+      } catch (unknownError: unknown) {
+        done(unknownError as Error);
       }
     }),
   );

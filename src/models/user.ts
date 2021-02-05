@@ -1,9 +1,10 @@
 import bcrypt from 'bcrypt';
 import { model, Schema } from 'mongoose';
 import { nanoid } from 'nanoid';
+import type { SafeUserDocument, UserDocument, UserModel } from '../types/models';
 
 
-const UserSchema = new Schema({
+const UserSchema = new Schema<UserDocument, UserModel>({
   name: {
     type: String,
     trim: true,
@@ -13,7 +14,7 @@ const UserSchema = new Schema({
     type: String,
     trim: true,
     unique: true,
-    default: () => nanoid(10),
+    default: (): string => nanoid(10),
   },
   email: {
     type: String,
@@ -31,12 +32,12 @@ const UserSchema = new Schema({
   },
 }, { versionKey: false });
 
-UserSchema.methods.isValidPassword = async function (password) {
+UserSchema.methods.isValidPassword = async function (password: string): Promise<boolean> {
   const isMatch = await bcrypt.compare(password, this.password);
   return isMatch;
 };
 
-UserSchema.methods.toData = function () {
+UserSchema.methods.toData = function (): SafeUserDocument {
   const doc = this.toObject();
 
   delete doc._id;
@@ -44,7 +45,7 @@ UserSchema.methods.toData = function () {
   return doc;
 };
 
-UserSchema.methods.toJWT = function () {
+UserSchema.methods.toJWT = function (): { _id: string } {
   const doc = this.toObject();
   return { _id: doc._id };
 };
@@ -54,4 +55,4 @@ UserSchema.pre('save', async function () {
     this.password = await bcrypt.hash(this.password, 10);
 });
 
-export default model('User', UserSchema);
+export default model<UserDocument, UserModel>('User', UserSchema);

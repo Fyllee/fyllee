@@ -1,4 +1,5 @@
 import { join } from 'path';
+import type { NextFunction, Request, Response } from 'express';
 import constants from '../../config/constants';
 import Image from '../../models/image';
 
@@ -9,12 +10,14 @@ import Image from '../../models/image';
  * @param {Response} res - The response object
  * @param {Function} next - The next callback
  */
-export async function getImage(req, res) {
+export async function getImage(req: Request, res: Response, _next: NextFunction): Promise<void> {
   const { id } = req.params;
 
   const image = await Image.findOne({ id });
-  if (!image)
-    return res.error('Image not found', 404);
+  if (!image) {
+    res.error('Image not found', 404);
+    return;
+  }
 
   res.sendFile(join(constants.uploadPath, image.application.id, image.savedName));
 }
@@ -27,7 +30,7 @@ export async function getImage(req, res) {
  * @param {Response} res - The response object
  * @param {Function} next - The next callback
  */
-export async function getAllImages(req, res) {
+export async function getAllImages(req: Request, res: Response, _next: NextFunction): Promise<void> {
   try {
     const appId = req.application._id;
     const images = await Image.find({ application: appId });
@@ -37,7 +40,7 @@ export async function getAllImages(req, res) {
       saneImages.push(image.toData());
 
     res.json({ images: saneImages });
-  } catch (err) {
-    res.error('Something went wrong...', 500, err);
+  } catch (unknownError: unknown) {
+    res.error('Something went wrong...', 500, unknownError as Error);
   }
 }

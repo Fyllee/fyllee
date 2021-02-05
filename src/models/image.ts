@@ -1,8 +1,9 @@
 import { model, Schema } from 'mongoose';
 import autopopulate from 'mongoose-autopopulate';
 import { nanoid } from 'nanoid';
+import type { ImageDocument, ImageModel, SafeImageDocument } from '../types/models';
 
-const ImageSchema = new Schema({
+const ImageSchema = new Schema<ImageDocument, ImageModel>({
   originalName: {
     type: String,
     trim: true,
@@ -17,7 +18,7 @@ const ImageSchema = new Schema({
     type: String,
     trim: true,
     unique: true,
-    default: () => nanoid(10),
+    default: (): string => nanoid(10),
   },
   application: {
     type: Schema.Types.ObjectId,
@@ -29,7 +30,7 @@ const ImageSchema = new Schema({
 
 ImageSchema.plugin(autopopulate);
 
-ImageSchema.methods.toData = function () {
+ImageSchema.methods.toData = function (): SafeImageDocument {
   const doc = this.toObject();
 
   doc.application = this.application.id;
@@ -37,4 +38,4 @@ ImageSchema.methods.toData = function () {
   return doc;
 };
 
-export default model('Image', ImageSchema);
+export default model<ImageDocument, ImageModel>('Image', ImageSchema);

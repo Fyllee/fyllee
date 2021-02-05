@@ -1,11 +1,12 @@
 import { Router } from 'express';
+import type { Request, Response } from 'express';
 import User from '../models/user';
 
 const router = Router();
 
-router.get('/', async (req, res) => {
+router.get('/', async (req: Request, res: Response): Promise<void> => {
   const user = await User.findById(req.user._id);
-  return res.json(user.toData());
+  res.json(user.toData());
 });
 
 export default router;

@@ -1,3 +1,4 @@
+import type { NextFunction, Request, Response } from 'express';
 import Application from '../../models/application';
 
 /**
@@ -7,12 +8,14 @@ import Application from '../../models/application';
  * @param {Response} res - The response object
  * @param {Function} next - The next callback
  */
-export async function getApplication(req, res, _next) {
+export async function getApplication(req: Request, res: Response, _next: NextFunction): Promise<void> {
   const { id } = req.params;
 
   const application = await Application.findOne({ id });
-  if (!application)
-    return res.error('Application not found', 404);
+  if (!application) {
+    res.error('Application not found', 404);
+    return;
+  }
 
   res.json({ application: application.toData() });
 }
@@ -25,7 +28,7 @@ export async function getApplication(req, res, _next) {
  * @param {Response} res - The response object
  * @param {Function} next - The next callback
  */
-export async function getAllApplications(req, res, _next) {
+export async function getAllApplications(req: Request, res: Response, _next: NextFunction): Promise<void> {
   const ownerId = req.user._id;
   const applications = await Application.find({ owner: ownerId });
 

@@ -1,3 +1,4 @@
+import type { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import User from '../models/user';
@@ -10,20 +11,26 @@ import User from '../models/user';
  * @param {Response} res - The response object
  * @param {Function} next - The next callback
  */
-export function login(req, res, next) {
+export function login(req: Request, res: Response, next: NextFunction): void {
   passport.authenticate('local', { session: false }, (err, user, _info) => {
-    if (err)
-      return next(err);
+    if (err) {
+      next(err);
+      return;
+    }
 
-    if (!user)
-      return res.error('User does not exist.', 400);
+    if (!user) {
+      res.error('User does not exist.', 400);
+      return;
+    }
 
     req.login(user.toJWT(), { session: false }, (err2) => {
-      if (err2)
-        return res.error('Something went wrong.', 400, err2);
+      if (err2) {
+       res.error('Something went wrong.', 400, err2);
+       return;
+      }
 
       const token = jwt.sign(user.toJWT(), process.env.JWT_SECRET);
-      return res.json({ message: 'You are now logged in.', user: user.toData(), token });
+      res.json({ message: 'You are now logged in.', user: user.toData(), token });
     });
   })(req, res, next);
 }
@@ -36,21 +43,25 @@ export function login(req, res, next) {
  * @param {Response} res - The response object
  * @param {Function} next - The next callback
  */
-export async function register(req, res, _next) {
+export async function register(req: Request, res: Response, _next: NextFunction): Promise<void> {
   const bodyContainsAllRequired = req.requiredParameters(User);
 
-  if (!bodyContainsAllRequired)
-    return res.error('Missing body parameters.', 400);
+  if (!bodyContainsAllRequired) {
+    res.error('Missing body parameters.', 400);
+    return;
+  }
 
   try {
     const user = await User.findOne({ email: req.body.email });
-    if (user)
-      return res.error('User already exists.', 409);
+    if (user) {
+      res.error('User already exists.', 409);
+      return;
+    }
 
     const newUser = await User.create(req.body);
 
-    return res.json({ user: newUser.toData() });
-  } catch (err) {
-    return res.error('Oops... Something went wrong.', 500, err);
+    res.json({ user: newUser.toData() });
+  } catch (unknownError: unknown) {
+    res.error('Oops... Something went wrong.', 500, unknownError as Error);
   }
 }

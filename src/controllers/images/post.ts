@@ -1,4 +1,5 @@
 import { extname, join } from 'path';
+import type { NextFunction, Request, Response } from 'express';
 import { nanoid } from 'nanoid';
 
 import constants from '../../config/constants';
@@ -13,11 +14,13 @@ import Image from '../../models/image';
  * @param {Response} res - The response object
  * @param {Function} next - The next callback
  */
-export async function createImage(req, res, _next) {
-  if (!req.files || Object.keys(req.files).length === 0)
-    return res.error('No file was provided', 400);
+export async function createImage(req: Request, res: Response, _next: NextFunction): Promise<void> {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    res.error('No file was provided', 400);
+    return;
+  }
 
-  const { image } = req.files;
+  const image = Array.isArray(req.files.image) ? req.files.image[0] : req.files.image;
   try {
     const application = await Application.findById(req.application._id);
 
@@ -26,9 +29,11 @@ export async function createImage(req, res, _next) {
     const savedName = `${imageId}${extname(image.name)}`;
     const path = join(constants.uploadPath, application.id, savedName);
 
-    image.mv(path, async (err) => {
-      if (err)
-        return res.success('Something went wrong...', 500);
+    image.mv(path, async (err?: Error) => {
+      if (err) {
+        res.error('Something went wrong...', 500);
+        return;
+      }
 
       try {
         const newImage = await Image.create({
@@ -39,11 +44,11 @@ export async function createImage(req, res, _next) {
         });
 
         res.success('Success!', 200, { image: newImage.toData() });
-      } catch (error) {
-        return res.error('Oops... Something went wrong.', 500, error);
+      } catch (unknownError: unknown) {
+        res.error('Oops... Something went wrong.', 500, unknownError as Error);
       }
     });
-  } catch (error) {
-    return res.error('Oops... Something went wrong.', 500, error);
+  } catch (unknownError: unknown) {
+    res.error('Oops... Something went wrong.', 500, unknownError as Error);
   }
 }

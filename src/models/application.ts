@@ -1,8 +1,9 @@
 import { model, Schema } from 'mongoose';
 import autopopulate from 'mongoose-autopopulate';
 import { nanoid } from 'nanoid';
+import type { ApplicationDocument, ApplicationModel, SafeApplicationDocument } from '../types/models';
 
-const ApplicationSchema = new Schema({
+const ApplicationSchema = new Schema<ApplicationDocument, ApplicationModel>({
   name: {
     type: String,
     trim: true,
@@ -12,7 +13,7 @@ const ApplicationSchema = new Schema({
     type: String,
     trim: true,
     unique: true,
-    default: () => nanoid(10),
+    default: (): string => nanoid(10),
   },
   owner: {
     type: Schema.Types.ObjectId,
@@ -34,7 +35,7 @@ const ApplicationSchema = new Schema({
 
 ApplicationSchema.plugin(autopopulate);
 
-ApplicationSchema.methods.toData = function () {
+ApplicationSchema.methods.toData = function (): SafeApplicationDocument {
   const doc = this.toObject();
 
   doc.owner = this.owner.id;
@@ -42,9 +43,9 @@ ApplicationSchema.methods.toData = function () {
   return doc;
 };
 
-ApplicationSchema.methods.toJWT = function () {
+ApplicationSchema.methods.toJWT = function (): { _id: string } {
   const doc = this.toObject();
   return { _id: doc._id };
 };
 
-export default model('Application', ApplicationSchema);
+export default model<ApplicationDocument, ApplicationModel>('Application', ApplicationSchema);

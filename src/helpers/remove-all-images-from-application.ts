@@ -1,7 +1,8 @@
 import Image from '../models/image';
+import type { ApplicationDocument } from '../types/models';
 import removeImageFromDisk from './remove-image-from-disk';
 
-export default async function removeAllImagesFromApplication(application) {
+export default async function removeAllImagesFromApplication(application: ApplicationDocument): Promise<void> {
   const images = await Image.find({ application: application._id });
   if (images.length === 0)
     return;

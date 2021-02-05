@@ -1,10 +1,13 @@
+import 'source-map-support/register';
+import 'dotenv/config';
+
 import { promises as fs } from 'fs';
 
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
-import dotenv from 'dotenv';
 import express from 'express';
+import type { Request, Response } from 'express';
 import fileUpload from 'express-fileupload';
 import helmet from 'helmet';
 import mongoose from 'mongoose';
@@ -18,7 +21,6 @@ import message from './middlewares/message';
 import requiredParameters from './middlewares/required-parameters';
 import index from './routes';
 
-dotenv.config();
 configPassport();
 
 const app = express();
@@ -29,7 +31,7 @@ export const baseUrl = `http://localhost:${port}`;
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
 mongoose.set('useCreateIndex', true);
-mongoose.connect(process.env.MONGO_URI);
+void mongoose.connect(process.env.MONGO_URI);
 mongoose.connection.on('error', (err) => {
   console.log('MongoDB connection error. Please make sure MongoDB is running.');
   throw err;
@@ -56,7 +58,7 @@ app.use(requiredParameters);
 app.use('/', index);
 
 // 404 Handler
-app.use((_req, res) => {
+app.use((_req: Request, res: Response) => {
   res.error('Not Found', 404);
 });
 

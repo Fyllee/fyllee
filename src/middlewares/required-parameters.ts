@@ -1,9 +1,12 @@
-export default (req, res, next) => {
+import type { NextFunction, Request, Response } from 'express';
+import type { ApplicationModel, ImageModel, UserModel } from '../types/models';
+
+export default (req: Request, _res: Response, next: NextFunction): void => {
   /**
    * @param {Model} model The model to compare the body against
    * @param {Array | String} exclude Required fields to exclude
    */
-  req.requiredParameters = (model, exclude) => {
+  req.requiredParameters = (model: ApplicationModel | ImageModel | UserModel, exclude?: string[] | string): boolean => {
     const required = model.schema.requiredPaths();
     const body = Object.keys(req.body);
 

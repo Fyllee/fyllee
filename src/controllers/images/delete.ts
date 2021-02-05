@@ -1,3 +1,4 @@
+import type { NextFunction, Request, Response } from 'express';
 import removeImageFromDisk from '../../helpers/remove-image-from-disk';
 import Image from '../../models/image';
 
@@ -8,23 +9,27 @@ import Image from '../../models/image';
  * @param {Response} res - The response object
  * @param {Function} next - The next callback
  */
-export async function deleteImage(req, res, _next) {
+export async function deleteImage(req: Request, res: Response, _next: NextFunction): Promise<void> {
   const { id } = req.params;
 
-  if (!id)
-    return res.error('No id was provided', 400);
+  if (!id) {
+    res.error('No id was provided', 400);
+    return;
+  }
 
   try {
     const image = await Image.findOne({ id });
-    if (!image)
-      return res.error('Image not found', 404);
+    if (!image) {
+      res.error('Image not found', 404);
+      return;
+    }
 
     await removeImageFromDisk(image);
     await Image.deleteOne({ id });
 
     res.success('Success!', 200);
-  } catch (err) {
-    return res.error('Something went wrong...', 500, err);
+  } catch (unknownError: unknown) {
+    res.error('Something went wrong...', 500, unknownError as Error);
   }
 }
 
@@ -36,12 +41,14 @@ export async function deleteImage(req, res, _next) {
  * @param {Response} res - The response object
  * @param {Function} next - The next callback
  */
-export async function deleteAllImages(req, res, _next) {
+export async function deleteAllImages(req: Request, res: Response, _next: NextFunction): Promise<void> {
   try {
     const appId = req.application._id;
     const images = await Image.find({ application: appId });
-    if (images.length === 0)
-      return res.success('Success');
+    if (images.length === 0) {
+      res.success('Success');
+      return;
+    }
 
     for (const image of images)
       await removeImageFromDisk(image); // eslint-disable-line no-await-in-loop
@@ -49,7 +56,7 @@ export async function deleteAllImages(req, res, _next) {
     await Image.deleteMany({ application: appId });
 
     res.success('Success!');
-  } catch (err) {
-    return res.error('Something went wrong...', 500, err);
+  } catch (unknownError: unknown) {
+    res.error('Something went wrong...', 500, unknownError as Error);
   }
 }

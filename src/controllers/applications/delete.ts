@@ -1,3 +1,4 @@
+import type { NextFunction, Request, Response } from 'express';
 import removeApplicationFromDisk from '../../helpers/remove-application-from-disk';
 import Application from '../../models/application';
 
@@ -9,23 +10,27 @@ import Application from '../../models/application';
  * @param {Response} res - The response object
  * @param {Function} next - The next callback
  */
-export async function deleteApplication(req, res, _next) {
+export async function deleteApplication(req: Request, res: Response, _next: NextFunction): Promise<void> {
   const { id } = req.params;
 
-  if (!id)
-    return res.error('No id was provided', 400);
+  if (!id) {
+    res.error('No id was provided', 400);
+    return;
+  }
 
   try {
     const application = await Application.findOne({ id });
-    if (!application)
-      return res.error('Application not found', 404);
+    if (!application) {
+      res.error('Application not found', 404);
+      return;
+    }
 
     await removeApplicationFromDisk(application);
     await Application.deleteOne({ id });
 
     res.success('Success!', 200);
-  } catch (err) {
-    return res.error('Something went wrong...', 500, err);
+  } catch (unknownError: unknown) {
+    res.error('Something went wrong...', 500, unknownError as Error);
   }
 }
 
@@ -37,12 +42,14 @@ export async function deleteApplication(req, res, _next) {
  * @param {Response} res - The response object
  * @param {Function} next - The next callback
  */
-export async function deleteAllApplications(req, res, _next) {
+export async function deleteAllApplications(req: Request, res: Response, _next: NextFunction): Promise<void> {
   try {
     const ownerId = req.user._id;
     const applications = await Application.find({ owner: ownerId });
-    if (applications.length === 0)
-      return res.success('Success!');
+    if (applications.length === 0) {
+      res.success('Success!');
+      return;
+    }
 
     for (const application of applications)
       await removeApplicationFromDisk(application); // eslint-disable-line no-await-in-loop
@@ -50,7 +57,7 @@ export async function deleteAllApplications(req, res, _next) {
     await Application.deleteMany({ owner: ownerId });
 
     res.success('Success!');
-  } catch (err) {
-    return res.error('Something went wrong...', 500, err);
+  } catch (unknownError: unknown) {
+    res.error('Something went wrong...', 500, unknownError as Error);
   }
 }
