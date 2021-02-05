@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 import { join } from 'path';
-import constants from '../config/constants';
-import type { ImageDocument } from '../types/models';
+import constants from '@/app/config/constants';
+import type { ImageDocument } from '@/app/types/models';
 import existsAsync from './exists-async';
 
 

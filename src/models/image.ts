@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose';
 import autopopulate from 'mongoose-autopopulate';
 import { nanoid } from 'nanoid';
-import type { ImageDocument, ImageModel, SafeImageDocument } from '../types/models';
+import type { ImageDocument, ImageModel, SafeImageDocument } from '@/app/types/models';
 
 const ImageSchema = new Schema<ImageDocument, ImageModel>({
   originalName: {

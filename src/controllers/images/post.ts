@@ -2,9 +2,9 @@ import { extname, join } from 'path';
 import type { NextFunction, Request, Response } from 'express';
 import { nanoid } from 'nanoid';
 
-import constants from '../../config/constants';
-import Application from '../../models/application';
-import Image from '../../models/image';
+import constants from '@/app/config/constants';
+import Application from '@/app/models/application';
+import Image from '@/app/models/image';
 
 
 /**

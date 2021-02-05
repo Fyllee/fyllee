@@ -1,4 +1,5 @@
 import 'source-map-support/register';
+import 'module-alias/register';
 import 'dotenv/config';
 
 import { promises as fs } from 'fs';

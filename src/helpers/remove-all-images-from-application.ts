@@ -1,5 +1,5 @@
-import Image from '../models/image';
-import type { ApplicationDocument } from '../types/models';
+import Image from '@/app/models/image';
+import type { ApplicationDocument } from '@/app/types/models';
 import removeImageFromDisk from './remove-image-from-disk';
 
 export default async function removeAllImagesFromApplication(application: ApplicationDocument): Promise<void> {

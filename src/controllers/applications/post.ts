@@ -3,8 +3,8 @@ import { join } from 'path';
 import type { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
-import constants from '../../config/constants';
-import Application from '../../models/application';
+import constants from '@/app/config/constants';
+import Application from '@/app/models/application';
 
 /**
  * POST controller for the 'application' route

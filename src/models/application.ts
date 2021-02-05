@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose';
 import autopopulate from 'mongoose-autopopulate';
 import { nanoid } from 'nanoid';
-import type { ApplicationDocument, ApplicationModel, SafeApplicationDocument } from '../types/models';
+import type { ApplicationDocument, ApplicationModel, SafeApplicationDocument } from '@/app/types/models';
 
 const ApplicationSchema = new Schema<ApplicationDocument, ApplicationModel>({
   name: {

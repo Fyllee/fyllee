@@ -1,7 +1,7 @@
 import { join } from 'path';
 import type { NextFunction, Request, Response } from 'express';
-import constants from '../../config/constants';
-import Image from '../../models/image';
+import constants from '@/app/config/constants';
+import Image from '@/app/models/image';
 
 /**
  * GET controller for the 'images' route

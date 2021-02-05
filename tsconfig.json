@@ -9,6 +9,9 @@
     "moduleResolution": "node",
     "noImplicitAny": true,
     "outDir": "./dist",
+    "paths": {
+      "@/app/*": ["./src/*"],
+    },
     "pretty": false,
     "removeComments": true,
     "sourceMap": true,

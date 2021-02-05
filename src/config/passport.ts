@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
 import { Strategy as LocalStrategy } from 'passport-local';
-import User from '../models/user';
+import User from '@/app/models/user';
 
 export default function configPassport(): void {
   passport.use(

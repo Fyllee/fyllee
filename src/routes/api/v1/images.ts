@@ -5,8 +5,8 @@ import {
   deleteImage,
   getAllImages,
   getImage,
-} from '../../../controllers/images';
-import appToken from '../../../middlewares/app-token';
+} from '@/app/controllers/images';
+import appToken from '@/app/middlewares/app-token';
 
 const router = Router();
 

@@ -1,8 +1,8 @@
 import type { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { ExtractJwt } from 'passport-jwt';
-import Application from '../models/application';
-import type { JwtPayload } from '../types';
+import Application from '@/app/models/application';
+import type { JwtPayload } from '@/app/types';
 
 export default async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const token = ExtractJwt.fromAuthHeaderAsBearerToken()(req);

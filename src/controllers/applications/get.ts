@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
-import Application from '../../models/application';
+import Application from '@/app/models/application';
 
 /**
  * GET controller for the 'application' route

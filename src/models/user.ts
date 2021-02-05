@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import { model, Schema } from 'mongoose';
 import { nanoid } from 'nanoid';
-import type { SafeUserDocument, UserDocument, UserModel } from '../types/models';
+import type { SafeUserDocument, UserDocument, UserModel } from '@/app/types/models';
 
 
 const UserSchema = new Schema<UserDocument, UserModel>({

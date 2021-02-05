@@ -5,7 +5,7 @@ import {
   deleteApplication,
   getAllApplications,
   getApplication,
-} from '../../../controllers/applications';
+} from '@/app/controllers/applications';
 
 const router = Router();
 

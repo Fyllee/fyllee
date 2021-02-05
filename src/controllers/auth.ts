@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
-import User from '../models/user';
+import User from '@/app/models/user';
 
 
 /**

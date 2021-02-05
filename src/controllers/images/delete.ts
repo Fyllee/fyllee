@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express';
-import removeImageFromDisk from '../../helpers/remove-image-from-disk';
-import Image from '../../models/image';
+import removeImageFromDisk from '@/app/helpers/remove-image-from-disk';
+import Image from '@/app/models/image';
 
 /**
  * DELETE controller for the 'images' route

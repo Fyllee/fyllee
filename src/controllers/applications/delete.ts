@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express';
-import removeApplicationFromDisk from '../../helpers/remove-application-from-disk';
-import Application from '../../models/application';
+import removeApplicationFromDisk from '@/app/helpers/remove-application-from-disk';
+import Application from '@/app/models/application';
 
 /**
  * DELETE controller for the 'applications' route
