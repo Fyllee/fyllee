@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import {
-  getApplication,
-  getAllApplications,
   createApplication,
-  deleteApplication,
   deleteAllApplications,
+  deleteApplication,
+  getAllApplications,
+  getApplication,
 } from '../../../controllers/applications';
 
 const router = Router();

@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import autopopulate from 'mongoose-autopopulate';
 import { nanoid } from 'nanoid';
 

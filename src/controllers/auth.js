@@ -10,7 +10,7 @@ import User from '../models/user';
  * @param {Response} res - The response object
  * @param {Function} next - The next callback
  */
-export async function login(req, res, next) {
+export function login(req, res, next) {
   passport.authenticate('local', { session: false }, (err, user, _info) => {
     if (err)
       return next(err);

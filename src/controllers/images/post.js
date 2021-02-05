@@ -1,4 +1,4 @@
-import { join, extname } from 'path';
+import { extname, join } from 'path';
 import { nanoid } from 'nanoid';
 
 import constants from '../../config/constants';

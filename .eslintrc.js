@@ -1,12 +1,12 @@
 module.exports = {
   extends: 'noftalint',
-  ignorePatterns: ['.eslintrc.js', 'node_modules/', 'dist/'],
+  ignorePatterns: ['node_modules/', 'dist/'],
   reportUnusedDisableDirectives: true,
   env: {
     node: true,
   },
   rules: {
-    'guard-for-in': 'off',
+    'unicorn/no-array-for-each': 'off',
   },
   overrides: [{
     files: ['./src/controllers/**/*.js'],

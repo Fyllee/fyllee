@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { Schema, model } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import { nanoid } from 'nanoid';
 
 
@@ -50,12 +50,8 @@ UserSchema.methods.toJWT = function () {
 };
 
 UserSchema.pre('save', async function () {
-  const user = this;
-
-  if (!user.isModified('password'))
-    return;
-
-  user.password = await bcrypt.hash(user.password, 10);
+  if (this.isModified('password'))
+    this.password = await bcrypt.hash(this.password, 10);
 });
 
 export default model('User', UserSchema);

@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import {
-  getImage,
-  getAllImages,
   createImage,
-  deleteImage,
   deleteAllImages,
+  deleteImage,
+  getAllImages,
+  getImage,
 } from '../../../controllers/images';
 import appToken from '../../../middlewares/app-token';
 
