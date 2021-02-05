@@ -19,18 +19,18 @@ jobs:
           key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-
-      - name: Install Node v12
+      - name: Install Node v14
         uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 14
 
-      - name: Install ESLint v7
+      - name: Install ESLint
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install -g eslint@7
 
       - name: Install ESLint Configs and Plugins
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install eslint-config-noftalint eslint-plugin-import eslint-plugin-node eslint-plugin-unicorn
+        run: npm install eslint-config-noftalint eslint-plugin-import eslint-plugin-unicorn eslint-plugin-node @typescript-eslint/parser @typescript-eslint/plugin
 
       - name: Run ESLint
         run: npm run lint
