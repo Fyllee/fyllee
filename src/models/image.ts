@@ -14,7 +14,7 @@ const ImageSchema = new Schema<ImageDocument, ImageModel>({
     trim: true,
     required: true,
   },
-  id: {
+  imageId: {
     type: String,
     trim: true,
     unique: true,
@@ -33,7 +33,7 @@ ImageSchema.plugin(autopopulate);
 ImageSchema.methods.toData = function (): SafeImageDocument {
   const doc = this.toObject();
 
-  doc.application = this.application.id;
+  doc.application = this.application.applicationId;
   delete doc._id;
   return doc;
 };

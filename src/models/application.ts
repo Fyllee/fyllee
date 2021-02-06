@@ -9,7 +9,7 @@ const ApplicationSchema = new Schema<ApplicationDocument, ApplicationModel>({
     trim: true,
     required: true,
   },
-  id: {
+  applicationId: {
     type: String,
     trim: true,
     unique: true,
@@ -38,7 +38,7 @@ ApplicationSchema.plugin(autopopulate);
 ApplicationSchema.methods.toData = function (): SafeApplicationDocument {
   const doc = this.toObject();
 
-  doc.owner = this.owner.id;
+  doc.owner = this.owner.userId;
   delete doc._id;
   return doc;
 };

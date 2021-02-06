@@ -13,13 +13,13 @@ import Image from '@/app/models/image';
 export async function getImage(req: Request, res: Response, _next: NextFunction): Promise<void> {
   const { id } = req.params;
 
-  const image = await Image.findOne({ id });
+  const image = await Image.findOne({ imageId: id });
   if (!image) {
     res.error('Image not found', 404);
     return;
   }
 
-  res.sendFile(join(constants.uploadPath, image.application.id, image.savedName));
+  res.sendFile(join(constants.uploadPath, image.application.applicationId, image.savedName));
 }
 
 /**

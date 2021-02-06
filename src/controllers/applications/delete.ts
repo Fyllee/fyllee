@@ -19,14 +19,14 @@ export async function deleteApplication(req: Request, res: Response, _next: Next
   }
 
   try {
-    const application = await Application.findOne({ id });
+    const application = await Application.findOne({ applicationId: id });
     if (!application) {
       res.error('Application not found', 404);
       return;
     }
 
     await removeApplicationFromDisk(application);
-    await Application.deleteOne({ id });
+    await Application.deleteOne({ applicationId: id });
 
     res.success('Success!', 200);
   } catch (unknownError: unknown) {

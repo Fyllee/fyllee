@@ -11,7 +11,7 @@ import Application from '@/app/models/application';
 export async function getApplication(req: Request, res: Response, _next: NextFunction): Promise<void> {
   const { id } = req.params;
 
-  const application = await Application.findOne({ id });
+  const application = await Application.findOne({ applicationId: id });
   if (!application) {
     res.error('Application not found', 404);
     return;

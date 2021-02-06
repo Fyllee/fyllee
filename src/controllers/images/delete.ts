@@ -18,14 +18,14 @@ export async function deleteImage(req: Request, res: Response, _next: NextFuncti
   }
 
   try {
-    const image = await Image.findOne({ id });
+    const image = await Image.findOne({ imageId: id });
     if (!image) {
       res.error('Image not found', 404);
       return;
     }
 
     await removeImageFromDisk(image);
-    await Image.deleteOne({ id });
+    await Image.deleteOne({ imageId: id });
 
     res.success('Success!', 200);
   } catch (unknownError: unknown) {

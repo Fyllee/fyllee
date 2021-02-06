@@ -27,7 +27,7 @@ export async function createImage(req: Request, res: Response, _next: NextFuncti
     // /public/uploads/APP_ID/IMG_ID.ext
     const imageId = nanoid(10);
     const savedName = `${imageId}${extname(image.name)}`;
-    const path = join(constants.uploadPath, application.id, savedName);
+    const path = join(constants.uploadPath, application.applicationId, savedName);
 
     image.mv(path, async (err?: Error) => {
       if (err) {
@@ -40,7 +40,7 @@ export async function createImage(req: Request, res: Response, _next: NextFuncti
           application: application._id,
           originalName: image.name,
           savedName,
-          id: imageId,
+          imageId,
         });
 
         res.success('Success!', 200, { image: newImage.toData() });

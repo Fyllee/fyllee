@@ -10,7 +10,7 @@ const UserSchema = new Schema<UserDocument, UserModel>({
     trim: true,
     required: true,
   },
-  id: {
+  userId: {
     type: String,
     trim: true,
     unique: true,

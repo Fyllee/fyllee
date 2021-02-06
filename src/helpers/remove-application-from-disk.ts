@@ -6,7 +6,7 @@ import existsAsync from './exists-async';
 import removeAllImagesFromApplication from './remove-all-images-from-application';
 
 export default async function removeApplicationFromDisk(application: ApplicationDocument): Promise<void> {
-  const folderPath = join(constants.uploadPath, application.id);
+  const folderPath = join(constants.uploadPath, application.applicationId);
   const folder = await existsAsync(folderPath);
 
   if (folder) {

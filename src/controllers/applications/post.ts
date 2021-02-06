@@ -32,7 +32,7 @@ export async function createApplication(req: Request, res: Response, _next: Next
       ...req.body,
     });
 
-    await fs.mkdir(join(constants.uploadPath, newApp.id));
+    await fs.mkdir(join(constants.uploadPath, newApp.applicationId));
 
     const token = jwt.sign(newApp.toJWT(), process.env.JWT_SECRET);
     res.json({ message: 'Application created.', application: newApp.toData(), token });

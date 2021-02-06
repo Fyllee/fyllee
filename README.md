@@ -92,7 +92,7 @@ The token type (user or application) will be specified in the header template.
 {
   "user": {
     "email": "john@doe.com",
-    "id": "rUgEEJbVuU",
+    "userId": "rUgEEJbVuU",
     "name": "John Doe",
   }
 }
@@ -117,7 +117,7 @@ The token type (user or application) will be specified in the header template.
 {
   "message": "You are now logged in.",
   "user": {
-    "id": "eQ1AkSZ7Zm",
+    "userId": "eQ1AkSZ7Zm",
     "email": "john@doe.com",
     "name": "John Doe"
   },
@@ -142,7 +142,7 @@ Authorization: 'Bearer user_token'
 **Response:** `200 OK`
 ```json
 {
-  "id": "eQ1AkSZ7Zm",
+  "usreId": "eQ1AkSZ7Zm",
   "email": "john@doe.com",
   "name": "John Doe"
 }
@@ -166,7 +166,7 @@ Authorization: 'Bearer user_token'
 ```json
 {
   "application": {
-    "id": "Qj7LG74sPX",
+    "applicationId": "Qj7LG74sPX",
     "website": "exapl.com",
     "description": "This is an app.",
     "owner": "eQ1AkSZ7Zm",
@@ -210,7 +210,7 @@ Authorization: 'Bearer user_token'
 ```json
 {
   "applications": [{
-    "id": "Qj7LG74sPX",
+    "applicationId": "Qj7LG74sPX",
     "website": "exapl.com",
     "description": "This is an app.",
     "owner": "eQ1AkSZ7Zm",
@@ -262,7 +262,7 @@ Authorization: 'Bearer user_token'
 {
   "message": "Application created.",
   "application": {
-    "id": "SQdbvoxH1y",
+    "applicationId": "SQdbvoxH1y",
     "website": "example.com",
     "description": "This is an application.",
     "owner": "eQ1AkSZ7Zm",
@@ -320,7 +320,7 @@ Authorization: 'Bearer application_token'
 ```json
 {
   "images": [{
-    "id": "rUgEEJbVuU",
+    "imageId": "rUgEEJbVuU",
     "application": "SQdbvoxH1y",
     "originalName": "mountain.jpg",
     "savedName": "rUgEEJbVuU.jpg"
@@ -368,7 +368,7 @@ image: <image>
 {
   "message": "Success!",
   "image": {
-    "id": "8yPlnPtURc",
+    "imageId": "8yPlnPtURc",
     "application": "SQdbvoxH1y",
     "originalName": "montain.jpg",
     "savedName": "8yPlnPtURc.jpg"
