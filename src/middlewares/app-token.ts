@@ -3,22 +3,27 @@ import jwt from 'jsonwebtoken';
 import { ExtractJwt } from 'passport-jwt';
 import Application from '@/app/models/application';
 import type { JwtPayload } from '@/app/types';
+import messages from '../config/messages';
 
 export default async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const token = ExtractJwt.fromAuthHeaderAsBearerToken()(req);
   if (!token) {
-    res.error('No token provided', 404);
+    res.error(...messages.errors.noTokenProvided);
     return;
   }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
-    if (!decoded._id)
-      throw new Error('Bad token');
+    if (!decoded?._id) {
+      res.error(...messages.errors.invalidToken);
+      return;
+    }
 
     const app = await Application.findById(decoded._id);
-    if (!app)
-      throw new Error('Application not found');
+    if (!app) {
+      res.error(...messages.errors.applicationNotFound);
+      return;
+    }
 
     delete decoded.iat;
     req.application = decoded;
@@ -26,9 +31,7 @@ export default async (req: Request, res: Response, next: NextFunction): Promise<
     // eslint-disable-next-line node/callback-return
     next();
   } catch (unknownError: unknown) {
-    if ((unknownError as Error).message === 'Bad token' || (unknownError as Error).message === 'invalid signature')
-      res.error('Bad token', 401);
-    else
-      res.error('Application not found', 404);
+    res.error(...messages.errors.serverError);
+    console.error(unknownError as Error);
   }
 };

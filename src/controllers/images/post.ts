@@ -3,6 +3,7 @@ import type { NextFunction, Request, Response } from 'express';
 import { nanoid } from 'nanoid';
 
 import constants from '@/app/config/constants';
+import messages from '@/app/config/messages';
 import Application from '@/app/models/application';
 import Image from '@/app/models/image';
 
@@ -16,7 +17,7 @@ import Image from '@/app/models/image';
  */
 export async function createImage(req: Request, res: Response, _next: NextFunction): Promise<void> {
   if (!req.files || Object.keys(req.files).length === 0) {
-    res.error('No file was provided', 400);
+    res.error(...messages.errors.noFileProvided);
     return;
   }
 
@@ -31,7 +32,7 @@ export async function createImage(req: Request, res: Response, _next: NextFuncti
 
     image.mv(path, async (err?: Error) => {
       if (err) {
-        res.error('Something went wrong...', 500);
+        res.error(...messages.errors.serverError);
         return;
       }
 
@@ -43,12 +44,12 @@ export async function createImage(req: Request, res: Response, _next: NextFuncti
           imageId,
         });
 
-        res.success('Success!', 200, { image: newImage.toData() });
+        res.success(messages.success.addedImage, 200, { image: newImage.toData() });
       } catch (unknownError: unknown) {
-        res.error('Oops... Something went wrong.', 500, unknownError as Error);
+        res.error(...messages.errors.serverError, unknownError as Error);
       }
     });
   } catch (unknownError: unknown) {
-    res.error('Oops... Something went wrong.', 500, unknownError as Error);
+    res.error(...messages.errors.serverError, unknownError as Error);
   }
 }

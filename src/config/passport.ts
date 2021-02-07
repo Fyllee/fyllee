@@ -2,6 +2,7 @@ import passport from 'passport';
 import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
 import { Strategy as LocalStrategy } from 'passport-local';
 import User from '@/app/models/user';
+import messages from './messages';
 
 export default function configPassport(): void {
   passport.use(
@@ -15,17 +16,17 @@ export default function configPassport(): void {
         const user = await User.findOne({ email });
 
         if (!user) {
-          done(null, false, { message: 'Incorrect email' });
+          done(null, false, { message: messages.flash.invalidEmail });
           return;
         }
 
         const validate = await user.isValidPassword(password);
         if (!validate) {
-          done(null, false, { message: 'Incorrect password' });
+          done(null, false, { message: messages.flash.invalidPassword });
           return;
         }
 
-        done(null, user, { message: 'Logged In Successfully' });
+        done(null, user, { message: messages.flash.loggedIn });
       } catch (unknownError: unknown) {
         done(unknownError as Error);
       }

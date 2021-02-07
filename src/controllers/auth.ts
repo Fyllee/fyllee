@@ -2,6 +2,7 @@ import type { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import User from '@/app/models/user';
+import messages from '../config/messages';
 
 
 /**
@@ -19,18 +20,18 @@ export function login(req: Request, res: Response, next: NextFunction): void {
     }
 
     if (!user) {
-      res.error('User does not exist.', 400);
+      res.error(...messages.errors.userNotFound);
       return;
     }
 
     req.login(user.toJWT(), { session: false }, (err2) => {
       if (err2) {
-       res.error('Something went wrong.', 400, err2);
+       res.error(...messages.errors.serverError, err2);
        return;
       }
 
       const token = jwt.sign(user.toJWT(), process.env.JWT_SECRET);
-      res.json({ message: 'You are now logged in.', user: user.toData(), token });
+      res.success(messages.success.loggedIn, 200, { user: user.toData(), token });
     });
   })(req, res, next);
 }
@@ -47,21 +48,21 @@ export async function register(req: Request, res: Response, _next: NextFunction)
   const bodyContainsAllRequired = req.requiredParameters(User);
 
   if (!bodyContainsAllRequired) {
-    res.error('Missing body parameters.', 400);
+    res.error(...messages.errors.missingParameters);
     return;
   }
 
   try {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
-      res.error('User already exists.', 409);
+      res.error(...messages.errors.userAlreadyExists);
       return;
     }
 
     const newUser = await User.create(req.body);
 
-    res.json({ user: newUser.toData() });
+    res.success(messages.success.registered, 200, { user: newUser.toData() });
   } catch (unknownError: unknown) {
-    res.error('Oops... Something went wrong.', 500, unknownError as Error);
+    res.error(...messages.errors.serverError, unknownError as Error);
   }
 }

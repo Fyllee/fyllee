@@ -90,6 +90,7 @@ The token type (user or application) will be specified in the header template.
 **Response:** `200 OK`
 ```json
 {
+  "message": "Successfuly Registered",
   "user": {
     "email": "john@doe.com",
     "userId": "rUgEEJbVuU",
@@ -115,7 +116,7 @@ The token type (user or application) will be specified in the header template.
 **Response:** `200 OK`
 ```json
 {
-  "message": "You are now logged in.",
+  "message": "Successfuly Logged In",
   "user": {
     "userId": "eQ1AkSZ7Zm",
     "email": "john@doe.com",
@@ -165,6 +166,7 @@ Authorization: 'Bearer user_token'
 **Response:** `200 OK`
 ```json
 {
+  "message": "Successfuly Retrieved Application",
   "application": {
     "applicationId": "Qj7LG74sPX",
     "website": "exapl.com",
@@ -190,7 +192,7 @@ Authorization: 'Bearer user_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Success!"
+  "message": "Successfuly Removed Application"
 }
 ```
 </details>
@@ -209,6 +211,7 @@ Authorization: 'Bearer user_token'
 **Response:** `200 OK`
 ```json
 {
+  "message": "Successfuly Retrieved Applications",
   "applications": [{
     "applicationId": "Qj7LG74sPX",
     "website": "exapl.com",
@@ -234,7 +237,7 @@ Authorization: 'Bearer user_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Success!"
+  "message": "Successfuly Removed Applications"
 }
 ```
 </details>
@@ -260,7 +263,7 @@ Authorization: 'Bearer user_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Application created.",
+  "message": "ASuccessfuly Added Application",
   "application": {
     "applicationId": "SQdbvoxH1y",
     "website": "example.com",
@@ -300,7 +303,7 @@ Authorization: 'Bearer application_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Success!"
+  "message": "Successfuly Removed Image"
 }
 ```
 </details>
@@ -319,6 +322,7 @@ Authorization: 'Bearer application_token'
 **Response:** `200 OK`
 ```json
 {
+  "message": "Successfuly Retrieved Images",
   "images": [{
     "imageId": "rUgEEJbVuU",
     "application": "SQdbvoxH1y",
@@ -343,7 +347,7 @@ Authorization: 'Bearer application_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Success!"
+  "message": "Successfuly Removed Images"
 }
 ```
 </details>
@@ -366,7 +370,7 @@ image: <image>
 **Response:** `200 OK`
 ```json
 {
-  "message": "Success!",
+  "message": "Successfuly Added Image",
   "image": {
     "imageId": "8yPlnPtURc",
     "application": "SQdbvoxH1y",

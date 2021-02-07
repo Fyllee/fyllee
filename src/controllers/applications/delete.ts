@@ -1,4 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
+import messages from '@/app/config/messages';
 import removeApplicationFromDisk from '@/app/helpers/remove-application-from-disk';
 import Application from '@/app/models/application';
 
@@ -14,23 +15,23 @@ export async function deleteApplication(req: Request, res: Response, _next: Next
   const { id } = req.params;
 
   if (!id) {
-    res.error('No id was provided', 400);
+    res.error(...messages.errors.noIdProvided);
     return;
   }
 
   try {
     const application = await Application.findOne({ applicationId: id });
     if (!application) {
-      res.error('Application not found', 404);
+      res.error(...messages.errors.applicationNotFound);
       return;
     }
 
     await removeApplicationFromDisk(application);
     await Application.deleteOne({ applicationId: id });
 
-    res.success('Success!', 200);
+    res.success(messages.success.removedApplication);
   } catch (unknownError: unknown) {
-    res.error('Something went wrong...', 500, unknownError as Error);
+    res.error(...messages.errors.serverError, unknownError as Error);
   }
 }
 
@@ -47,7 +48,7 @@ export async function deleteAllApplications(req: Request, res: Response, _next: 
     const ownerId = req.user._id;
     const applications = await Application.find({ owner: ownerId });
     if (applications.length === 0) {
-      res.success('Success!');
+      res.success(messages.success.removedApplications);
       return;
     }
 
@@ -56,8 +57,8 @@ export async function deleteAllApplications(req: Request, res: Response, _next: 
 
     await Application.deleteMany({ owner: ownerId });
 
-    res.success('Success!');
+    res.success(messages.success.removedApplications);
   } catch (unknownError: unknown) {
-    res.error('Something went wrong...', 500, unknownError as Error);
+    res.error(...messages.errors.serverError, unknownError as Error);
   }
 }

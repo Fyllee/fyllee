@@ -1,4 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
+import messages from '@/app/config/messages';
 import removeImageFromDisk from '@/app/helpers/remove-image-from-disk';
 import Image from '@/app/models/image';
 
@@ -13,23 +14,23 @@ export async function deleteImage(req: Request, res: Response, _next: NextFuncti
   const { id } = req.params;
 
   if (!id) {
-    res.error('No id was provided', 400);
+    res.error(...messages.errors.noIdProvided);
     return;
   }
 
   try {
     const image = await Image.findOne({ imageId: id });
     if (!image) {
-      res.error('Image not found', 404);
+      res.error(...messages.errors.imageNotFound);
       return;
     }
 
     await removeImageFromDisk(image);
     await Image.deleteOne({ imageId: id });
 
-    res.success('Success!', 200);
+    res.success(messages.success.removedImage);
   } catch (unknownError: unknown) {
-    res.error('Something went wrong...', 500, unknownError as Error);
+    res.error(...messages.errors.serverError, unknownError as Error);
   }
 }
 
@@ -46,7 +47,7 @@ export async function deleteAllImages(req: Request, res: Response, _next: NextFu
     const appId = req.application._id;
     const images = await Image.find({ application: appId });
     if (images.length === 0) {
-      res.success('Success');
+      res.success(messages.success.removedImages);
       return;
     }
 
@@ -55,8 +56,8 @@ export async function deleteAllImages(req: Request, res: Response, _next: NextFu
 
     await Image.deleteMany({ application: appId });
 
-    res.success('Success!');
+    res.success(messages.success.removedImages);
   } catch (unknownError: unknown) {
-    res.error('Something went wrong...', 500, unknownError as Error);
+    res.error(...messages.errors.serverError, unknownError as Error);
   }
 }

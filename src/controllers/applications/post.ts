@@ -4,6 +4,7 @@ import type { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
 import constants from '@/app/config/constants';
+import messages from '@/app/config/messages';
 import Application from '@/app/models/application';
 
 /**
@@ -16,14 +17,14 @@ import Application from '@/app/models/application';
 export async function createApplication(req: Request, res: Response, _next: NextFunction): Promise<void> {
   const bodyContainsAllRequired = req.requiredParameters(Application, 'owner');
   if (!bodyContainsAllRequired) {
-    res.error('Missing body parameters', 400);
+    res.error(...messages.errors.missingParameters);
     return;
   }
 
   try {
     const app = await Application.findOne({ name: req.body.name });
     if (app) {
-      res.error("Application's name is already used", 409);
+      res.error(...messages.errors.applicationAlreadyExists);
       return;
     }
 
@@ -35,8 +36,8 @@ export async function createApplication(req: Request, res: Response, _next: Next
     await fs.mkdir(join(constants.uploadPath, newApp.applicationId));
 
     const token = jwt.sign(newApp.toJWT(), process.env.JWT_SECRET);
-    res.json({ message: 'Application created.', application: newApp.toData(), token });
+    res.success(messages.success.addedApplication, 200, { application: newApp.toData(), token });
   } catch (unknownError: unknown) {
-    res.error('Oops... Something went wrong.', 500, unknownError as Error);
+    res.error(...messages.errors.serverError, unknownError as Error);
   }
 }

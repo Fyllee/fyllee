@@ -1,4 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
+import messages from '@/app/config/messages';
 import Application from '@/app/models/application';
 
 /**
@@ -13,11 +14,11 @@ export async function getApplication(req: Request, res: Response, _next: NextFun
 
   const application = await Application.findOne({ applicationId: id });
   if (!application) {
-    res.error('Application not found', 404);
+    res.error(...messages.errors.applicationNotFound);
     return;
   }
 
-  res.json({ application: application.toData() });
+  res.success(messages.success.gotApplication, 200, { application: application.toData() });
 }
 
 /**
@@ -36,5 +37,5 @@ export async function getAllApplications(req: Request, res: Response, _next: Nex
   for (const application of applications)
     saneApplications.push(application.toData());
 
-  res.json({ applications: saneApplications });
+  res.success(messages.success.gotApplications, 200, { applications: saneApplications });
 }

@@ -1,6 +1,7 @@
 import { join } from 'path';
 import type { NextFunction, Request, Response } from 'express';
 import constants from '@/app/config/constants';
+import messages from '@/app/config/messages';
 import Image from '@/app/models/image';
 
 /**
@@ -15,7 +16,7 @@ export async function getImage(req: Request, res: Response, _next: NextFunction)
 
   const image = await Image.findOne({ imageId: id });
   if (!image) {
-    res.error('Image not found', 404);
+    res.error(...messages.errors.imageNotFound);
     return;
   }
 
@@ -39,8 +40,8 @@ export async function getAllImages(req: Request, res: Response, _next: NextFunct
     for (const image of images)
       saneImages.push(image.toData());
 
-    res.json({ images: saneImages });
+    res.success(messages.success.gotImages, 200, { images: saneImages });
   } catch (unknownError: unknown) {
-    res.error('Something went wrong...', 500, unknownError as Error);
+    res.error(...messages.errors.serverError, unknownError as Error);
   }
 }
