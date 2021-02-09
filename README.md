@@ -431,6 +431,38 @@ image: <image>
 ```
 </details>
 
+<details>
+<summary>🔐 <b>GET</b> Information about an image by its ID</summary>
+
+<br />
+
+**Endpoint:** `/api/v1/images/:id/information`\
+**Header:**
+```
+Authorization: 'Bearer application_token'
+```
+**Body:** *none*\
+**Response:** `200 OK`
+```json
+{
+  "message": "Successfuly Retrieved Image Information",
+  "information": {
+    "mimeType": "mime type",
+    "size": 100000,
+    "creation": 1612909764769,
+    "lastUpdate": 1612909764769,
+    "application": "XwRu0ZBinu",
+    "originalName": "rireamazon copy.png",
+    "savedName": "QJ9JaWuGXC.png",
+    "imageId": "QJ9JaWuGXC"
+  }
+}
+```
+
+ℹ️ The size is in bytes.
+ℹ️ The timestamps are in milliseconds.
+</details>
+
 
 ## License
 

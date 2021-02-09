@@ -26,7 +26,10 @@ const ImageSchema = new Schema<ImageDocument, ImageModel>({
     required: true,
     autopopulate: true,
   },
-}, { versionKey: false });
+}, {
+  versionKey: false,
+  timestamps: true,
+});
 
 ImageSchema.plugin(autopopulate);
 
@@ -35,6 +38,8 @@ ImageSchema.methods.toData = function (): SafeImageDocument {
 
   doc.application = this.application.applicationId;
   delete doc._id;
+  delete doc.updatedAt;
+  delete doc.createdAt;
   return doc;
 };
 

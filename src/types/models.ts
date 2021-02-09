@@ -70,6 +70,8 @@ export interface ImageBase {
   savedName: string;
   imageId: string;
   application: ApplicationDocument | Types.ObjectId;
+  createdAt: string;
+  updatedAt: string;
 }
 
 /** Interface for the "Image"'s mongoose document, when the application field is not populated */
@@ -78,7 +80,7 @@ export interface ImageDocument extends ImageBase, Document {
   toData(): SafeImageDocument;
 }
 
-export type SafeImageDocument = Omit<LeanDocument<ImageDocument & { application: string }>, '_id'>;
+export type SafeImageDocument = Omit<LeanDocument<ImageDocument & { application: string }>, '_id' | 'createdAt' | 'updatedAt'>;
 
 /** Interface for the "Image"'s mongoose document, when the application field is populated */
 export interface ImagePopulatedDocument extends ImageDocument {

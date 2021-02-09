@@ -34,6 +34,7 @@ const messages = create<Messages>()({
     registered: 'Successfuly Registered',
 
     gotImages: 'Successfuly Retrieved Images',
+    gotImageInformation: 'Successfuly Retrieved Image Information',
     addedImage: 'Successfuly Added Image',
     renamedImage: 'Successfuly Renamed Image',
     removedImage: 'Successfuly Removed Image',
