@@ -449,12 +449,12 @@ Authorization: 'Bearer application_token'
 {
   "message": "Successfuly Retrieved Image Information",
   "information": {
-    "mimeType": "mime type",
+    "mimeType": "mime/type",
     "size": 100000,
     "creation": 1612909764769,
     "lastUpdate": 1612909764769,
     "application": "XwRu0ZBinu",
-    "originalName": "rireamazon copy.png",
+    "originalName": "mountain.png",
     "savedName": "QJ9JaWuGXC.png",
     "imageId": "QJ9JaWuGXC"
   }
