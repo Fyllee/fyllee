@@ -313,6 +313,8 @@ Authorization: 'Bearer user_token'
 **Body:** *none*\
 **Response:** `200 OK`
 The image
+
+ℹ️ There is also a shortcut for this route, which is not subject to versionning: `/content/:id`.
 </details>
 
 <details>
