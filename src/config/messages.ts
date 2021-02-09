@@ -42,6 +42,7 @@ const messages = create<Messages>()({
     gotApplication: 'Successfuly Retrieved Application',
     gotApplications: 'Successfuly Retrieved Applications',
     addedApplication: 'Successfuly Added Application',
+    updatedApplication: 'Successfuly Updated Application',
     removedApplication: 'Successfuly Removed Application',
     removedApplications: 'Successfuly Removed Applications',
   },

@@ -179,6 +179,32 @@ Authorization: 'Bearer user_token'
 </details>
 
 <details>
+<summary>🔐 <b>PATCH</b> Update an application by its ID</summary>
+
+<br />
+
+**Endpoint:** `/api/v1/applications/:id`\
+**Header:**
+```
+Authorization: 'Bearer user_token'
+```
+**Body:**
+```json
+{
+  "name": "string (or omit this field)",
+  "website": "string (or omit this field)",
+  "description": "string (or omit this field)"
+}
+```
+**Response:** `200 OK`
+```json
+{
+  "message": "Successfuly Updated Application"
+}
+```
+</details>
+
+<details>
 <summary>🔐 <b>DELETE</b> Remove an application by its ID</summary>
 
 <br />
