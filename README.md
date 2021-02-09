@@ -290,6 +290,30 @@ The image
 </details>
 
 <details>
+<summary>🔐 <b>PATCH</b> Rename an image by its ID</summary>
+
+<br />
+
+**Endpoint:** `/api/v1/images/:id`\
+**Header:**
+```
+Authorization: 'Bearer application_token'
+```
+**Body:**
+```json
+{
+  "renameTo": "string"
+}
+```
+**Response:** `200 OK`
+```json
+{
+  "message": "Successfuly Renamed Image"
+}
+```
+</details>
+
+<details>
 <summary>🔐 <b>DELETE</b> Remove an image by its ID</summary>
 
 <br />

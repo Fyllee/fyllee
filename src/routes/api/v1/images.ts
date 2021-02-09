@@ -5,14 +5,19 @@ import {
   deleteImage,
   getAllImages,
   getImage,
+  renameImage,
 } from '@/app/controllers/images';
 import appToken from '@/app/middlewares/app-token';
 
 const router = Router();
 
 router.route('/:id')
-  .get(getImage)
-  .delete(appToken, deleteImage);
+  .get(getImage);
+
+router.use(appToken)
+  .route('/:id')
+  .patch(renameImage)
+  .delete(deleteImage);
 
 router.use(appToken)
   .route('/')

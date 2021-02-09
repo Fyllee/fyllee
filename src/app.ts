@@ -29,10 +29,12 @@ const app = express();
 export const port = Number(process.env.PORT) || 5050;
 export const baseUrl = `http://localhost:${port}`;
 
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useUnifiedTopology', true);
-mongoose.set('useCreateIndex', true);
-void mongoose.connect(process.env.MONGO_URI);
+void mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+});
 mongoose.connection.on('error', (err) => {
   console.log('MongoDB connection error. Please make sure MongoDB is running.');
   throw err;
