@@ -2,6 +2,8 @@ import { join } from 'path';
 import type { NextFunction, Request, Response } from 'express';
 import constants from '@/app/config/constants';
 import messages from '@/app/config/messages';
+import validateNumber from '@/app/helpers/validate-number';
+import validateRange from '@/app/helpers/validate-range';
 import Image from '@/app/models/image';
 
 /**
@@ -17,6 +19,14 @@ export async function getImage(req: Request, res: Response, _next: NextFunction)
   const image = await Image.findOne({ imageId: id });
   if (!image)
     return res.error(...messages.errors.imageNotFound);
+
+  const filters: Record<string, unknown> = Object.fromEntries(
+    Object.entries(req.query)
+      .filter((filtersOptions): filtersOptions is [filter: string, option: string] => typeof filtersOptions[0] === 'string' && typeof filtersOptions[1] === 'string'),
+  );
+
+  if (validateNumber(filters?.greyscale) && validateRange(filters.greyscale, 0, 100))
+    console.log('greyscale', filters.greyscale, typeof filters?.greyscale);
 
   res.sendFile(join(constants.uploadPath, image.application.applicationId, image.savedName));
 }

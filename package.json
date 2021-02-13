@@ -27,6 +27,7 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
     "helmet": "^4.4.1",
+    "jimp": "^0.16.1",
     "jsonwebtoken": "^8.5.1",
     "mime-types": "^2.1.28",
     "module-alias": "^2.2.2",
