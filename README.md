@@ -143,7 +143,7 @@ Authorization: 'Bearer user_token'
 **Response:** `200 OK`
 ```json
 {
-  "usreId": "eQ1AkSZ7Zm",
+  "userId": "eQ1AkSZ7Zm",
   "email": "john@doe.com",
   "name": "John Doe"
 }
@@ -250,7 +250,7 @@ Authorization: 'Bearer user_token'
   "message": "Successfully Retrieved Applications",
   "applications": [{
     "applicationId": "Qj7LG74sPX",
-    "website": "exapl.com",
+    "website": "example.com",
     "description": "This is an app.",
     "owner": "eQ1AkSZ7Zm",
     "name": "My app"
