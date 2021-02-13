@@ -19,6 +19,9 @@ export default async (req: Request, res: Response, next: NextFunction): Promise<
     if (!app)
       return res.error(...messages.errors.applicationNotFound);
 
+    if (token !== app.token)
+      return res.error(...messages.errors.invalidToken);
+
     delete decoded.iat;
     req.application = decoded;
 
