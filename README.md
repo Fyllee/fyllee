@@ -90,7 +90,7 @@ The token type (user or application) will be specified in the header template.
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfuly Registered",
+  "message": "Successfully Registered",
   "user": {
     "email": "john@doe.com",
     "userId": "rUgEEJbVuU",
@@ -116,7 +116,7 @@ The token type (user or application) will be specified in the header template.
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfuly Logged In",
+  "message": "Successfully Logged In",
   "user": {
     "userId": "eQ1AkSZ7Zm",
     "email": "john@doe.com",
@@ -166,7 +166,7 @@ Authorization: 'Bearer user_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfuly Retrieved Application",
+  "message": "Successfully Retrieved Application",
   "application": {
     "applicationId": "Qj7LG74sPX",
     "website": "exapl.com",
@@ -199,7 +199,7 @@ Authorization: 'Bearer user_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfuly Updated Application"
+  "message": "Successfully Updated Application"
 }
 ```
 </details>
@@ -218,7 +218,7 @@ Authorization: 'Bearer user_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfuly Removed Application"
+  "message": "Successfully Removed Application"
 }
 ```
 </details>
@@ -237,7 +237,7 @@ Authorization: 'Bearer user_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfuly Retrieved Applications",
+  "message": "Successfully Retrieved Applications",
   "applications": [{
     "applicationId": "Qj7LG74sPX",
     "website": "exapl.com",
@@ -263,7 +263,7 @@ Authorization: 'Bearer user_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfuly Removed Applications"
+  "message": "Successfully Removed Applications"
 }
 ```
 </details>
@@ -289,7 +289,7 @@ Authorization: 'Bearer user_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "ASuccessfuly Added Application",
+  "message": "ASuccessfully Added Application",
   "application": {
     "applicationId": "SQdbvoxH1y",
     "website": "example.com",
@@ -336,7 +336,7 @@ Authorization: 'Bearer application_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfuly Renamed Image"
+  "message": "Successfully Renamed Image"
 }
 ```
 </details>
@@ -355,7 +355,7 @@ Authorization: 'Bearer application_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfuly Removed Image"
+  "message": "Successfully Removed Image"
 }
 ```
 </details>
@@ -374,7 +374,7 @@ Authorization: 'Bearer application_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfuly Retrieved Images",
+  "message": "Successfully Retrieved Images",
   "images": [{
     "imageId": "rUgEEJbVuU",
     "application": "SQdbvoxH1y",
@@ -399,7 +399,7 @@ Authorization: 'Bearer application_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfuly Removed Images"
+  "message": "Successfully Removed Images"
 }
 ```
 </details>
@@ -422,7 +422,7 @@ image: <image>
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfuly Added Image",
+  "message": "Successfully Added Image",
   "image": {
     "imageId": "8yPlnPtURc",
     "application": "SQdbvoxH1y",
@@ -447,7 +447,7 @@ Authorization: 'Bearer application_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfuly Retrieved Image Information",
+  "message": "Successfully Retrieved Image Information",
   "information": {
     "mimeType": "mime/type",
     "size": 100000,
