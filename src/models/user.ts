@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { model, Schema } from 'mongoose';
 import { nanoid } from 'nanoid';
 import type { SafeUserDocument, UserDocument, UserModel } from '@/app/types/models';
@@ -30,6 +31,12 @@ const UserSchema = new Schema<UserDocument, UserModel>({
     required: true,
     trim: true,
   },
+  token: {
+    type: String,
+    default(): string {
+      return jwt.sign(this.toJWT(), process.env.JWT_SECRET);
+    },
+  },
 }, { versionKey: false });
 
 UserSchema.methods.isValidPassword = async function (password: string): Promise<boolean> {
@@ -42,6 +49,7 @@ UserSchema.methods.toData = function (): SafeUserDocument {
 
   delete doc._id;
   delete doc.password;
+  delete doc.token;
   return doc;
 };
 

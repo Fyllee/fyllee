@@ -30,8 +30,7 @@ export function login(req: Request, res: Response, next: NextFunction): void {
        return;
       }
 
-      const token = jwt.sign(user.toJWT(), process.env.JWT_SECRET);
-      res.success(messages.success.loggedIn, 200, { user: user.toData(), token });
+      res.success(messages.success.loggedIn, 200, { user: user.toData() });
     });
   })(req, res, next);
 }

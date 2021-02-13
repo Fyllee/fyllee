@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import { model, Schema } from 'mongoose';
 import autopopulate from 'mongoose-autopopulate';
 import { nanoid } from 'nanoid';
@@ -31,6 +32,12 @@ const ApplicationSchema = new Schema<ApplicationDocument, ApplicationModel>({
     trim: true,
     default: '',
   },
+  token: {
+    type: String,
+    default(): string {
+      return jwt.sign(this.toJWT(), process.env.JWT_SECRET);
+    },
+  },
 }, { versionKey: false });
 
 ApplicationSchema.plugin(autopopulate);
@@ -40,6 +47,7 @@ ApplicationSchema.methods.toData = function (): SafeApplicationDocument {
 
   doc.owner = this.owner.userId;
   delete doc._id;
+  delete doc.token;
   return doc;
 };
 

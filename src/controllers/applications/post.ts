@@ -1,8 +1,6 @@
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import type { NextFunction, Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
-
 import constants from '@/app/config/constants';
 import messages from '@/app/config/messages';
 import Application from '@/app/models/application';
@@ -35,8 +33,7 @@ export async function createApplication(req: Request, res: Response, _next: Next
 
     await fs.mkdir(join(constants.uploadPath, newApp.applicationId));
 
-    const token = jwt.sign(newApp.toJWT(), process.env.JWT_SECRET);
-    res.success(messages.success.addedApplication, 200, { application: newApp.toData(), token });
+    res.success(messages.success.addedApplication, 200, { application: newApp.toData() });
   } catch (unknownError: unknown) {
     res.error(...messages.errors.serverError, unknownError as Error);
   }

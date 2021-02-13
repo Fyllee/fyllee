@@ -120,9 +120,9 @@ The token type (user or application) will be specified in the header template.
   "user": {
     "userId": "eQ1AkSZ7Zm",
     "email": "john@doe.com",
-    "name": "John Doe"
+    "name": "John Doe",
+    "token": "xxxxxxxxxxxxx.xxxxxxxxxxxx.xxxxxxxxx"
   },
-  "token": "xxxxxxxxxxxxx.xxxxxxxxxxxx.xxxxxxxxx"
 }
 ```
 </details>
@@ -295,9 +295,9 @@ Authorization: 'Bearer user_token'
     "website": "example.com",
     "description": "This is an application.",
     "owner": "eQ1AkSZ7Zm",
-    "name": "My app"
+    "name": "My app",
+    "token": "xxxxxxxxxxxxxx.xxxxxxxxxxxxxxx.xxxxxxxxxxxxxx"
   },
-  "token": "xxxxxxxxxxxxxx.xxxxxxxxxxxxxxx.xxxxxxxxxxxxxx"
 }
 ```
 </details>

@@ -15,6 +15,7 @@ export interface UserBase {
   userId: string;
   email: string;
   password: string;
+  token: string;
 }
 
 /** Interface for the "User"'s mongoose document */
@@ -25,7 +26,7 @@ export interface UserDocument extends UserBase, Document {
 }
 
 /** Interface for the "User"'s mongoose document, without sensitive informations */
-export type SafeUserDocument = Omit<LeanDocument<UserDocument>, '_id' | 'password'>;
+export type SafeUserDocument = Omit<LeanDocument<UserDocument>, '_id' | 'password' | 'token'>;
 
 /** Interface for the "User"'s mongoose model */
 export type UserModel = Model<UserDocument>;
@@ -41,6 +42,7 @@ export interface ApplicationBase {
   website: string;
   description: string;
   owner: Types.ObjectId | UserDocument;
+  token: string;
 }
 
 /** Interface for the "Application"'s mongoose document, when the user field is not populated */
@@ -50,7 +52,7 @@ export interface ApplicationDocument extends ApplicationBase, Document {
   toJWT(): { _id: string };
 }
 
-export type SafeApplicationDocument = Omit<LeanDocument<ApplicationDocument & { owner: string }>, '_id'>;
+export type SafeApplicationDocument = Omit<LeanDocument<ApplicationDocument & { owner: string }>, '_id' | 'token'>;
 
 /** Interface for the "Application"'s mongoose document, when the user field is populated */
 export interface ApplicationPopulatedDocument extends ImageDocument {
