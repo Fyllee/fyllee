@@ -35,12 +35,16 @@ const ApplicationSchema = new Schema<ApplicationDocument, ApplicationModel>({
   token: {
     type: String,
     default(): string {
-      return jwt.sign(this.toJWT(), process.env.JWT_SECRET);
+      return this.generateToken();
     },
   },
 }, { versionKey: false });
 
 ApplicationSchema.plugin(autopopulate);
+
+ApplicationSchema.methods.generateToken = function (): string {
+  return jwt.sign(this.toJWT(), process.env.JWT_SECRET);
+};
 
 ApplicationSchema.methods.toData = function (): SafeApplicationDocument {
   const doc = this.toObject();

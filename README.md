@@ -193,15 +193,25 @@ Authorization: 'Bearer user_token'
 {
   "name": "string (or omit this field)",
   "website": "string (or omit this field)",
-  "description": "string (or omit this field)"
+  "description": "string (or omit this field)",
+  "resetToken": "true (or omit this field)"
 }
 ```
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfully Updated Application"
+  "message": "Successfully Updated Application",
+  "application": {
+    "name": "new name (or not set if name not updated)",
+    "website": "new website (or not set if website not updated)",
+    "description": "new description (or not set if description not updated)",
+    "token": "new token (or not set if token not updated)"
+  }
 }
 ```
+
+ℹ️ If you set `resetToken` to `true`, the token will be regenerated.
+ℹ️ Only the changed fields will be returned, with their new values.
 </details>
 
 <details>

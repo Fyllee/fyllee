@@ -48,6 +48,7 @@ export interface ApplicationBase {
 /** Interface for the "Application"'s mongoose document, when the user field is not populated */
 export interface ApplicationDocument extends ApplicationBase, Document {
   owner: UserDocument['_id'];
+  generateToken(): string;
   toData(): SafeApplicationDocument;
   toJWT(): { _id: string };
 }
