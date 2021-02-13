@@ -37,13 +37,3 @@ export async function getAllApplications(req: Request, res: Response, _next: Nex
 
   res.success(messages.success.gotApplications, 200, { applications: saneApplications });
 }
-
-export async function getApplicationToken(req: Request, res: Response, _next: NextFunction): Promise<void> {
-  const { id } = req.params;
-
-  const application = await Application.findOne({ applicationId: id });
-  if (!application)
-    return res.error(...messages.errors.applicationNotFound);
-
-  res.success(messages.success.gotApplicationToken, 200, { token: application.token });
-}
