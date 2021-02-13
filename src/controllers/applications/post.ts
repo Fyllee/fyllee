@@ -14,17 +14,13 @@ import Application from '@/app/models/application';
  */
 export async function createApplication(req: Request, res: Response, _next: NextFunction): Promise<void> {
   const bodyContainsAllRequired = req.requiredParameters(Application, 'owner');
-  if (!bodyContainsAllRequired) {
-    res.error(...messages.errors.missingParameters);
-    return;
-  }
+  if (!bodyContainsAllRequired)
+    return res.error(...messages.errors.missingParameters);
 
   try {
     const app = await Application.findOne({ name: req.body.name });
-    if (app) {
-      res.error(...messages.errors.applicationAlreadyExists);
-      return;
-    }
+    if (app)
+      return res.error(...messages.errors.applicationAlreadyExists);
 
     const newApp = await Application.create({
       owner: req.user._id,

@@ -14,17 +14,13 @@ import Application from '@/app/models/application';
 export async function deleteApplication(req: Request, res: Response, _next: NextFunction): Promise<void> {
   const { id } = req.params;
 
-  if (!id) {
-    res.error(...messages.errors.noIdProvided);
-    return;
-  }
+  if (!id)
+    return res.error(...messages.errors.noIdProvided);
 
   try {
     const application = await Application.findOne({ applicationId: id });
-    if (!application) {
-      res.error(...messages.errors.applicationNotFound);
-      return;
-    }
+    if (!application)
+      return res.error(...messages.errors.applicationNotFound);
 
     await removeApplicationFromDisk(application);
     await Application.deleteOne({ applicationId: id });
@@ -47,10 +43,8 @@ export async function deleteAllApplications(req: Request, res: Response, _next: 
   try {
     const ownerId = req.user._id;
     const applications = await Application.find({ owner: ownerId });
-    if (applications.length === 0) {
-      res.success(messages.success.removedApplications);
-      return;
-    }
+    if (applications.length === 0)
+      return res.success(messages.success.removedApplications);
 
     for (const application of applications)
       await removeApplicationFromDisk(application); // eslint-disable-line no-await-in-loop

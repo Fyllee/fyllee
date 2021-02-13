@@ -16,10 +16,8 @@ import Image from '@/app/models/image';
  * @param {Function} next - The next callback
  */
 export async function createImage(req: Request, res: Response, _next: NextFunction): Promise<void> {
-  if (!req.files || Object.keys(req.files).length === 0) {
-    res.error(...messages.errors.noFileProvided);
-    return;
-  }
+  if (!req.files || Object.keys(req.files).length === 0)
+    return res.error(...messages.errors.noFileProvided);
 
   const image = Array.isArray(req.files.image) ? req.files.image[0] : req.files.image;
   try {
@@ -31,10 +29,8 @@ export async function createImage(req: Request, res: Response, _next: NextFuncti
     const path = join(constants.uploadPath, application.applicationId, savedName);
 
     image.mv(path, async (err?: Error) => {
-      if (err) {
-        res.error(...messages.errors.serverError);
-        return;
-      }
+      if (err)
+        return res.error(...messages.errors.serverError);
 
       try {
         const newImage = await Image.create({

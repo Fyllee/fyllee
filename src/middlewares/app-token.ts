@@ -7,23 +7,17 @@ import messages from '../config/messages';
 
 export default async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const token = ExtractJwt.fromAuthHeaderAsBearerToken()(req);
-  if (!token) {
-    res.error(...messages.errors.noTokenProvided);
-    return;
-  }
+  if (!token)
+    return res.error(...messages.errors.noTokenProvided);
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
-    if (!decoded?._id) {
-      res.error(...messages.errors.invalidToken);
-      return;
-    }
+    if (!decoded?._id)
+      return res.error(...messages.errors.invalidToken);
 
     const app = await Application.findById(decoded._id);
-    if (!app) {
-      res.error(...messages.errors.applicationNotFound);
-      return;
-    }
+    if (!app)
+      return res.error(...messages.errors.applicationNotFound);
 
     delete decoded.iat;
     req.application = decoded;

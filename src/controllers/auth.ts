@@ -14,21 +14,15 @@ import messages from '../config/messages';
  */
 export function login(req: Request, res: Response, next: NextFunction): void {
   passport.authenticate('local', { session: false }, (err, user, _info) => {
-    if (err) {
-      next(err);
-      return;
-    }
+    if (err)
+      return next(err);
 
-    if (!user) {
-      res.error(...messages.errors.userNotFound);
-      return;
-    }
+    if (!user)
+      return res.error(...messages.errors.userNotFound);
 
     req.login(user.toJWT(), { session: false }, (err2) => {
-      if (err2) {
-       res.error(...messages.errors.serverError, err2);
-       return;
-      }
+      if (err2)
+       return res.error(...messages.errors.serverError, err2);
 
       res.success(messages.success.loggedIn, 200, { user: user.toData() });
     });
@@ -46,17 +40,13 @@ export function login(req: Request, res: Response, next: NextFunction): void {
 export async function register(req: Request, res: Response, _next: NextFunction): Promise<void> {
   const bodyContainsAllRequired = req.requiredParameters(User);
 
-  if (!bodyContainsAllRequired) {
-    res.error(...messages.errors.missingParameters);
-    return;
-  }
+  if (!bodyContainsAllRequired)
+    return res.error(...messages.errors.missingParameters);
 
   try {
     const user = await User.findOne({ email: req.body.email });
-    if (user) {
-      res.error(...messages.errors.userAlreadyExists);
-      return;
-    }
+    if (user)
+      return res.error(...messages.errors.userAlreadyExists);
 
     const newUser = await User.create(req.body);
 

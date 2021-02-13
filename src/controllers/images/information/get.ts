@@ -19,10 +19,8 @@ export async function getImageInformation(req: Request, res: Response, _next: Ne
 
   try {
     const image: ImagePopulatedDocument = await Image.findOne({ imageId: id });
-    if (!image) {
-      res.error(...messages.errors.imageNotFound);
-      return;
-    }
+    if (!image)
+      return res.error(...messages.errors.imageNotFound);
 
     const imagePath = path.join(constants.uploadPath, image.application.applicationId, image.savedName);
     const mimeType = mime.contentType(path.extname(imagePath));

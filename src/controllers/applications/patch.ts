@@ -13,27 +13,21 @@ import Application from '@/app/models/application';
 export async function updateApplication(req: Request, res: Response, _next: NextFunction): Promise<void> {
   const { id } = req.params;
 
-  if (!id) {
-    res.error(...messages.errors.noIdProvided);
-    return;
-  }
+  if (!id)
+    return res.error(...messages.errors.noIdProvided);
 
   const actions = {
     name: req.body.name || null,
     website: req.body.website || null,
     description: req.body.description || null,
   };
-  if (!actions.name && !actions.website && !actions.description) {
-    res.error(...messages.errors.missingParameters);
-    return;
-  }
+  if (!actions.name && !actions.website && !actions.description)
+    return res.error(...messages.errors.missingParameters);
 
   try {
     const application = await Application.findOne({ applicationId: id });
-    if (!application) {
-      res.error(...messages.errors.applicationNotFound);
-      return;
-    }
+    if (!application)
+      return res.error(...messages.errors.applicationNotFound);
 
     // Remove all falsy values from the object, to directly pass it to the database query.
     const update = Object.fromEntries(Object.entries(actions).filter(([_k, v]) => v !== null));

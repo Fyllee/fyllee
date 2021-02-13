@@ -15,6 +15,7 @@ module.exports = {
     'node/no-missing-import': 'off',
 
     '@typescript-eslint/no-misused-promises': 'off',
+    '@typescript-eslint/no-confusing-void-expression': 'off',
     'unicorn/no-array-for-each': 'off',
   },
   settings: {

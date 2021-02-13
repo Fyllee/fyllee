@@ -15,10 +15,8 @@ export async function getImage(req: Request, res: Response, _next: NextFunction)
   const { id } = req.params;
 
   const image = await Image.findOne({ imageId: id });
-  if (!image) {
-    res.error(...messages.errors.imageNotFound);
-    return;
-  }
+  if (!image)
+    return res.error(...messages.errors.imageNotFound);
 
   res.sendFile(join(constants.uploadPath, image.application.applicationId, image.savedName));
 }

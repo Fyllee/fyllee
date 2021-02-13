@@ -13,17 +13,13 @@ import Image from '@/app/models/image';
 export async function deleteImage(req: Request, res: Response, _next: NextFunction): Promise<void> {
   const { id } = req.params;
 
-  if (!id) {
-    res.error(...messages.errors.noIdProvided);
-    return;
-  }
+  if (!id)
+    return res.error(...messages.errors.noIdProvided);
 
   try {
     const image = await Image.findOne({ imageId: id });
-    if (!image) {
-      res.error(...messages.errors.imageNotFound);
-      return;
-    }
+    if (!image)
+      return res.error(...messages.errors.imageNotFound);
 
     await removeImageFromDisk(image);
     await Image.deleteOne({ imageId: id });
@@ -46,10 +42,8 @@ export async function deleteAllImages(req: Request, res: Response, _next: NextFu
   try {
     const appId = req.application._id;
     const images = await Image.find({ application: appId });
-    if (images.length === 0) {
-      res.success(messages.success.removedImages);
-      return;
-    }
+    if (images.length === 0)
+      return res.success(messages.success.removedImages);
 
     for (const image of images)
       await removeImageFromDisk(image); // eslint-disable-line no-await-in-loop

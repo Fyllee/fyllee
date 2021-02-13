@@ -15,16 +15,12 @@ export default function configPassport(): void {
       try {
         const user = await User.findOne({ email });
 
-        if (!user) {
-          done(null, false, { message: messages.flash.invalidEmail });
-          return;
-        }
+        if (!user)
+          return done(null, false, { message: messages.flash.invalidEmail });
 
         const validate = await user.isValidPassword(password);
-        if (!validate) {
-          done(null, false, { message: messages.flash.invalidPassword });
-          return;
-        }
+        if (!validate)
+          return done(null, false, { message: messages.flash.invalidPassword });
 
         done(null, user, { message: messages.flash.loggedIn });
       } catch (unknownError: unknown) {
@@ -43,10 +39,8 @@ export default function configPassport(): void {
     async (jwtPayload, done) => {
       try {
         const user = await User.findById(jwtPayload._id);
-        if (!user) {
-          done(user);
-          return;
-        }
+        if (!user)
+          return done(user);
 
         done(null, user.toJWT());
       } catch (unknownError: unknown) {

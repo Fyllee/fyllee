@@ -13,10 +13,8 @@ export async function getApplication(req: Request, res: Response, _next: NextFun
   const { id } = req.params;
 
   const application = await Application.findOne({ applicationId: id });
-  if (!application) {
-    res.error(...messages.errors.applicationNotFound);
-    return;
-  }
+  if (!application)
+    return res.error(...messages.errors.applicationNotFound);
 
   res.success(messages.success.gotApplication, 200, { application: application.toData() });
 }
