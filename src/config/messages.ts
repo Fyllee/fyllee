@@ -41,6 +41,7 @@ const messages = create<Messages>()({
     removedImages: 'Successfully Removed Images',
 
     gotApplication: 'Successfully Retrieved Application',
+    gotApplicationToken: 'Successfully Retrieved Application Token',
     gotApplications: 'Successfully Retrieved Applications',
     addedApplication: 'Successfully Added Application',
     updatedApplication: 'Successfully Updated Application',
