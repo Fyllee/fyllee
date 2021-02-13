@@ -1,5 +1,4 @@
 import type { NextFunction, Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import User from '@/app/models/user';
 import messages from '../config/messages';
@@ -24,7 +23,7 @@ export function login(req: Request, res: Response, next: NextFunction): void {
       if (err2)
        return res.error(...messages.errors.serverError, err2);
 
-      res.success(messages.success.loggedIn, 200, { user: user.toData() });
+      res.success(messages.success.loggedIn, 200, { user: user.toData(), token: user.token });
     });
   })(req, res, next);
 }
