@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { JsonWebTokenError } from 'jsonwebtoken';
 import { ExtractJwt } from 'passport-jwt';
 import Application from '@/app/models/application';
 import type { JwtPayload } from '@/app/types';
@@ -25,6 +25,9 @@ export default async (req: Request, res: Response, next: NextFunction): Promise<
     // eslint-disable-next-line node/callback-return
     next();
   } catch (unknownError: unknown) {
+    if (unknownError instanceof JsonWebTokenError)
+      return res.error(...messages.errors.invalidToken);
+
     res.error(...messages.errors.serverError);
     console.error(unknownError as Error);
   }
