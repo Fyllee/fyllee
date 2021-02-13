@@ -6,7 +6,6 @@
   "scripts": {
     "start": "npm run build && npm run prod",
     "build": "rm -rf ./dist && tsc",
-    "dev": "tsc -w",
     "prod": "NODE_ENV=production node ./dist/app.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
