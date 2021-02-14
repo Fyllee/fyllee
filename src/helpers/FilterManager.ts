@@ -34,7 +34,7 @@ export default class FilterManager {
             filtersOptions: [query: string, parameter: unknown],
           ): filtersOptions is [filter: FilterNames, option: string] =>
             // eslint-disable-next-line implicit-arrow-linebreak
-            filterNames.includes(filtersOptions[0]) && typeof filtersOptions[1] === 'string'),
+            filterNames.has(filtersOptions[0]) && typeof filtersOptions[1] === 'string'),
     ) as Record<FilterNames, string>;
   }
 
@@ -70,9 +70,41 @@ export default class FilterManager {
             this.jimpImage.contrast(valueAsFloat);
           break;
 
+        // eslint-disable-next-line capitalized-comments
+        // case 'saturation':
+        //   if (validateNumber(valueAsInt, -100, 100)) {
+        //     if (valueAsInt < 0) {
+        //       this.jimpImage.color([{
+        //         apply: 'green', // Desaturate -> 'desaturate'
+        //         params: [Math.abs(valueAsInt)],
+        //       }]);
+        //     } else if (valueAsInt > 0) {
+        //       this.jimpImage.color([{
+        //         apply: 'saturate', // Saturate -> 'saturate'
+        //         params: [Math.abs(valueAsInt)],
+        //       }]);
+        //     }
+        //   }
+        //   break;
+
+        case 'rotate':
+          if (validateNumber(valueAsInt, -360, 360))
+            this.jimpImage.rotate(valueAsInt);
+          break;
+
         case 'greyscale':
           if (value === 'true')
             this.jimpImage.greyscale();
+          break;
+
+        case 'sepia':
+          if (value === 'true')
+            this.jimpImage.sepia();
+          break;
+
+        case 'opaque':
+          if (value === 'true')
+            this.jimpImage.opaque();
           break;
 
         case 'width':
