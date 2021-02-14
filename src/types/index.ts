@@ -1,5 +1,3 @@
-import type Jimp from 'jimp';
-
 export interface JwtPayload extends Record<string, string[] | number | string> {
   iss?: string;
   sub?: string;
@@ -16,12 +14,21 @@ export interface ParsedQs {
   [key: string]: ParsedQs | ParsedQs[] | string[] | string | undefined;
 }
 
-export const filterNames = ['blur', 'contrast', 'greyscale', 'opacity', 'pixelate', 'width', 'height'];
-export type FilterNames = typeof filterNames[number];
+const internalFilterNames = [
+  'blur',
+  'contrast',
+  'greyscale',
+  'opacity',
+  'opaque',
+  'pixelate',
+  'sepia',
+  'rotate',
+  'height',
+  'width',
+] as const;
 
-export type Filters = {
-  [K in FilterNames]: {
-    validate: (x: unknown) => boolean;
-    apply: (img: Jimp, value: number) => Jimp;
-  };
+export const filterNames = new Set<string>(internalFilterNames);
+export type FilterNames = typeof internalFilterNames[number];
+export type RequestedFilters = {
+  [key in FilterNames]: string;
 };

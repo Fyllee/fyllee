@@ -2,20 +2,9 @@ import path from 'path';
 import Jimp from 'jimp';
 import constants from '@/app/config/constants';
 import validateNumber from '@/app/helpers/validate-number';
-import type { FilterNames, ParsedQs } from '@/app/types/index';
+import type { FilterNames, ParsedQs, RequestedFilters } from '@/app/types/index';
 import { filterNames } from '@/app/types/index';
 import type { ImagePopulatedDocument } from '@/app/types/models';
-
-interface RequestedFilters {
-  blur: string;
-  contrast: string;
-  greyscale: string;
-  opacity: string;
-  pixelate: string;
-  width: string;
-  height: string;
-  resize: string;
-}
 
 export default class FilterManager {
   public jimpImage: Jimp;
