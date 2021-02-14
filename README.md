@@ -319,12 +319,22 @@ Authorization: 'Bearer user_token'
 
 <br />
 
-**Endpoint:** `/api/v1/images/:id`\
+**Endpoint:** `/api/v1/images/:id?query-parameters`\
 **Body:** *none*\
+**Parameters:**
+- `blur`: Set to an integer to apply a blur. The integer must be between 0 and 10.000.
+- `contrast`: Set to a number to apply a contrast filter. The number must be between -1 and 1.
+- `greyscale`: Set to `"true"` if you want to greyscale the image.
+- `opacity`: Set to a number to apply a contrast filter. The number must be between 0 and 1.
+- `pixelate`: Set to an integer to pixelate the image. The integer must be between 0 and 10.000.
+- `height`: Set to an integer to define the height of the image. You can't set an integer greater than the actual height.
+- `width`: Set to an integer to define the width of the image. You can't set an integer greater than the actual width.
 **Response:** `200 OK`
 The image
 
 ℹ️ There is also a shortcut for this route, which is not subject to versionning: `/content/:id`.
+ℹ️ All query parameters are optional.
+ℹ️ If you set only the height *or* the width, the image will be scaled accordingly to keep its ratio.
 </details>
 
 <details>
