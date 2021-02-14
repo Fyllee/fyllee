@@ -29,10 +29,16 @@ same problem as me.
 
 ## Table of contents
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Endpoints](#api-endpoints)
-- [License](#license)
+- [Bild](#bild)
+  - [Table of contents](#table-of-contents)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [API Endpoints](#api-endpoints)
+    - [Authentication](#authentication)
+    - [User](#user)
+    - [Applications](#applications)
+    - [Images](#images)
+  - [License](#license)
 
 ## Installation
 
@@ -326,14 +332,17 @@ Authorization: 'Bearer user_token'
 - `contrast`: Set to a number to apply a contrast filter. The number must be between -1 and 1.
 - `greyscale`: Set to `"true"` if you want to greyscale the image.
 - `opacity`: Set to a number to apply a contrast filter. The number must be between 0 and 1.
+- `opaque`: Set to `"true"` if you want to make the image opaque.
+- `sepia`: Set to `"true"` if you want to apply a sepia filter to the image.
 - `pixelate`: Set to an integer to pixelate the image. The integer must be between 0 and 10.000.
 - `height`: Set to an integer to define the height of the image. You can't set an integer greater than the actual height.
 - `width`: Set to an integer to define the width of the image. You can't set an integer greater than the actual width.
+- `rotate`: Set to an integer to define the rotation of the image. The integer must be between -360 and 360.
 **Response:** `200 OK`
 The image
 
 ℹ️ There is also a shortcut for this route, which is not subject to versionning: `/content/:id`.
-ℹ️ All query parameters are optional.
+ℹ️ All query parameters are optional. If none are set, the raw image will be returned
 ℹ️ If you set only the height *or* the width, the image will be scaled accordingly to keep its ratio.
 </details>
 
