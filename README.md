@@ -338,6 +338,7 @@ Authorization: 'Bearer user_token'
 - `height`: Set to an integer to define the height of the image. You can't set an integer greater than the actual height.
 - `width`: Set to an integer to define the width of the image. You can't set an integer greater than the actual width.
 - `rotate`: Set to an integer to define the rotation of the image. The integer must be between -360 and 360.
+- `mirror` Set to `"vertical"` to make the image vertically mirrored. Set to `"horizontal"` to make the image horizontally mirrored. Set to `"both"` to make the image vertically and horizontally mirrored.
 **Response:** `200 OK`
 The image
 

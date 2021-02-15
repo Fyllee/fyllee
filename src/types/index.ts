@@ -25,6 +25,7 @@ const internalFilterNames = [
   'rotate',
   'height',
   'width',
+  'mirror',
 ] as const;
 
 export const filterNames = new Set<string>(internalFilterNames);

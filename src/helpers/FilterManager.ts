@@ -38,6 +38,7 @@ export default class FilterManager {
     ) as Record<FilterNames, string>;
   }
 
+  // eslint-disable-next-line complexity
   private _analyseQueries(): void {
     const resize: Record<'height' | 'width', number> = {
       height: Jimp.AUTO,
@@ -105,6 +106,15 @@ export default class FilterManager {
         case 'opaque':
           if (value === 'true')
             this.jimpImage.opaque();
+          break;
+
+        case 'mirror':
+          if (value === 'horizontal')
+            this.jimpImage.mirror(true, false);
+          else if (value === 'vertical')
+            this.jimpImage.mirror(false, true);
+          else if (value === 'both')
+            this.jimpImage.mirror(true, true);
           break;
 
         case 'width':
