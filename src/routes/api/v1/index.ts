@@ -2,11 +2,11 @@ import { Router } from 'express';
 import passport from 'passport';
 
 import applications from './applications';
-import images from './images';
+import contents from './contents';
 
 const router = Router();
 
-router.use('/images', images);
+router.use('/contents', contents);
 router.use('/applications', passport.authenticate('jwt', { session: false }), applications);
 
 export default router;

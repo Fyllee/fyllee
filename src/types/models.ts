@@ -56,7 +56,7 @@ export interface ApplicationDocument extends ApplicationBase, Document {
 export type SafeApplicationDocument = Omit<LeanDocument<ApplicationDocument & { owner: string }>, '_id' | 'token'>;
 
 /** Interface for the "Application"'s mongoose document, when the user field is populated */
-export interface ApplicationPopulatedDocument extends ImageDocument {
+export interface ApplicationPopulatedDocument extends ContentDocument {
   owner: UserDocument;
 }
 
@@ -64,31 +64,31 @@ export interface ApplicationPopulatedDocument extends ImageDocument {
 export type ApplicationModel = Model<ApplicationDocument>;
 
 /* **************************** */
-/*     Image Database Types     */
+/*     Content Database Types     */
 /* **************************** */
 
-/** Interface for the "Image"'s mongoose schema */
-export interface ImageBase {
+/** Interface for the "Content"'s mongoose schema */
+export interface ContentBase {
   originalName: string;
   savedName: string;
-  imageId: string;
+  contentId: string;
   application: ApplicationDocument | Types.ObjectId;
   createdAt: string;
   updatedAt: string;
 }
 
-/** Interface for the "Image"'s mongoose document, when the application field is not populated */
-export interface ImageDocument extends ImageBase, Document {
+/** Interface for the "Content"'s mongoose document, when the application field is not populated */
+export interface ContentDocument extends ContentBase, Document {
   application: ApplicationDocument['_id'];
-  toData(): SafeImageDocument;
+  toData(): SafeContentDocument;
 }
 
-export type SafeImageDocument = Omit<LeanDocument<ImageDocument & { application: string }>, '_id' | 'createdAt' | 'updatedAt'>;
+export type SafeContentDocument = Omit<LeanDocument<ContentDocument & { application: string }>, '_id' | 'createdAt' | 'updatedAt'>;
 
-/** Interface for the "Image"'s mongoose document, when the application field is populated */
-export interface ImagePopulatedDocument extends ImageDocument {
+/** Interface for the "Content"'s mongoose document, when the application field is populated */
+export interface ContentPopulatedDocument extends ContentDocument {
   application: ApplicationDocument;
 }
 
-/** Interface for the "Image"'s mongoose model */
-export type ImageModel = Model<ImageDocument>;
+/** Interface for the "Content"'s mongoose model */
+export type ContentModel = Model<ContentDocument>;

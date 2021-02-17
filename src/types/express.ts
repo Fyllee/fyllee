@@ -1,6 +1,6 @@
 import type {
   ApplicationModel,
-  ImageModel,
+  ContentModel,
   UserDocument,
   UserModel,
 } from './models';
@@ -13,7 +13,7 @@ declare module 'express' {
   }
 
   interface Request {
-    requiredParameters: (model: ApplicationModel | ImageModel | UserModel, exclude?: string[] | string) => boolean;
+    requiredParameters: (model: ApplicationModel | ContentModel | UserModel, exclude?: string[] | string) => boolean;
     application?: Omit<JwtPayload, 'iat'>;
 
     user?: UserDocument;

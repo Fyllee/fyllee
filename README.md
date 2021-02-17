@@ -1,12 +1,12 @@
 # Bild
 
-A REST API image hosting platform.
+A REST API static content hosting platform.
 
 Bild was born from a problem I was encountering while creating SPAs with NextJS.
-I couldn't dynamically add images to the images folder. So I had no place to store my
-images. From there came the idea to create my own image storage system. Configured
-according to my needs, and potentially those of other developers who were facing the
-same problem as me.
+I couldn't dynamically add images to the images folder. So I had no place to store
+my images, and globally, all my static content. From there came the idea to create
+my own static content storage system. Configured according to my needs, and potentially
+those of other developers who were facing the same problem as me.
 
 <a href="./LICENSE" alt="Contributors">
     <img src="https://img.shields.io/badge/License-Apache-green" />
@@ -37,7 +37,7 @@ same problem as me.
     - [Authentication](#authentication)
     - [User](#user)
     - [Applications](#applications)
-    - [Images](#images)
+    - [Contents](#contents)
   - [License](#license)
 
 ## Installation
@@ -318,16 +318,17 @@ Authorization: 'Bearer user_token'
 ```
 </details>
 
-### Images
+### Contents
 
 <details>
-<summary><b>GET</b> Get an image by its ID</summary>
+<summary><b>GET</b> Get a content by its ID</summary>
 
 <br />
 
-**Endpoint:** `/api/v1/images/:id?query-parameters`\
+**Endpoint:** `/api/v1/contents/:id?query-parameters`\
 **Body:** *none*\
-**Parameters:**
+**Parameters:**\
+*You can use these query parameters if you're getting an image to apply some filters to it*
 - `blur`: Set to an integer to apply a blur. The integer must be between 0 and 10.000.
 - `contrast`: Set to a number to apply a contrast filter. The number must be between -1 and 1.
 - `greyscale`: Set to `"true"` if you want to greyscale the image.
@@ -338,21 +339,21 @@ Authorization: 'Bearer user_token'
 - `height`: Set to an integer to define the height of the image. You can't set an integer greater than the actual height.
 - `width`: Set to an integer to define the width of the image. You can't set an integer greater than the actual width.
 - `rotate`: Set to an integer to define the rotation of the image. The integer must be between -360 and 360.
-- `mirror` Set to `"vertical"` to make the image vertically mirrored. Set to `"horizontal"` to make the image horizontally mirrored. Set to `"both"` to make the image vertically and horizontally mirrored.
+- `mirror` Set to `"vertical"` to make the image vertically mirrored. Set to `"horizontal"` to make the image horizontally mirrored. Set to `"both"` to make the image vertically and horizontally mirrored.\
 **Response:** `200 OK`
-The image
+The content
 
-ℹ️ There is also a shortcut for this route, which is not subject to versionning: `/content/:id`.
-ℹ️ All query parameters are optional. If none are set, the raw image will be returned
+ℹ️ There is also a shortcut for this route, which is not subject to versionning: `/contents/:id`.
+ℹ️ All query parameters are optional, and only usable for images. If none are set, the raw image will be returned
 ℹ️ If you set only the height *or* the width, the image will be scaled accordingly to keep its ratio.
 </details>
 
 <details>
-<summary>🔐 <b>PATCH</b> Rename an image by its ID</summary>
+<summary>🔐 <b>PATCH</b> Rename a content by its ID</summary>
 
 <br />
 
-**Endpoint:** `/api/v1/images/:id`\
+**Endpoint:** `/api/v1/contents/:id`\
 **Header:**
 ```
 Authorization: 'Bearer application_token'
@@ -366,17 +367,17 @@ Authorization: 'Bearer application_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfully Renamed Image"
+  "message": "Successfully Renamed Content"
 }
 ```
 </details>
 
 <details>
-<summary>🔐 <b>DELETE</b> Remove an image by its ID</summary>
+<summary>🔐 <b>DELETE</b> Remove a content by its ID</summary>
 
 <br />
 
-**Endpoint:** `/api/v1/images/:id`\
+**Endpoint:** `/api/v1/contents/:id`\
 **Header:**
 ```
 Authorization: 'Bearer application_token'
@@ -385,17 +386,17 @@ Authorization: 'Bearer application_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfully Removed Image"
+  "message": "Successfully Removed Content"
 }
 ```
 </details>
 
 <details>
-<summary>🔐 <b>GET</b> Get all images of the application the token belongs to</summary>
+<summary>🔐 <b>GET</b> Get all contents of the application the token belongs to</summary>
 
 <br />
 
-**Endpoint:** `/api/v1/images`\
+**Endpoint:** `/api/v1/contents`\
 **Header:**
 ```
 Authorization: 'Bearer application_token'
@@ -404,9 +405,9 @@ Authorization: 'Bearer application_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfully Retrieved Images",
-  "images": [{
-    "imageId": "rUgEEJbVuU",
+  "message": "Successfully Retrieved Contents",
+  "contents": [{
+    "contentId": "rUgEEJbVuU",
     "application": "SQdbvoxH1y",
     "originalName": "mountain.jpg",
     "savedName": "rUgEEJbVuU.jpg"
@@ -416,11 +417,11 @@ Authorization: 'Bearer application_token'
 </details>
 
 <details>
-<summary>🔐 <b>DELETE</b> Remove all images of the application the token belongs to</summary>
+<summary>🔐 <b>DELETE</b> Remove all contents of the application the token belongs to</summary>
 
 <br />
 
-**Endpoint:** `/api/v1/images`\
+**Endpoint:** `/api/v1/contents`\
 **Header:**
 ```
 Authorization: 'Bearer application_token'
@@ -429,17 +430,17 @@ Authorization: 'Bearer application_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfully Removed Images"
+  "message": "Successfully Removed Contents"
 }
 ```
 </details>
 
 <details>
-<summary>🔐 <b>POST</b> Add a new image to the application the token belongs to</summary>
+<summary>🔐 <b>POST</b> Add a new content to the application the token belongs to</summary>
 
 <br />
 
-**Endpoint:** `/api/v1/images`\
+**Endpoint:** `/api/v1/contents`\
 **Header:**
 ```
 Authorization: 'Bearer application_token'
@@ -447,14 +448,14 @@ Authorization: 'Bearer application_token'
 **Body:**
 (Multipart-Form)
 ```yaml
-image: <image>
+content: <image|video|audio>
 ```
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfully Added Image",
-  "image": {
-    "imageId": "8yPlnPtURc",
+  "message": "Successfully Added Content",
+  "content": {
+    "contentId": "8yPlnPtURc",
     "application": "SQdbvoxH1y",
     "originalName": "montain.jpg",
     "savedName": "8yPlnPtURc.jpg"
@@ -464,11 +465,11 @@ image: <image>
 </details>
 
 <details>
-<summary>🔐 <b>GET</b> Information about an image by its ID</summary>
+<summary>🔐 <b>GET</b> Information about a content by its ID</summary>
 
 <br />
 
-**Endpoint:** `/api/v1/images/:id/information`\
+**Endpoint:** `/api/v1/contents/:id/information`\
 **Header:**
 ```
 Authorization: 'Bearer application_token'
@@ -477,7 +478,7 @@ Authorization: 'Bearer application_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "Successfully Retrieved Image Information",
+  "message": "Successfully Retrieved Content Information",
   "information": {
     "mimeType": "mime/type",
     "size": 100000,
@@ -486,7 +487,7 @@ Authorization: 'Bearer application_token'
     "application": "XwRu0ZBinu",
     "originalName": "mountain.png",
     "savedName": "QJ9JaWuGXC.png",
-    "imageId": "QJ9JaWuGXC"
+    "contentId": "QJ9JaWuGXC"
   }
 }
 ```

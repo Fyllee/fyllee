@@ -1,12 +1,13 @@
 import type { NextFunction, Request, Response } from 'express';
-import type { ApplicationModel, ImageModel, UserModel } from '@/app/types/models';
+import type { ApplicationModel, ContentModel, UserModel } from '@/app/types/models';
 
 export default (req: Request, _res: Response, next: NextFunction): void => {
   /**
    * @param {Model} model The model to compare the body against
    * @param {Array | String} exclude Required fields to exclude
    */
-  req.requiredParameters = (model: ApplicationModel | ImageModel | UserModel, exclude?: string[] | string): boolean => {
+  // eslint-disable-next-line max-len
+  req.requiredParameters = (model: ApplicationModel | ContentModel | UserModel, exclude?: string[] | string): boolean => {
     const required = model.schema.requiredPaths();
     const body = Object.keys(req.body);
 

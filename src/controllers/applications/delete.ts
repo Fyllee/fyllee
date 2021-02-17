@@ -6,7 +6,7 @@ import Application from '@/app/models/application';
 /**
  * DELETE controller for the 'applications' route
  * @description Delete an application from disk and database and
- * all the images it contains
+ * all the contents it contains
  * @param {Request} req - The request object
  * @param {Response} res - The response object
  * @param {Function} next - The next callback
@@ -34,7 +34,7 @@ export async function deleteApplication(req: Request, res: Response, _next: Next
 /**
  * DELETE controller for the 'applications' route
  * @description Delete alls applications from disk and database and
- * all the images they contain
+ * all the contents they contain
  * @param {Request} req - The request object
  * @param {Response} res - The response object
  * @param {Function} next - The next callback

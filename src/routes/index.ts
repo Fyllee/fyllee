@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import type { Request, Response } from 'express';
 import passport from 'passport';
-import { getImage } from '@/app/controllers/images';
+import { getContent } from '@/app/controllers/contents';
 import v1 from './api/v1';
 import auth from './auth';
 import user from './user';
@@ -17,7 +17,7 @@ router.use('/auth', auth);
 router.use('/api/v1', v1);
 router.use('/user', passport.authenticate('jwt', { session: false }), user);
 
-// Alias to /api/v1/image/:id
-router.get('/content/:id', getImage);
+// Alias to /api/v1/contents/:id
+router.get('/contents/:id', getContent);
 
 export default router;

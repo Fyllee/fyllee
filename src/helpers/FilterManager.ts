@@ -4,7 +4,7 @@ import constants from '@/app/config/constants';
 import validateNumber from '@/app/helpers/validate-number';
 import type { FilterNames, ParsedQs, RequestedFilters } from '@/app/types/index';
 import { filterNames } from '@/app/types/index';
-import type { ImagePopulatedDocument } from '@/app/types/models';
+import type { ContentPopulatedDocument } from '@/app/types/models';
 
 export default class FilterManager {
   public jimpImage: Jimp;
@@ -13,7 +13,7 @@ export default class FilterManager {
 
   constructor(
     private readonly _rawQueries: ParsedQs,
-    private readonly _image: ImagePopulatedDocument,
+    private readonly _image: ContentPopulatedDocument,
   ) {}
 
   public async run(): Promise<Buffer> {

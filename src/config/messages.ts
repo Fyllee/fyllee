@@ -11,7 +11,7 @@ const messages = create<Messages>()({
   errors: {
     userNotFound: ['User Not Found', 404],
     applicationNotFound: ['Application Not Found', 404],
-    imageNotFound: ['Image Not Found', 404],
+    contentNotFound: ['Content Not Found', 404],
 
     noTokenProvided: ['No Token Provided', 400],
     noFileProvided: ['No File Provided', 400],
@@ -33,12 +33,12 @@ const messages = create<Messages>()({
     loggedIn: 'Successfully Logged In',
     registered: 'Successfully Registered',
 
-    gotImages: 'Successfully Retrieved Images',
-    gotImageInformation: 'Successfully Retrieved Image Information',
-    addedImage: 'Successfully Added Image',
-    renamedImage: 'Successfully Renamed Image',
-    removedImage: 'Successfully Removed Image',
-    removedImages: 'Successfully Removed Images',
+    gotContents: 'Successfully Retrieved Content',
+    gotContentInformation: 'Successfully Retrieved Content Information',
+    addedContent: 'Successfully Added Content',
+    renamedContent: 'Successfully Renamed Content',
+    removedContent: 'Successfully Removed Content',
+    removedContents: 'Successfully Removed Contents',
 
     gotApplication: 'Successfully Retrieved Application',
     gotApplicationToken: 'Successfully Retrieved Application Token',
