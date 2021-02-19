@@ -19,6 +19,10 @@ export async function createContent(req: Request, res: Response, _next: NextFunc
     return res.error(...messages.errors.noFileProvided);
 
   const content = Array.isArray(req.files.content) ? req.files.content[0] : req.files.content;
+
+  if (!content)
+    return res.error(...messages.errors.noFileProvided);
+
   try {
     const application = await Application.findById(req.application._id);
 
