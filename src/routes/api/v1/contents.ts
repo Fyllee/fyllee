@@ -12,22 +12,17 @@ import appToken from '@/app/middlewares/app-token';
 
 const router = Router();
 
+router.route('/')
+  .get(appToken, getAllContents)
+  .post(appToken, createContent)
+  .delete(appToken, deleteAllContents);
+
 router.route('/:id')
-  .get(getContent);
+  .get(getContent)
+  .patch(appToken, renameContent)
+  .delete(appToken, deleteContent);
 
-router.use(appToken)
-  .route('/:id')
-  .patch(renameContent)
-  .delete(deleteContent);
-
-router.use(appToken)
-  .route('/:id/information')
-  .get(getContentInformation);
-
-router.use(appToken)
-  .route('/')
-  .get(getAllContents)
-  .post(createContent)
-  .delete(deleteAllContents);
+router.route('/:id/information')
+  .get(appToken, getContentInformation);
 
 export default router;
