@@ -17,6 +17,7 @@ const messages = create<Messages>()({
     noFileProvided: ['No File Provided', 400],
     noIdProvided: ['No Id Provided', 400],
     invalidToken: ['Invalid Token', 400],
+    invalidPassword: ['Invalid Password', 401],
     missingParameters: ['Missing Body Parameters', 400],
     forbiddenFileType: ['Forbidden File Type', 415],
 

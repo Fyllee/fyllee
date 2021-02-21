@@ -1,5 +1,6 @@
 import type { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
+import type { IVerifyOptions } from 'passport-local';
 import User from '@/app/models/user';
 import messages from '../config/messages';
 
@@ -12,12 +13,15 @@ import messages from '../config/messages';
  * @param {Function} next - The next callback
  */
 export function login(req: Request, res: Response, next: NextFunction): void {
-  passport.authenticate('local', { session: false }, (err, user, _info) => {
+  passport.authenticate('local', { session: false }, (err, user, info: IVerifyOptions) => {
     if (err)
       return next(err);
 
-    if (!user)
+    if (!user) {
+      if (info.message === messages.flash.invalidPassword)
+        return res.error(...messages.errors.invalidPassword);
       return res.error(...messages.errors.userNotFound);
+    }
 
     req.login(user.toJWT(), { session: false }, (err2) => {
       if (err2)
