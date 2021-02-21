@@ -1,4 +1,3 @@
-/* eslint-disable no-unreachable */
 import { extname, join } from 'path';
 import type { NextFunction, Request, Response } from 'express';
 import { nanoid } from 'nanoid';
