@@ -1,6 +1,9 @@
+import { join } from 'path';
 import type { NextFunction, Request, Response } from 'express';
+import constants from '@/app/config/constants';
 import messages from '@/app/config/messages';
 import FilterManager from '@/app/helpers/FilterManager';
+import isImage from '@/app/helpers/is-image';
 import Content from '@/app/models/content';
 
 /**
@@ -17,7 +20,9 @@ export async function getContent(req: Request, res: Response, _next: NextFunctio
   if (!content)
     return res.error(...messages.errors.contentNotFound);
 
-  // TODO: Check if the content is an image
+  if (!isImage(content.savedName))
+    return res.sendFile(join(constants.uploadPath, content.application.applicationId, content.savedName));
+
   const filterManager = new FilterManager(req.query, content);
   const modifiedImage = await filterManager.run();
 
