@@ -29,7 +29,7 @@
     "helmet": "^4.4.1",
     "jimp": "^0.16.1",
     "jsonwebtoken": "^8.5.1",
-    "mime-types": "^2.1.28",
+    "mime-type": "^4.0.0",
     "module-alias": "^2.2.2",
     "mongoose": "^5.11.16",
     "mongoose-autopopulate": "^0.12.3",

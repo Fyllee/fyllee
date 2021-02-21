@@ -1,9 +1,11 @@
+/* eslint-disable no-unreachable */
 import { extname, join } from 'path';
 import type { NextFunction, Request, Response } from 'express';
 import { nanoid } from 'nanoid';
 
 import constants from '@/app/config/constants';
 import messages from '@/app/config/messages';
+import mime from '@/app/config/mime-type';
 import Application from '@/app/models/application';
 import Content from '@/app/models/content';
 
@@ -23,12 +25,17 @@ export async function createContent(req: Request, res: Response, _next: NextFunc
   if (!content)
     return res.error(...messages.errors.noFileProvided);
 
+  const extension = extname(content.name).replace('.', '');
+
+  if (!mime.lookup(extension))
+    return res.error(...messages.errors.forbiddenFileType);
+
   try {
     const application = await Application.findById(req.application._id);
 
     // /public/uploads/APP_ID/CONTENT_ID.ext
     const contentId = nanoid(10);
-    const savedName = `${contentId}${extname(content.name)}`;
+    const savedName = `${contentId}.${extension}`;
     const path = join(constants.uploadPath, application.applicationId, savedName);
 
     content.mv(path, async (err?: Error) => {

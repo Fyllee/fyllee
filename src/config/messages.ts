@@ -18,6 +18,7 @@ const messages = create<Messages>()({
     noIdProvided: ['No Id Provided', 400],
     invalidToken: ['Invalid Token', 400],
     missingParameters: ['Missing Body Parameters', 400],
+    forbiddenFileType: ['Forbidden File Type', 415],
 
     userAlreadyExists: ['User Already Exists', 409],
     applicationAlreadyExists: ['Application Name Already Used', 409],
