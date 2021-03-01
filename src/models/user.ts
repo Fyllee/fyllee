@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import { model, Schema } from 'mongoose';
 import { nanoid } from 'nanoid';
 import type { SafeUserDocument, UserDocument, UserModel } from '@/app/types/models';
+import generateToken from '../helpers/generate-token';
 
 
-const UserSchema = new Schema<UserDocument, UserModel>({
+const UserSchema = new Schema<UserDocument>({
   name: {
     type: String,
     trim: true,
@@ -33,8 +33,8 @@ const UserSchema = new Schema<UserDocument, UserModel>({
   },
   token: {
     type: String,
-    default(): string {
-      return jwt.sign(this.toJWT(), process.env.JWT_SECRET);
+    default(this: UserDocument): string {
+      return generateToken(this.userId);
     },
   },
 }, { versionKey: false });
@@ -53,12 +53,7 @@ UserSchema.methods.toData = function (): SafeUserDocument {
   return doc;
 };
 
-UserSchema.methods.toJWT = function (): { _id: string } {
-  const doc = this.toObject();
-  return { _id: doc._id };
-};
-
-UserSchema.pre('save', async function () {
+UserSchema.pre('save', async function (this: UserDocument) {
   if (this.isModified('password'))
     this.password = await bcrypt.hash(this.password, 10);
 });

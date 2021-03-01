@@ -2,6 +2,7 @@ import type { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
 import type { IVerifyOptions } from 'passport-local';
 import User from '@/app/models/user';
+import type { UserDocument } from '@/app/types/models';
 import messages from '../config/messages';
 
 
@@ -13,7 +14,7 @@ import messages from '../config/messages';
  * @param {Function} next - The next callback
  */
 export function login(req: Request, res: Response, next: NextFunction): void {
-  passport.authenticate('local', { session: false }, (err, user, info: IVerifyOptions) => {
+  passport.authenticate('local', { session: false }, (err, user: UserDocument, info: IVerifyOptions) => {
     if (err)
       return next(err);
 
@@ -23,7 +24,7 @@ export function login(req: Request, res: Response, next: NextFunction): void {
       return res.error(...messages.errors.userNotFound);
     }
 
-    req.login(user.toJWT(), { session: false }, (err2) => {
+    req.login(user, { session: false }, (err2) => {
       if (err2)
        return res.error(...messages.errors.serverError, err2);
 

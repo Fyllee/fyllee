@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import passport from 'passport';
 import {
   createContent,
   deleteAllContents,
@@ -8,21 +9,22 @@ import {
   getContentInformation,
   renameContent,
 } from '@/app/controllers/contents';
-import appToken from '@/app/middlewares/app-token';
 
 const router = Router();
 
+const auth = passport.authenticate('application', { session: false });
+
 router.route('/')
-  .get(appToken, getAllContents)
-  .post(appToken, createContent)
-  .delete(appToken, deleteAllContents);
+  .get(auth, getAllContents)
+  .post(auth, createContent)
+  .delete(auth, deleteAllContents);
 
 router.route('/:id')
   .get(getContent)
-  .patch(appToken, renameContent)
-  .delete(appToken, deleteContent);
+  .patch(auth, renameContent)
+  .delete(auth, deleteContent);
 
 router.route('/:id/information')
-  .get(appToken, getContentInformation);
+  .get(auth, getContentInformation);
 
 export default router;

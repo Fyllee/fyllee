@@ -7,6 +7,6 @@ import contents from './contents';
 const router = Router();
 
 router.use('/contents', contents);
-router.use('/applications', passport.authenticate('jwt', { session: false }), applications);
+router.use('/applications', passport.authenticate('user', { session: false }), applications);
 
 export default router;

@@ -22,7 +22,6 @@ export interface UserBase {
 export interface UserDocument extends UserBase, Document {
   isValidPassword(password: string): Promise<boolean>;
   toData(): SafeUserDocument;
-  toJWT(): { _id: string };
 }
 
 /** Interface for the "User"'s mongoose document, without sensitive informations */
@@ -50,7 +49,6 @@ export interface ApplicationDocument extends ApplicationBase, Document {
   owner: UserDocument['_id'];
   generateToken(): string;
   toData(): SafeApplicationDocument;
-  toJWT(): { _id: string };
 }
 
 export type SafeApplicationDocument = Omit<LeanDocument<ApplicationDocument & { owner: string }>, '_id' | 'token'>;

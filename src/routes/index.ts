@@ -15,7 +15,7 @@ router.get('/', (_req: Request, res: Response): void => {
 
 router.use('/auth', auth);
 router.use('/api/v1', v1);
-router.use('/user', passport.authenticate('jwt', { session: false }), user);
+router.use('/user', passport.authenticate('user', { session: false }), user);
 
 // Alias to /api/v1/contents/:id
 router.get('/contents/:id', getContent);

@@ -1,10 +1,10 @@
 import type {
+  ApplicationDocument,
   ApplicationModel,
   ContentModel,
   UserDocument,
   UserModel,
 } from './models';
-import type { JwtPayload } from './index';
 
 declare module 'express' {
   interface Response {
@@ -14,7 +14,7 @@ declare module 'express' {
 
   interface Request {
     requiredParameters: (model: ApplicationModel | ContentModel | UserModel, exclude?: string[] | string) => boolean;
-    application?: Omit<JwtPayload, 'iat'>;
+    application?: ApplicationDocument;
 
     user?: UserDocument;
   }

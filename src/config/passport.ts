@@ -1,6 +1,10 @@
+import type { Request } from 'express';
 import passport from 'passport';
-import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
+import type { VerifiedCallback } from 'passport-custom';
+import { Strategy as CustomStrategy } from 'passport-custom';
 import { Strategy as LocalStrategy } from 'passport-local';
+import extractBearerToken from '@/app/helpers/extract-bearer-token';
+import Application from '@/app/models/application';
 import User from '@/app/models/user';
 import messages from './messages';
 
@@ -29,23 +33,38 @@ export default function configPassport(): void {
     }),
   );
 
-  // User JWT
   passport.use(
-    new JwtStrategy({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.JWT_SECRET,
-    },
+    'user',
+    new CustomStrategy(
+      async (req: Request, done: VerifiedCallback) => {
+        const token = extractBearerToken(req.headers.authorization);
+        if (!token)
+          return done('Invalid User Authentication Header');
 
-    async (jwtPayload, done) => {
-      try {
-        const user = await User.findById(jwtPayload._id);
+        const user = await User.findOne({ token });
         if (!user)
           return done(user);
 
-        done(null, user.toJWT());
-      } catch (unknownError: unknown) {
-        done(unknownError as Error);
-      }
-    }),
+        done(null, user);
+      },
+    ),
+  );
+
+  passport.use(
+    'application',
+    new CustomStrategy(
+      async (req: Request, done: VerifiedCallback) => {
+        const token = extractBearerToken(req.headers.authorization);
+        if (!token)
+          return done('Invalid Application Authentication Header');
+
+        const app = await Application.findOne({ token });
+        if (!app)
+          return done(app);
+
+        req.application = app;
+        done(null, app);
+      },
+    ),
   );
 }
