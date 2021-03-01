@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import passport from 'passport';
+import authentication from '@/app/controllers/Authentication';
 
 import applications from './applications';
 import contents from './contents';
@@ -7,6 +7,6 @@ import contents from './contents';
 const router = Router();
 
 router.use('/contents', contents);
-router.use('/applications', passport.authenticate('user', { session: false }), applications);
+router.use('/applications', authentication.authenticate('user'), applications);
 
 export default router;

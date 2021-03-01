@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import passport from 'passport';
+import authentication from '@/app/controllers/Authentication';
 import {
   createContent,
   deleteAllContents,
@@ -12,7 +12,7 @@ import {
 
 const router = Router();
 
-const auth = passport.authenticate('application', { session: false });
+const auth = authentication.authenticate('application');
 
 router.route('/')
   .get(auth, getAllContents)

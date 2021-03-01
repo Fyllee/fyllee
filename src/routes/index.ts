@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import type { Request, Response } from 'express';
-import passport from 'passport';
 import { getContent } from '@/app/controllers/contents';
+import authentication from '../controllers/Authentication';
 import v1 from './api/v1';
 import auth from './auth';
 import user from './user';
@@ -15,7 +15,7 @@ router.get('/', (_req: Request, res: Response): void => {
 
 router.use('/auth', auth);
 router.use('/api/v1', v1);
-router.use('/user', passport.authenticate('user', { session: false }), user);
+router.use('/user', authentication.authenticate('user'), user);
 
 // Alias to /api/v1/contents/:id
 router.get('/contents/:id', getContent);

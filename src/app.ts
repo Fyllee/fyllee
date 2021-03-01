@@ -1,6 +1,7 @@
 import 'source-map-support/register';
 import 'module-alias/register';
 import 'dotenv/config';
+import './config/authentication';
 
 import { promises as fs } from 'fs';
 
@@ -16,14 +17,13 @@ import mongoose from 'mongoose';
 import morgan from 'morgan';
 import passport from 'passport';
 
+
 import constants from './config/constants';
-import configPassport from './config/passport';
 import existsAsync from './helpers/exists-async';
 import message from './middlewares/message';
 import requiredParameters from './middlewares/required-parameters';
 import index from './routes';
 
-configPassport();
 
 const app = express();
 
