@@ -181,7 +181,8 @@ Authorization: 'Bearer user_token'
     "website": "exapl.com",
     "description": "This is an app.",
     "owner": "eQ1AkSZ7Zm",
-    "name": "My app"
+    "name": "My app",
+    "token": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.XXXXXXXXXX"
   }
 }
 ```
@@ -262,7 +263,8 @@ Authorization: 'Bearer user_token'
     "website": "example.com",
     "description": "This is an app.",
     "owner": "eQ1AkSZ7Zm",
-    "name": "My app"
+    "name": "My app",
+    "token": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.XXXXXXXXXX"
   }]
 }
 ```
@@ -308,15 +310,15 @@ Authorization: 'Bearer user_token'
 **Response:** `200 OK`
 ```json
 {
-  "message": "ASuccessfully Added Application",
+  "message": "Successfully Added Application",
   "application": {
-    "applicationId": "SQdbvoxH1y",
     "website": "example.com",
     "description": "This is an application.",
     "owner": "eQ1AkSZ7Zm",
-    "name": "My app"
-  },
-  "token": "xxxxxxxxxxxxxx.xxxxxxxxxxxxxxx.xxxxxxxxxxxxxx"
+    "name": "My app",
+    "applicationId": "SQdbvoxH1y",
+    "token": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.XXXXXXXXXX"
+  }
 }
 ```
 </details>

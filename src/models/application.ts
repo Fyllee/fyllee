@@ -47,7 +47,6 @@ ApplicationSchema.methods.toData = function (): SafeApplicationDocument {
 
   doc.owner = this.owner.userId;
   delete doc._id;
-  delete doc.token;
   return doc;
 };
 

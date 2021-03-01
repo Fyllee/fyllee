@@ -29,7 +29,7 @@ export async function createApplication(req: Request, res: Response, _next: Next
 
     await fs.mkdir(join(constants.uploadPath, newApp.applicationId));
 
-    res.success(messages.success.addedApplication, 200, { application: newApp.toData(), token: newApp.token });
+    res.success(messages.success.addedApplication, 200, { application: newApp.toData() });
   } catch (unknownError: unknown) {
     res.error(...messages.errors.serverError, unknownError as Error);
   }
