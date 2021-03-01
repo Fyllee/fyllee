@@ -149,9 +149,12 @@ Authorization: 'Bearer user_token'
 **Response:** `200 OK`
 ```json
 {
-  "userId": "eQ1AkSZ7Zm",
-  "email": "john@doe.com",
-  "name": "John Doe"
+  "message": "Successfully Retrieved User Data",
+  "user": {
+    "userId": "eQ1AkSZ7Zm",
+    "email": "john@doe.com",
+    "name": "John Doe"
+  }
 }
 ```
 </details>

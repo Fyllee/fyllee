@@ -34,6 +34,7 @@ const messages = create<Messages>()({
   success: {
     loggedIn: 'Successfully Logged In',
     registered: 'Successfully Registered',
+    gotUser: 'Successfully Retrieved User Data',
 
     gotContents: 'Successfully Retrieved Content',
     gotContentInformation: 'Successfully Retrieved Content Information',
