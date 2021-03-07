@@ -2,11 +2,10 @@
 
 A REST API static content hosting platform.
 
-Bild was born from a problem I was encountering while creating SPAs with NextJS.
-I couldn't dynamically add images to the images folder. So I had no place to store
-my images, and globally, all my static content. From there came the idea to create
-my own static content storage system. Configured according to my needs, and potentially
-those of other developers who were facing the same problem as me.
+Bild was born from a problem I was encountering while creating SPAs with NextJS. I couldn't dynamically add images to
+the images folder. So I had no place to store my images, and globally, all my static content. From there came the idea
+to create my own static content storage system. Configured according to my needs, and potentially those of other
+developers who were facing the same problem as me.
 
 <a href="./LICENSE" alt="Contributors">
     <img src="https://img.shields.io/badge/License-Apache-green" />
@@ -51,12 +50,12 @@ $ npm install
 $ cp .env.example .env
 ```
 
-You can then fill in your personnal informations in the `.env` file.
+You can then fill in your personnal information in the `.env` file.
 
 ## Usage
 
-To launch Bild, you have 2 possibilities. Either in development mode, or in production mode (or you will have to launch a building script).
-Server will be launched on `localhost:5050`, unless you add `PORT=your port` in the `.env` file.
+You can launch Bild either in development mode or in production mode. Server will be launched on `localhost:5050`,
+unless you add `PORT=your port` in the `.env` file.
 
 **Development**
 ```
@@ -74,8 +73,7 @@ $ npm run prod
 
 ## API Endpoints
 
-Endpoints with a 🔐 require a token.
-The token type (user or application) will be specified in the header template.
+Endpoints with a "🔐" require a token. The token type (user or application) will be specified in the header template.
 
 ### Authentication
 
@@ -220,7 +218,7 @@ Authorization: 'Bearer user_token'
 }
 ```
 
-ℹ️ If you set `resetToken` to `true`, the token will be regenerated.
+ℹ️ If you set `resetToken` to `true`, the token will be regenerated.\
 ℹ️ Only the changed fields will be returned, with their new values.
 </details>
 
@@ -345,11 +343,12 @@ Authorization: 'Bearer user_token'
 - `width`: Set to an integer to define the width of the image. You can't set an integer greater than the actual width.
 - `rotate`: Set to an integer to define the rotation of the image. The integer must be between -360 and 360.
 - `mirror` Set to `"vertical"` to make the image vertically mirrored. Set to `"horizontal"` to make the image horizontally mirrored. Set to `"both"` to make the image vertically and horizontally mirrored.\
+
 **Response:** `200 OK`
 The content
 
-ℹ️ There is also a shortcut for this route, which is not subject to versionning: `/contents/:id`.
-ℹ️ All query parameters are optional, and only usable for images. If none are set, the raw image will be returned
+ℹ️ There is also a shortcut for this route, which is not subject to versionning: `/contents/:id`.\
+ℹ️ All query parameters are optional, and only usable for images. If none are set, the raw image will be returned.\
 ℹ️ If you set only the height *or* the width, the image will be scaled accordingly to keep its ratio.
 </details>
 
@@ -497,7 +496,7 @@ Authorization: 'Bearer application_token'
 }
 ```
 
-ℹ️ The size is in bytes.
+ℹ️ The size is in bytes.\
 ℹ️ The timestamps are in milliseconds.
 </details>
 
