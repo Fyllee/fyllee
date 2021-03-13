@@ -42,6 +42,8 @@ export interface ApplicationBase {
   description: string;
   owner: Types.ObjectId | UserDocument;
   token: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 /** Interface for the "Application"'s mongoose document, when the user field is not populated */
@@ -51,7 +53,7 @@ export interface ApplicationDocument extends ApplicationBase, Document {
   toData(): SafeApplicationDocument;
 }
 
-export type SafeApplicationDocument = Omit<LeanDocument<ApplicationDocument & { owner: string }>, '_id'>;
+export type SafeApplicationDocument = Omit<LeanDocument<ApplicationDocument & { owner: string }>, '_id' | 'createdAt' | 'updatedAt'>;
 
 /** Interface for the "Application"'s mongoose document, when the user field is populated */
 export interface ApplicationPopulatedDocument extends ContentDocument {

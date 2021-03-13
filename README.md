@@ -180,7 +180,8 @@ Authorization: 'Bearer user_token'
     "description": "This is an app.",
     "owner": "eQ1AkSZ7Zm",
     "name": "My app",
-    "token": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.XXXXXXXXXX"
+    "token": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.XXXXXXXXXX",
+    "createdAt": "2021-03-13T15:23:52.439Z"
   }
 }
 ```
@@ -262,7 +263,8 @@ Authorization: 'Bearer user_token'
     "description": "This is an app.",
     "owner": "eQ1AkSZ7Zm",
     "name": "My app",
-    "token": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.XXXXXXXXXX"
+    "token": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.XXXXXXXXXX",
+    "createdAt": "2021-03-13T15:23:52.439Z"
   }]
 }
 ```

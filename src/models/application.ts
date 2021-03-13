@@ -38,7 +38,10 @@ const ApplicationSchema = new Schema<ApplicationDocument>({
       return generateToken(this.applicationId);
     },
   },
-}, { versionKey: false });
+}, {
+  versionKey: false,
+  timestamps: true,
+});
 
 ApplicationSchema.plugin(autopopulate);
 
@@ -47,6 +50,7 @@ ApplicationSchema.methods.toData = function (): SafeApplicationDocument {
 
   doc.owner = this.owner.userId;
   delete doc._id;
+  delete doc.updatedAt;
   return doc;
 };
 
