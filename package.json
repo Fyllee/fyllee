@@ -4,6 +4,7 @@
   "description": "A web API to host images",
   "main": "src/app.js",
   "scripts": {
+    "cleanup": "bash cleanup.sh",
     "start": "npm run build && npm run prod",
     "build": "rm -rf ./dist && tsc",
     "prod": "NODE_ENV=production node ./dist/app.js",
