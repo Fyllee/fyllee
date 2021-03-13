@@ -25,7 +25,7 @@ else
   mongo --host $MONGO_URI --eval "db.getSiblingDB('bild').dropDatabase();" > /dev/null
   end "\033[4mDone\033[0m dropping 'bild' database."
 
-  # Drop 'bild' disk content
+  # Delete 'upload' directory from disk
   start "\033[4mStart\033[0m deleting 'bild' disk content."
   if [ -d "./uploads" ] ; then rm -r "./uploads"; fi
   end "\033[4mDone\033[0m deleting 'bild' disk content."
