@@ -35,7 +35,7 @@ export async function createContent(req: Request, res: Response, _next: NextFunc
     // /public/uploads/APP_ID/CONTENT_ID.ext
     const contentId = nanoid(10);
     const savedName = `${contentId}.${extension}`;
-    const path = join(constants.uploadPath, application.applicationId, savedName);
+    const path = join(constants.uploadPaths.contents, application.applicationId, savedName);
 
     content.mv(path, async (err?: Error) => {
       if (err)

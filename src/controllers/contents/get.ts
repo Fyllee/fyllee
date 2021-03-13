@@ -21,7 +21,7 @@ export async function getContent(req: Request, res: Response, _next: NextFunctio
     return res.error(...messages.errors.contentNotFound);
 
   if (!isImage(content.savedName))
-    return res.sendFile(join(constants.uploadPath, content.application.applicationId, content.savedName));
+    return res.sendFile(join(constants.uploadPaths.contents, content.application.applicationId, content.savedName));
 
   const filterManager = new FilterManager(req.query, content);
   const modifiedImage = await filterManager.run();

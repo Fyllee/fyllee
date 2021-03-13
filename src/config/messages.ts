@@ -23,6 +23,8 @@ const messages = create<Messages>()({
 
     userAlreadyExists: ['User Already Exists', 409],
     applicationAlreadyExists: ['Application Name Already Used', 409],
+    noCoverProvided: ['No Cover Provided For Application', 400],
+    coverMustBeImage: ['Cover File Must Be An Image.', 400],
 
     serverError: ['Internal Server Error', 500],
   },

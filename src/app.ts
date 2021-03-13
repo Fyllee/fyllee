@@ -67,10 +67,12 @@ app.use((_req: Request, res: Response) => {
   res.error('Not Found', 404);
 });
 
-app.listen(port, async () => {
-  const folder = await existsAsync(constants.uploadPath);
-  if (!folder)
-    await fs.mkdir(constants.uploadPath).catch(console.error);
+app.listen(port, () => {
+  Object.values(constants.uploadPaths).forEach(async (path) => {
+    const folder = await existsAsync(path);
+    if (!folder)
+      await fs.mkdir(path, { recursive: true }).catch(console.error);
+  });
 
   console.log('Listening at http://localhost:%d.', port);
 });

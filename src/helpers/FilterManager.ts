@@ -133,7 +133,7 @@ export default class FilterManager {
 
   private async _getJimpImage(): Promise<Jimp> {
     const imagePath = path.join(
-      constants.uploadPath,
+      constants.uploadPaths.contents,
       this._image.application.applicationId,
       this._image.savedName,
     );

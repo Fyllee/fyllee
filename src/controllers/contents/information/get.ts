@@ -22,7 +22,7 @@ export async function getContentInformation(req: Request, res: Response, _next: 
     if (!content)
       return res.error(...messages.errors.contentNotFound);
 
-    const contentPath = join(constants.uploadPath, content.application.applicationId, content.savedName);
+    const contentPath = join(constants.uploadPaths.contents, content.application.applicationId, content.savedName);
     const mimeType = mime.contentType(extname(contentPath));
     const stats = await fs.stat(contentPath);
 
