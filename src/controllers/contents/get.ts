@@ -3,9 +3,9 @@ import type { NextFunction, Request, Response } from 'express';
 import constants from '@/app/config/constants';
 import messages from '@/app/config/messages';
 import FilterManager from '@/app/helpers/FilterManager';
+import existsAsync from '@/app/helpers/exists-async';
 import isImage from '@/app/helpers/is-image';
 import Content from '@/app/models/content';
-import existsAsync from '@/app/helpers/exists-async';
 
 /**
  * GET controller for the 'contents' route
