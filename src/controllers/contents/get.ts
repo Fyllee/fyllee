@@ -3,6 +3,7 @@ import type { NextFunction, Request, Response } from 'express';
 import constants from '@/app/config/constants';
 import messages from '@/app/config/messages';
 import FilterManager from '@/app/helpers/FilterManager';
+import existsAsync from '@/app/helpers/exists-async';
 import isImage from '@/app/helpers/is-image';
 import Content from '@/app/models/content';
 
@@ -20,8 +21,12 @@ export async function getContent(req: Request, res: Response, _next: NextFunctio
   if (!content)
     return res.error(...messages.errors.contentNotFound);
 
+  const file = join(constants.uploadPaths.contents, content.application.applicationId, content.savedName);
+  if (!await existsAsync(file))
+    return res.error(...messages.errors.contentNotFound);
+
   if (!isImage(content.savedName))
-    return res.sendFile(join(constants.uploadPaths.contents, content.application.applicationId, content.savedName));
+    return res.sendFile(file);
 
   const filterManager = new FilterManager(req.query, content);
   const modifiedImage = await filterManager.run();
