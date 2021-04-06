@@ -1,7 +1,37 @@
-/node_modules
-/uploads
-.idea/
-.vscode/
+# Environment
 .env
+
+# Miscellaneous
+/temp
+/open-api
+
+# Compiled output
+/dist/
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# OS
 .DS_Store
-/dist
+
+# Tests
+/coverage
+/.nyc_output
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json

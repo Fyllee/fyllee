@@ -1,0 +1,33 @@
+version: '3'
+services:
+  postgres:
+    restart: unless-stopped
+    container_name: postgres
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    volumes:
+      - /data/postgres:/data/postgres
+    env_file:
+      - .env
+    networks:
+      - postgres
+
+  pgadmin:
+    restart: unless-stopped
+    links:
+      - postgres:postgres
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    ports:
+      - '8080:8080'
+    volumes:
+      - /data/pgadmin:/root/.pgadmin
+    env_file:
+      - .env
+    networks:
+      - postgres
+
+networks:
+  postgres:
+    driver: bridge

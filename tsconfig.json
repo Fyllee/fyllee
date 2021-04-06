@@ -1,24 +1,24 @@
 {
   "compilerOptions": {
-    "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "checkJs": true,
+    "declaration": true,
+    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "incremental": true,
+    "module": "commonjs",
     "noImplicitAny": true,
     "outDir": "./dist",
-    "paths": {
-      "@/app/*": ["./src/*"],
-    },
     "pretty": false,
     "removeComments": true,
+    "resolveJsonModule": true,
     "sourceMap": true,
-    "skipLibCheck": true,
-    "target": "es2019",
-    "typeRoots": ["./src/types", "./node_modules/@types"]
+    "strictNullChecks": true,
+    "target": "es2017",
+    "typeRoots": ["./typings", "./node_modules/@types"]
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules/", "./dist/*"]
+  "include": ["./src/**/*.ts", "./test/**/*.ts"],
+  "exclude": ["node_modules/", "typings/"]
 }

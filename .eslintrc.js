@@ -1,37 +1,91 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
-  extends: 'noftalint/typescript',
-  ignorePatterns: ['node_modules/', 'dist/'],
+  plugins: ['@typescript-eslint/eslint-plugin'],
+  extends: ['noftalint/typescript'],
+  ignorePatterns: ['node_modules/', './dist', './src/migrations/**/*.ts'],
   reportUnusedDisableDirectives: true,
+  parserOptions: {
+    project: './tsconfig.eslint.json',
+  },
   env: {
     node: true,
+    jest: true,
   },
   rules: {
-    'import/extensions': ['error', 'never', { ts: 'never' }],
-
-    // It cannot resolve TypeScript's path aliases. See https://github.com/mysticatea/eslint-plugin-node/issues/233
-    'node/no-missing-import': 'off',
-
-    '@typescript-eslint/no-misused-promises': 'off',
-    '@typescript-eslint/no-confusing-void-expression': 'off',
-    'unicorn/no-array-for-each': 'off',
+    'class-methods-use-this': 'off',
+    '@typescript-eslint/no-extraneous-class': ['error', { allowWithDecorator: true }],
+    'import/extensions': 'off',
+    'import/no-unresolved': 'off',
+    'import/prefer-default-export': 'off',
+    'node/no-extraneous-import': ['error', { allowModules: ['express'] }],
+    // Forbid leading underscore for private properties (in nest almost all if not all class properties are private,
+    // adding the underscore just impacts readability.)
+    '@typescript-eslint/naming-convention': [
+      'error',
+      {
+        selector: 'default',
+        format: ['camelCase'],
+        leadingUnderscore: 'allow',
+        trailingUnderscore: 'allow',
+      },
+      {
+        selector: 'variable',
+        format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
+        leadingUnderscore: 'allow',
+        trailingUnderscore: 'allow',
+      },
+      {
+        selector: 'objectLiteralProperty',
+        format: ['camelCase', 'UPPER_CASE'],
+        leadingUnderscore: 'allow',
+        trailingUnderscore: 'allow',
+      },
+      {
+        selector: 'memberLike',
+        modifiers: ['private'],
+        format: ['camelCase'],
+        leadingUnderscore: 'forbid',
+        trailingUnderscore: 'allow',
+      },
+      {
+        selector: 'enumMember',
+        format: ['PascalCase'],
+        leadingUnderscore: 'forbid',
+        trailingUnderscore: 'allow',
+      },
+      {
+        selector: 'interface',
+        format: ['PascalCase'],
+        custom: {
+          regex: '^I[A-Z]',
+          match: false,
+        },
+      },
+      {
+        selector: 'typeLike',
+        format: ['PascalCase'],
+        leadingUnderscore: 'forbid',
+        trailingUnderscore: 'allow',
+      },
+    ],
   },
+  overrides: [{
+    files: ['./test/**/*.ts', './src/**/*.spec.ts'],
+    rules: {
+      'node/no-unpublished-import': 'off',
+      'import/no-extraneous-dependencies': 'off',
+      'max-nested-callbacks': 'off',
+    },
+  }],
   settings: {
     'import/parsers': {
-      '@typescript-eslint/parser': ['.ts', '.tsx'],
+      '@typescript-eslint/parser': ['.ts'],
     },
     'import/resolver': {
-      typescript: {
-        alwaysTryTypes: true,
+      node: {
+        extensions: ['.js', '.ts'],
       },
     },
   },
-  overrides: [{
-    files: ['./src/controllers/**/*.ts'],
-    rules: {
-      'import/prefer-default-export': 'off',
-    },
-  }],
 };
