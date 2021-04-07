@@ -77,6 +77,12 @@ module.exports = {
       'import/no-extraneous-dependencies': 'off',
       'max-nested-callbacks': 'off',
     },
+  }, {
+    files: ['*.config.ts', '*.config.js'],
+    rules: {
+      'node/no-unpublished-import': 'off',
+      'import/no-extraneous-dependencies': 'off',
+    },
   }],
   settings: {
     'import/parsers': {

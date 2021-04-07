@@ -30,6 +30,11 @@ async function bootstrap(): Promise<void> {
     Logger.log('Documentation mounted on /docs/', 'Bootstrap');
   }
 
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(async () => app.close());
+  }
+
   const PORT = configService.get('PORT');
   await app.listen(PORT);
 
