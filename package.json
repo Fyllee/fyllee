@@ -11,6 +11,7 @@
   "main": "./dist/main.js",
   "scripts": {
     "prebuild": "rimraf dist",
+    "prepare": "husky install",
     "build": "nest build",
     "dev": "npm run start:dev",
     "start": "NODE_ENV=production nest start",
