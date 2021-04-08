@@ -6,7 +6,7 @@
     "**/*.d.ts",
     ".*rc.js",
     "*.config.js",
-    "*.config.ts",
+    "*.config.ts"
   ],
-  "exclude": [],
+  "exclude": []
 }
