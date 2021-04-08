@@ -5,29 +5,24 @@ import { UsersService } from '../users.service';
 
 describe('UsersService', () => {
   let usersService: UsersService;
-  let findOne: jest.Mock;
   beforeEach(async () => {
-    findOne = jest.fn();
     const moduleFixture = await Test.createTestingModule({
       providers: [
         UsersService,
         {
           provide: getRepositoryToken(User),
-          useValue: { findOne },
+          useValue: {},
         },
       ],
     }).compile();
     usersService = await moduleFixture.get(UsersService);
   });
 
-  let user: User;
-  beforeEach(() => {
-    user = new User('test', 'test@test.com', 'test1234');
-    findOne.mockReturnValue(Promise.resolve(user));
-  });
-
-  test('GIVEN existing username THEN returns user', async () => {
-    const fetchedUser = await usersService.findOne('test');
-    expect(fetchedUser).toEqual(user);
+  test('GIVEN usersService THEN it is defined and has methods', () => {
+    expect(usersService).toBeDefined();
+    expect(usersService.create.name).toBe('create');
+    expect(usersService.exists.name).toBe('exists');
+    expect(usersService.findOne.name).toBe('findOne');
+    expect(usersService.findOneByToken.name).toBe('findOneByToken');
   });
 });

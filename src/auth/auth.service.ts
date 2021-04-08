@@ -35,7 +35,7 @@ export class AuthService {
   public async loginWithToken(dto: AuthUserTokenDto): Promise<User> {
     const token = this.extractToken(dto.token);
     if (!token)
-      throw new BadRequestException('Unknown token');
+      throw new BadRequestException('Invalid token');
 
     const user = await this.usersService.findOneByToken(token);
     if (!user)
