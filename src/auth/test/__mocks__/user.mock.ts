@@ -1,6 +1,7 @@
 import { User } from '../../../users/user.entity';
 
-export const mockedUser = new User('john', 'user@email.com', '$2y$10$/LH.0gTnnQVf0tZwcC4.5untTvIC3aJeNzGZYIWKx6MqqWGhorUZO');
+export const mockedUser = new User('john', 'user@email.com', 'strongPassword');
+export const password = '$2y$10$/LH.0gTnnQVf0tZwcC4.5untTvIC3aJeNzGZYIWKx6MqqWGhorUZO';
 
 const BCRYPT_REGEX = /^\$2[abxy]?\$10\$[\d./A-Za-z]{53}$/g;
 

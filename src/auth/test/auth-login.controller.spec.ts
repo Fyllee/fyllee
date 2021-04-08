@@ -9,7 +9,7 @@ import { UsersService } from '../../users/users.service';
 import { AuthController } from '../auth.controller';
 import { AuthService } from '../auth.service';
 import { LocalStrategy } from '../local.strategy';
-import { expectedUser, mockedUser } from './__mocks__/user.mock';
+import { expectedUser, mockedUser, password } from './__mocks__/user.mock';
 
 jest.mock('bcrypt');
 
@@ -29,7 +29,7 @@ describe('AuthController: Login', () => {
           provide: getRepositoryToken(User),
           useValue: {
             findOne: (param: Partial<User>): User | null =>
-              (param.username === mockedUser.username ? mockedUser : null),
+              (param.username === mockedUser.username ? { ...mockedUser, password } : null),
             persistAndFlush: jest.fn(),
           },
         },
@@ -45,7 +45,7 @@ describe('AuthController: Login', () => {
       .post('/auth/login')
       .send({
         username: mockedUser.username,
-        password: 'strongPassword',
+        password: mockedUser.password,
       })
       .expect(200)
       .expect(({ body }) => {

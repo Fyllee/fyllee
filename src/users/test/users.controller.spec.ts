@@ -4,7 +4,7 @@ import type { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
 import { AuthService } from '../../auth/auth.service';
-import { expectedUser, mockedUser } from '../../auth/test/__mocks__/user.mock';
+import { expectedUser, mockedUser, password } from '../../auth/test/__mocks__/user.mock';
 import { UserTokenStrategy } from '../../auth/user-token.strategy';
 import { User } from '../user.entity';
 import { UsersController } from '../users.controller';
@@ -24,7 +24,7 @@ describe('UsersController: Login', () => {
           provide: getRepositoryToken(User),
           useValue: {
             findOne: (param: Partial<User>): User | null =>
-              (param.token === mockedUser.token ? mockedUser : null),
+              (param.token === mockedUser.token ? { ...mockedUser, password } : null),
           },
         },
       ],
