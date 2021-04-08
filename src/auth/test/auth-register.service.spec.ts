@@ -3,19 +3,7 @@ import { Test } from '@nestjs/testing';
 import { User } from '../../users/user.entity';
 import { UsersService } from '../../users/users.service';
 import { AuthService } from '../auth.service';
-import { mockedUser } from './__mocks__/user.mock';
-
-const BCRYPT_REGEX = /^\$2[abxy]?\$10\$[\d./A-Za-z]{53}$/g;
-const expectedUser: User = {
-  userId: expect.stringMatching(/[\w-]{10}/g),
-  token: expect.any(String),
-  email: 'user@email.com',
-  username: 'john',
-  displayName: 'john',
-  password: expect.stringMatching(BCRYPT_REGEX),
-  createdAt: expect.any(Date),
-  updatedAt: expect.any(Date),
-};
+import { expectedUser, mockedUser } from './__mocks__/user.mock';
 
 describe('AuthService: Register', () => {
   let authService: AuthService;

@@ -1,6 +1,6 @@
 import { getRepositoryToken } from '@mikro-orm/nestjs';
-import type { INestApplication } from '@nestjs/common';
 import { ValidationPipe } from '@nestjs/common';
+import type { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import bcrypt from 'bcrypt';
 import request from 'supertest';
@@ -9,7 +9,7 @@ import { UsersService } from '../../users/users.service';
 import { AuthController } from '../auth.controller';
 import { AuthService } from '../auth.service';
 import { LocalStrategy } from '../local.strategy';
-import { mockedUser } from './__mocks__/user.mock';
+import { expectedUser, mockedUser } from './__mocks__/user.mock';
 
 jest.mock('bcrypt');
 
@@ -49,16 +49,7 @@ describe('AuthController: Login', () => {
       })
       .expect(200)
       .expect(({ body }) => {
-        expect(body).toStrictEqual({
-          status: 'OK',
-          message: 'You have been logged in.',
-          user: {
-            displayName: mockedUser.displayName,
-            username: mockedUser.username,
-            userId: mockedUser.userId,
-            email: mockedUser.email,
-          },
-        });
+        expect(body).toMatchObject(expectedUser);
     }));
 
   test('GIVEN only username THEN it responds with 401', async () =>

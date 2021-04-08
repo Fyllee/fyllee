@@ -1,4 +1,5 @@
 import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
+import { Exclude, Expose } from 'class-transformer';
 import { nanoid } from 'nanoid';
 
 @Entity()
@@ -7,13 +8,16 @@ export class User {
   userId: string = nanoid(10);
 
   @Property()
+  @Expose({ groups: ['TokenIncluded'] })
   token = `${nanoid(64)}.${this.userId}`;
 
   @Property()
-  createdAt: Date = new Date();
+  @Exclude()
+  createdAt: number = Date.now();
 
-  @Property({ onUpdate: () => new Date() })
-  updatedAt: Date = new Date();
+  @Property({ onUpdate: () => Date.now() })
+  @Exclude()
+  updatedAt: number = Date.now();
 
   @Property({ unique: true })
   username: string;
@@ -22,6 +26,7 @@ export class User {
   email: string;
 
   @Property()
+  @Exclude()
   password: string;
 
   @Property()

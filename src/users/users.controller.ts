@@ -11,10 +11,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { UserTokenAuthGuard } from '../auth/user-token-auth.guard';
-import { StatusOk } from '../global/types/status.interface';
 import { UserRequest } from '../global/types/user-request.interface';
-import { cleanUser } from '../global/utils/clean-user';
-
+import { User } from './user.entity';
 
 @ApiTags('Users')
 @Controller('users')
@@ -24,11 +22,7 @@ export class UsersController {
   @ApiBearerAuth()
   @UseGuards(UserTokenAuthGuard)
   @Get()
-  public find(@Req() req: UserRequest): StatusOk {
-    return {
-      status: 'OK',
-      message: 'Data has been retrieved.',
-      user: cleanUser(req.user),
-    };
+  public find(@Req() req: UserRequest): User {
+    return req.user;
   }
 }

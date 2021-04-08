@@ -7,7 +7,7 @@ import { User } from '../../users/user.entity';
 import { UsersService } from '../../users/users.service';
 import { AuthController } from '../auth.controller';
 import { AuthService } from '../auth.service';
-import { mockedUser } from './__mocks__/user.mock';
+import { expectedUser, mockedUser } from './__mocks__/user.mock';
 
 describe('AuthController: Register', () => {
   let app: INestApplication;
@@ -43,17 +43,7 @@ describe('AuthController: Register', () => {
       })
       .expect(201)
       .expect(({ body }) => {
-        expect(body).toStrictEqual({
-          status: 'OK',
-          message: 'Account has been created.',
-          user: {
-            displayName: mockedUser.displayName,
-            username: mockedUser.username,
-            userId: expect.stringMatching(/[\w-]{10}/g),
-            token: expect.any(String),
-            email: mockedUser.email,
-          },
-        });
+        expect(body).toMatchObject(expectedUser);
     }));
 
   test('GIVEN only username THEN it responds with 400', async () =>
