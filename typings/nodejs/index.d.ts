@@ -6,12 +6,17 @@ declare namespace NodeJS {
       leadingUnderscore: 'forbid',
       trailingUnderscore: 'forbid',
     }] */
-    POSTGRES_HOST: string;
-    POSTGRES_PORT: string;
-    POSTGRES_USER: string;
-    POSTGRES_PASS: string;
-    POSTGRES_NAME: string;
+    MIKRO_ORM_HOST: string;
+    MIKRO_ORM_PORT: number;
+    MIKRO_ORM_PASSWORD: string;
+    MIKRO_ORM_DB_NAME: string;
 
+    POSTGRES_PASSWORD: string;
+
+    PGADMIN_DEFAULT_EMAIL: string;
+    PGADMIN_DEFAULT_PASSWORD: string;
+
+    PORT: number;
     NODE_ENV: string;
   }
 }
