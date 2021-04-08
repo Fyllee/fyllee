@@ -2,7 +2,7 @@ import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import type { AuthRegisterDto } from '../auth/dto/auth-register.dto';
-import type { UsernameEmail } from '../shared/types/username-email.interface';
+import type { UsernameEmail } from '../global/types/username-email.interface';
 import { User } from './user.entity';
 
 @Injectable()

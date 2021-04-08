@@ -11,9 +11,9 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { UserTokenAuthGuard } from '../auth/user-token-auth.guard';
-import { StatusOk } from '../shared/types/status.interface';
-import { UserRequest } from '../shared/types/user-request.interface';
-import { cleanUser } from '../shared/utils/clean-user';
+import { StatusOk } from '../global/types/status.interface';
+import { UserRequest } from '../global/types/user-request.interface';
+import { cleanUser } from '../global/utils/clean-user';
 
 
 @ApiTags('Users')

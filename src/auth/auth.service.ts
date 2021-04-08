@@ -5,7 +5,7 @@ import {
  Logger,
 } from '@nestjs/common';
 import bcrypt from 'bcrypt';
-import { PostgresErrorCode } from '../shared/types/postgres-error-code.enum';
+import { PostgresErrorCode } from '../global/types/postgres-error-code.enum';
 import type { User } from '../users/user.entity';
 import { UsersService } from '../users/users.service';
 import type { AuthLoginDto } from './dto/auth-login.dto';

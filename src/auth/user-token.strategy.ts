@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import type { Request } from 'express';
 import { Strategy } from 'passport-custom';
-import type { CleanUser } from '../shared/types/clean-user.interface';
+import type { CleanUser } from '../global/types/clean-user.interface';
 import { AuthService } from './auth.service';
 
 @Injectable()

@@ -14,9 +14,9 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { StatusOk } from '../shared/types/status.interface';
-import { UserRequest } from '../shared/types/user-request.interface';
-import { cleanUser } from '../shared/utils/clean-user';
+import { StatusOk } from '../global/types/status.interface';
+import { UserRequest } from '../global/types/user-request.interface';
+import { cleanUser } from '../global/utils/clean-user';
 import { AuthService } from './auth.service';
 import { AuthRegisterDto } from './dto/auth-register.dto';
 import { LocalAuthGuard } from './local-auth.guard';

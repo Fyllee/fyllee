@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
-import type { CleanUser } from '../shared/types/clean-user.interface';
+import type { CleanUser } from '../global/types/clean-user.interface';
 import { AuthService } from './auth.service';
 
 @Injectable()
