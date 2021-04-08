@@ -63,6 +63,7 @@ $ npx mikro-orm schema:create --run
 
 You can launch Bild either in development mode or in production mode. Server will be launched on `localhost:5000`,
 unless you add `PORT=your port` in the your environment variables.
+You must use Node.js v10.17+, v12+, v14+, but not v15 (or odd-numbered versions in general).
 
 **Development**
 

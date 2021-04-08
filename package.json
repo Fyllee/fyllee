@@ -89,7 +89,7 @@
     "webpack-node-externals": "^2.5.2"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=10.17.0 <15.0.0"
   },
   "mikro-orm": {
     "useTsNode": true,
@@ -97,5 +97,9 @@
       "./src/mikro-orm.config.ts",
       "./dist/mikro-orm.config.js"
     ]
+  },
+  "volta": {
+    "node": "14.16.1",
+    "npm": "6.14.12"
   }
 }
