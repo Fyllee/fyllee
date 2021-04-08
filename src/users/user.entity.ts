@@ -13,11 +13,11 @@ export class User {
 
   @Property()
   @Exclude()
-  createdAt: number = Date.now();
+  createdAt: Date = new Date();
 
-  @Property({ onUpdate: () => Date.now() })
+  @Property({ onUpdate: () => new Date() })
   @Exclude()
-  updatedAt: number = Date.now();
+  updatedAt: Date = new Date();
 
   @Property({ unique: true })
   username: string;

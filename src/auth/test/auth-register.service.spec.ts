@@ -50,6 +50,6 @@ describe('AuthService: Register', () => {
       email: mockedUser.email,
       password: mockedUser.password,
     });
-    expect(user).toMatchObject(expectedUser);
+    expect(user).toMatchObject({ ...expectedUser, createdAt: expect.any(Date), updatedAt: expect.any(Date) });
   });
 });
