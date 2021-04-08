@@ -15,7 +15,7 @@
     "build": "nest build",
     "dev": "npm run start:dev",
     "start": "NODE_ENV=production nest start",
-    "start:dev": "NODE_ENV=development nest build --webpack --webpackPath webpack-hmr.config.ts --watch",
+    "start:dev": "NODE_ENV=development nest build --webpack --webpackPath webpack-hmr.config.js --watch",
     "start:dev-slow": "NODE_ENV=development nest start --watch",
     "start:debug": "NODE_ENV=development nest start --debug --watch",
     "start:prod": "NODE_ENV=production node dist/main",

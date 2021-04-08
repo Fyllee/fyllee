@@ -1,9 +1,8 @@
-import { RunScriptWebpackPlugin } from 'run-script-webpack-plugin';
-import type { Configuration } from 'webpack';
-import nodeExternals from 'webpack-node-externals';
+const { RunScriptWebpackPlugin } = require('run-script-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default (options, webpack): Configuration => ({
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+module.exports = (options, webpack) => ({
   ...options,
   entry: ['webpack/hot/poll?100', options.entry],
   externals: [

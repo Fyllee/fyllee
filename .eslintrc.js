@@ -82,6 +82,7 @@ module.exports = {
     rules: {
       'import/no-commonjs': 'off',
       'node/no-unpublished-import': 'off',
+      'node/no-unpublished-require': 'off',
       'import/no-extraneous-dependencies': 'off',
     },
   }],
