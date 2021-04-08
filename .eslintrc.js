@@ -80,6 +80,7 @@ module.exports = {
   }, {
     files: ['*.config.ts', '*.config.js'],
     rules: {
+      'import/no-commonjs': 'off',
       'node/no-unpublished-import': 'off',
       'import/no-extraneous-dependencies': 'off',
     },

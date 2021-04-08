@@ -5,7 +5,8 @@
     "./test/**/*.ts",
     "**/*.d.ts",
     ".*rc.js",
-    "*.config.(js|ts)",
+    "*.config.js",
+    "*.config.ts",
   ],
   "exclude": [],
 }
