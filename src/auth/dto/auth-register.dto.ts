@@ -4,7 +4,6 @@ import {
   IsEmail,
   IsLowercase,
   Length,
-  NotContains,
 } from 'class-validator';
 
 export class AuthRegisterDto {
@@ -19,7 +18,6 @@ export class AuthRegisterDto {
   email: string;
 
   @ApiProperty({ required: true, example: 'demo123' })
-  @NotContains(' ', { message: 'password should not contain a space' })
   @Length(6, 100)
   password: string;
 }
