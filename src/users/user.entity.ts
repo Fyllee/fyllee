@@ -1,6 +1,14 @@
-import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
+import {
+ Collection,
+ Entity,
+ OneToMany,
+ PrimaryKey,
+ Property,
+ Unique,
+} from '@mikro-orm/core';
 import { Exclude, Expose } from 'class-transformer';
 import { nanoid } from 'nanoid';
+import type { Application } from '../applications/application.entity';
 
 @Entity()
 export class User {
@@ -19,10 +27,12 @@ export class User {
   @Exclude()
   updatedAt: Date = new Date();
 
-  @Property({ unique: true })
+  @Property()
+  @Unique()
   username: string;
 
-  @Property({ unique: true })
+  @Property()
+  @Unique()
   email: string;
 
   @Property()
@@ -31,6 +41,10 @@ export class User {
 
   @Property()
   displayName: string;
+
+  @OneToMany('Application', 'owner')
+  @Exclude()
+  applications = new Collection<Application>(this);
 
   constructor(username: string, email: string, password: string) {
     this.username = username;

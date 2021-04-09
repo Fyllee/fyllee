@@ -67,11 +67,9 @@ You must use Node.js v10.17+, v12+, v14+, but not v15 (or odd-numbered versions 
 
 **Development**
 
-You can use the `start:dev` (or `dev`) script to launch the app, with Webpack's HMR. If you which to launch the app
-without HMR, you can run `start:dev-slow`.
+You can use the `start:dev` (or `dev`) script to launch the app. It will automatically recompile whenever you save a file.
 ```bash
 $ npm run start:dev # or npm run dev
-$ npm run start:dev-slow # Without HMR
 ```
 
 **Production**

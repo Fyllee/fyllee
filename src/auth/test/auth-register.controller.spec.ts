@@ -83,7 +83,6 @@ describe('AuthController: Register', () => {
         statusCode: 400,
         message: [
           'username must be a lowercase string',
-          'username must contain only letters and numbers',
           'email must be an email',
           'password must be longer than or equal to 6 characters',
         ],
