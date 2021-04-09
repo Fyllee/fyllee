@@ -4,6 +4,7 @@ import {
  OneToMany,
  PrimaryKey,
  Property,
+ Unique,
 } from '@mikro-orm/core';
 import { Exclude, Expose } from 'class-transformer';
 import { nanoid } from 'nanoid';
@@ -26,10 +27,12 @@ export class User {
   @Exclude()
   updatedAt: Date = new Date();
 
-  @Property({ unique: true })
+  @Property()
+  @Unique()
   username: string;
 
-  @Property({ unique: true })
+  @Property()
+  @Unique()
   email: string;
 
   @Property()
@@ -40,6 +43,7 @@ export class User {
   displayName: string;
 
   @OneToMany('Application', 'owner')
+  @Exclude()
   applications = new Collection<Application>(this);
 
   constructor(username: string, email: string, password: string) {
