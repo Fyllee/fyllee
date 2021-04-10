@@ -4,6 +4,7 @@
 # Miscellaneous
 /temp
 /open-api
+/uploads
 
 # Compiled output
 /dist/

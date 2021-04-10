@@ -13,7 +13,7 @@ export class UserTokenStrategy extends PassportStrategy(Strategy, 'user-token') 
 
   public async validate(req: Request): Promise<CleanUser> {
     if (req.headers.authorization)
-      return await this.authService.loginWithToken({ token: req.headers.authorization });
+      return await this.authService.loginUserWithToken({ token: req.headers.authorization });
     throw new BadRequestException('No Authorization header');
   }
 }

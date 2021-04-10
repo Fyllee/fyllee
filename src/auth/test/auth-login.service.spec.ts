@@ -91,7 +91,7 @@ describe('AuthService: Login (user-token)', () => {
 
   test('GIVEN invalid token THEN it throws BadRequestException', async () => {
     try {
-      await authService.loginWithToken({ token: 'invalid-token' });
+      await authService.loginUserWithToken({ token: 'invalid-token' });
       throw new Error('BadRequestException was not thrown.');
     } catch (error: unknown) {
       expect(error).toBeInstanceOf(BadRequestException);
@@ -102,7 +102,7 @@ describe('AuthService: Login (user-token)', () => {
 
   test('GIVEN unknown token THEN it throws BadRequestException', async () => {
     try {
-      await authService.loginWithToken({ token: 'bearer unknown-token' });
+      await authService.loginUserWithToken({ token: 'bearer unknown-token' });
       throw new Error('BadRequestException was not thrown.');
     } catch (error: unknown) {
       expect(error).toBeInstanceOf(BadRequestException);
@@ -112,7 +112,7 @@ describe('AuthService: Login (user-token)', () => {
   });
 
   test('GIVEN correct logins THEN it returns user', async () => {
-    const user = await authService.loginWithToken({ token: `bearer ${mockedUser.token}` });
+    const user = await authService.loginUserWithToken({ token: `bearer ${mockedUser.token}` });
     expect(user).toBe(mockedUser);
   });
 });

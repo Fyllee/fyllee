@@ -5,9 +5,12 @@ import {
  Logger,
 } from '@nestjs/common';
 import bcrypt from 'bcrypt';
+import type { Application } from '../applications/application.entity';
+import { ApplicationsService } from '../applications/applications.service';
 import { PostgresErrorCode } from '../global/types/postgres-error-code.enum';
 import type { User } from '../users/user.entity';
 import { UsersService } from '../users/users.service';
+import type { AuthApplicationTokenDto } from './dto/auth-application-token.dto';
 import type { AuthLoginDto } from './dto/auth-login.dto';
 import type { AuthRegisterDto } from './dto/auth-register.dto';
 import type { AuthUserTokenDto } from './dto/auth-user-token.dto';
@@ -18,6 +21,7 @@ export class AuthService {
 
   constructor(
     private readonly usersService: UsersService,
+    private readonly applicationsService: ApplicationsService,
   ) {}
 
   public async login(dto: AuthLoginDto): Promise<User> {
@@ -32,7 +36,7 @@ export class AuthService {
     return user;
   }
 
-  public async loginWithToken(dto: AuthUserTokenDto): Promise<User> {
+  public async loginUserWithToken(dto: AuthUserTokenDto): Promise<User> {
     const token = this.extractToken(dto.token);
     if (!token)
       throw new BadRequestException('Invalid token');
@@ -42,6 +46,18 @@ export class AuthService {
       throw new BadRequestException('Unknown user');
 
     return user;
+  }
+
+  public async loginApplicationWithToken(dto: AuthApplicationTokenDto): Promise<Application> {
+    const token = this.extractToken(dto.token);
+    if (!token)
+      throw new BadRequestException('Invalid token');
+
+    const application = await this.applicationsService.findOneByToken(token);
+    if (!application)
+      throw new BadRequestException('Unknown application');
+
+    return application;
   }
 
   public async register(dto: AuthRegisterDto): Promise<User> {
