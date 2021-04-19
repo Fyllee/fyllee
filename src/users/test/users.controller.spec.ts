@@ -3,6 +3,8 @@ import { ValidationPipe } from '@nestjs/common';
 import type { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
+import { Application } from '../../applications/application.entity';
+import { ApplicationsService } from '../../applications/applications.service';
 import { AuthService } from '../../auth/auth.service';
 import { expectedUser, mockedUser, password } from '../../auth/test/__mocks__/user.mock';
 import { UserTokenStrategy } from '../../auth/user-token.strategy';
@@ -17,8 +19,9 @@ describe('UsersController: Login', () => {
     const moduleFixture = await Test.createTestingModule({
       controllers: [UsersController],
       providers: [
-        UsersService,
+        ApplicationsService,
         AuthService,
+        UsersService,
         UserTokenStrategy,
         {
           provide: getRepositoryToken(User),
@@ -26,6 +29,10 @@ describe('UsersController: Login', () => {
             findOne: (param: Partial<User>): User | null =>
               (param.token === mockedUser.token ? { ...mockedUser, password } : null),
           },
+        },
+        {
+          provide: getRepositoryToken(Application),
+          useValue: {},
         },
       ],
     }).compile();

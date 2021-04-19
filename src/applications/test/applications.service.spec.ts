@@ -1,4 +1,4 @@
-import { getRepositoryToken, MikroOrmModule } from '@mikro-orm/nestjs';
+import { getRepositoryToken } from '@mikro-orm/nestjs';
 import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing';
 import { AuthService } from '../../auth/auth.service';
@@ -10,12 +10,11 @@ import { Application } from '../application.entity';
 import { ApplicationsService } from '../applications.service';
 import { mockedApplication } from './__mocks__/application.mock';
 
-describe.skip('ApplicationsService', () => {
+describe('ApplicationsService', () => {
   let service: ApplicationsService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [MikroOrmModule.forFeature([Application, User])],
       providers: [
         AuthService,
         ApplicationsService,
