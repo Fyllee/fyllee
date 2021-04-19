@@ -1,12 +1,16 @@
 import {
+  Cascade,
+  Collection,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryKey,
   Property,
   Unique,
 } from '@mikro-orm/core';
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { nanoid } from 'nanoid';
+import type { Content } from '../contents/content.entity';
 import { User } from '../users/user.entity';
 
 @Entity()
@@ -44,6 +48,10 @@ export class Application {
   @ManyToOne()
   @Transform(({ value }) => value.userId)
   owner!: User;
+
+  @OneToMany('Content', 'application', { cascade: [Cascade.REMOVE] })
+  @Exclude()
+  contents = new Collection<Content>(this);
 
   constructor(owner: User, name: string, website = '', description = '') {
     this.owner = owner;

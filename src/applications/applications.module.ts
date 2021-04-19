@@ -10,8 +10,13 @@ import { ApplicationsService } from './applications.service';
 
 @Module({
   imports: [MikroOrmModule.forFeature([Application, User])],
-  providers: [ApplicationsService, AuthService, UsersService, UserTokenStrategy],
-  exports: [ApplicationsService],
+  providers: [
+    ApplicationsService,
+    AuthService,
+    UsersService,
+    UserTokenStrategy,
+  ],
   controllers: [ApplicationsController],
+  exports: [ApplicationsService],
 })
 export class ApplicationsModule {}

@@ -1,3 +1,4 @@
+import { promises as fs } from 'fs';
 import { EntityRepository, UniqueConstraintViolationException, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import {
@@ -25,6 +26,7 @@ export class ApplicationsService {
 
     try {
       const app = new Application(user, dto.name, dto.website, dto.description);
+      await fs.mkdir(`./uploads/${app.applicationId}`);
       await this.applicationRepository.persistAndFlush(app);
       return app;
     } catch (error: unknown) {
@@ -43,6 +45,10 @@ export class ApplicationsService {
     if (!app)
       throw new NotFoundException('Application not found');
     return app;
+  }
+
+  public async findOneByToken(token: string): Promise<Application | null> {
+    return await this.applicationRepository.findOne({ token });
   }
 
   public async update(applicationId: string, dto: UpdateApplicationDto): Promise<Application> {

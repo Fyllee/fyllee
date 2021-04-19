@@ -1,25 +1,31 @@
 import { getRepositoryToken } from '@mikro-orm/nestjs';
+import { ConfigService } from '@nestjs/config';
 import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing';
+import { Application } from '../../applications/application.entity';
+import { ApplicationsService } from '../../applications/applications.service';
+import { mockedApplication } from '../../applications/test/__mocks__/application.mock';
+import { ApplicationTokenStrategy } from '../../auth/application-token.strategy';
 import { AuthService } from '../../auth/auth.service';
 import { mockedUser } from '../../auth/test/__mocks__/user.mock';
-import { UserTokenStrategy } from '../../auth/user-token.strategy';
 import { User } from '../../users/user.entity';
 import { UsersService } from '../../users/users.service';
-import { Application } from '../application.entity';
-import { ApplicationsService } from '../applications.service';
-import { mockedApplication } from './__mocks__/application.mock';
+import { Content } from '../content.entity';
+import { ContentsService } from '../contents.service';
+import { mockedContent } from './__mocks__/content.mock';
 
-describe('ApplicationsService', () => {
-  let service: ApplicationsService;
+describe('ContentService', () => {
+  let service: ContentsService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        AuthService,
         ApplicationsService,
+        ApplicationTokenStrategy,
+        AuthService,
+        ConfigService,
+        ContentsService,
         UsersService,
-        UserTokenStrategy,
         {
           provide: getRepositoryToken(User),
           useValue: {
@@ -36,13 +42,21 @@ describe('ApplicationsService', () => {
             persistAndFlush: jest.fn(),
           },
         },
+        {
+          provide: getRepositoryToken(Content),
+          useValue: {
+            findOne: (param: Partial<Content>): Content | null =>
+              (param.contentId === mockedContent.contentId ? mockedContent : null),
+            persistAndFlush: jest.fn(),
+          },
+        },
       ],
     }).compile();
 
-    service = module.get(ApplicationsService);
+    service = module.get(ContentsService);
   });
 
-  test('should be defined', () => {
+  it('should be defined', () => {
     expect(service).toBeDefined();
   });
 });

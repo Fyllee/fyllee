@@ -3,10 +3,14 @@ import type { INestApplication } from '@nestjs/common';
 import { ValidationPipe } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
+import { Application } from '../../applications/application.entity';
+import { ApplicationsService } from '../../applications/applications.service';
 import { User } from '../../users/user.entity';
 import { UsersService } from '../../users/users.service';
 import { AuthController } from '../auth.controller';
 import { AuthService } from '../auth.service';
+import { LocalStrategy } from '../local.strategy';
+import { UserTokenStrategy } from '../user-token.strategy';
 import { expectedUser, mockedUser } from './__mocks__/user.mock';
 
 describe('AuthController: Register', () => {
@@ -16,12 +20,22 @@ describe('AuthController: Register', () => {
     const moduleFixture = await Test.createTestingModule({
       controllers: [AuthController],
       providers: [
-        UsersService,
+        ApplicationsService,
         AuthService,
+        LocalStrategy,
+        UsersService,
+        UserTokenStrategy,
         {
           provide: getRepositoryToken(User),
           useValue: {
             create: jest.fn().mockResolvedValue(mockedUser),
+            findOne: jest.fn(),
+            persistAndFlush: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(Application),
+          useValue: {
             findOne: jest.fn(),
             persistAndFlush: jest.fn(),
           },

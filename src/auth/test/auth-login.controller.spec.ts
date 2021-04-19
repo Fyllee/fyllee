@@ -4,11 +4,15 @@ import type { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import bcrypt from 'bcrypt';
 import request from 'supertest';
+import { Application } from '../../applications/application.entity';
+import { ApplicationsService } from '../../applications/applications.service';
+import { mockedApplication } from '../../applications/test/__mocks__/application.mock';
 import { User } from '../../users/user.entity';
 import { UsersService } from '../../users/users.service';
 import { AuthController } from '../auth.controller';
 import { AuthService } from '../auth.service';
 import { LocalStrategy } from '../local.strategy';
+import { UserTokenStrategy } from '../user-token.strategy';
 import { expectedUser, mockedUser, password } from './__mocks__/user.mock';
 
 jest.mock('bcrypt');
@@ -22,14 +26,24 @@ describe('AuthController: Login', () => {
     const moduleFixture = await Test.createTestingModule({
       controllers: [AuthController],
       providers: [
-        UsersService,
+        ApplicationsService,
         AuthService,
         LocalStrategy,
+        UsersService,
+        UserTokenStrategy,
         {
           provide: getRepositoryToken(User),
           useValue: {
             findOne: (param: Partial<User>): User | null =>
               (param.username === mockedUser.username ? { ...mockedUser, password } : null),
+            persistAndFlush: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(Application),
+          useValue: {
+            findOne: (param: Partial<Application>): Application | null =>
+              (param.name === mockedApplication.name ? mockedApplication : null),
             persistAndFlush: jest.fn(),
           },
         },

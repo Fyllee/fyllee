@@ -1,8 +1,11 @@
 import { BadRequestException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
+import { ApplicationsService } from '../../applications/applications.service';
 import { User } from '../../users/user.entity';
 import { UsersService } from '../../users/users.service';
 import { AuthService } from '../auth.service';
+import { LocalStrategy } from '../local.strategy';
+import { UserTokenStrategy } from '../user-token.strategy';
 import { expectedUser, mockedUser } from './__mocks__/user.mock';
 
 describe('AuthService: Register', () => {
@@ -13,8 +16,11 @@ describe('AuthService: Register', () => {
     userExists = jest.fn().mockReturnValue(null);
     const moduleFixture = await Test.createTestingModule({
       providers: [
-        UsersService,
+        ApplicationsService,
         AuthService,
+        LocalStrategy,
+        UsersService,
+        UserTokenStrategy,
         {
           provide: UsersService,
           useValue: {
@@ -22,6 +28,10 @@ describe('AuthService: Register', () => {
             create: ({ username, email, password }: { username: string; email: string; password: string }): User =>
               new User(username, email, password),
           },
+        },
+        {
+          provide: ApplicationsService,
+          useValue: {},
         },
       ],
     }).compile();

@@ -19,6 +19,8 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/prefer-default-export': 'off',
     'node/no-extraneous-import': ['error', { allowModules: ['express'] }],
+    'node/callback-return': 'off',
+    'import/no-extraneous-dependencies': 'off',
     // Forbid leading underscore for private properties (in nest almost all if not all class properties are private,
     // adding the underscore just impacts readability.)
     '@typescript-eslint/naming-convention': [
