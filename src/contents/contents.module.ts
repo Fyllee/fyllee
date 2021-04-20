@@ -5,6 +5,7 @@ import { Application } from '../applications/application.entity';
 import { ApplicationsService } from '../applications/applications.service';
 import { ApplicationTokenStrategy } from '../auth/application-token.strategy';
 import { AuthService } from '../auth/auth.service';
+import { ImageFilterService } from '../image-filter/image-filter.service';
 import { User } from '../users/user.entity';
 import { UsersService } from '../users/users.service';
 import { Content } from './content.entity';
@@ -19,6 +20,7 @@ import { ContentsService } from './contents.service';
     AuthService,
     ConfigService,
     ContentsService,
+    ImageFilterService,
     UsersService,
   ],
   controllers: [ContentsController],

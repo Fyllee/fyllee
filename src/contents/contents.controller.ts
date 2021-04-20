@@ -6,6 +6,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   Req,
   Res,
   UploadedFile,
@@ -21,20 +22,21 @@ import {
   ApiPayloadTooLargeResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import type { Request } from 'express';
-import { Express, Response } from 'express';
+import { Express, Request, Response } from 'express';
 import { ApplicationTokenAuthGuard } from '../auth/application-token-auth.guard';
 import { Public } from '../global/decorators/public.decorator';
-import mime from '../global/mime-type';
+import mimeType from '../global/mime-type';
 import { ApplicationRequest } from '../global/types/application-request.interface';
 import type { ContentInformation } from '../global/types/content-information.interface';
+import { ParsedQs } from '../global/types/filter-names.type';
+import { ImageFilterService } from '../image-filter/image-filter.service';
 import type { Content } from './content.entity';
 import { ContentsService } from './contents.service';
 
 type FilterCallback = (error: Error | null, acceptFile: boolean) => void;
 const fileFilter = (_req: Request, file: Express.Multer.File, cb: FilterCallback): void => {
   const extension = path.extname(file.originalname).replace('.', '');
-  if (mime.lookup(extension))
+  if (mimeType.lookup(extension))
     cb(null, true);
   else
     cb(new BadRequestException('Invalid file type'), false);
@@ -45,6 +47,7 @@ const fileFilter = (_req: Request, file: Express.Multer.File, cb: FilterCallback
 export class ContentsController {
   constructor(
     private readonly contentService: ContentsService,
+    private readonly imageFilterService: ImageFilterService,
   ) {}
 
   @ApiCreatedResponse({ description: 'Returns CREATED if the creation succeeded and the data was sent back correctly' })
@@ -73,9 +76,21 @@ export class ContentsController {
   @ApiNotFoundResponse({ description: 'Returns NOT_FOUND if no file with the given ID is found' })
   @Public()
   @Get(':id')
-  public async findOne(@Param('id') id: string, @Res() res: Response): Promise<void> {
+  public async findOne(@Param('id') id: string, @Query() query: ParsedQs, @Res() res: Response): Promise<void> {
     const content = await this.contentService.findOne(id);
-    res.sendFile(`${content.application.applicationId}/${content.savedName}`, { root: 'uploads' });
+
+    if (content.mimeType.split('/')[0] !== 'image') {
+      res.sendFile(`${content.application.applicationId}/${content.savedName}`, { root: 'uploads' });
+      return;
+    }
+
+    // TODO: Parse & validate queries with pipes and DTOs?
+    const requestedFilters = this.imageFilterService.parseQueries(query);
+    // TODO: Put the image process job in a queue?
+    const modifiedImage = await this.imageFilterService.modifyImage(content, requestedFilters);
+
+    res.set('Content-Type', content.mimeType);
+    res.send(modifiedImage);
   }
 
   @ApiOkResponse({ description: 'Returns OK if the file was sent back correctly' })
