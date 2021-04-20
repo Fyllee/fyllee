@@ -1,4 +1,5 @@
 import { promises as fs } from 'fs';
+import path from 'path';
 import { EntityRepository, UniqueConstraintViolationException, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import {
@@ -7,6 +8,7 @@ import {
  NotFoundException,
  UnauthorizedException,
 } from '@nestjs/common';
+import { Content } from '../contents/content.entity';
 import { User } from '../users/user.entity';
 import { Application } from './application.entity';
 import type { CreateApplicationDto } from './dto/create-application.dto';
@@ -17,6 +19,7 @@ export class ApplicationsService {
   constructor(
     @InjectRepository(User) private readonly userRepository: EntityRepository<User>,
     @InjectRepository(Application) private readonly applicationRepository: EntityRepository<Application>,
+    @InjectRepository(Content) private readonly contentRepository: EntityRepository<Content>,
   ) {}
 
   public async create(userId: string, dto: CreateApplicationDto): Promise<Application> {
@@ -63,6 +66,13 @@ export class ApplicationsService {
   }
 
   public async removeOne(applicationId: string): Promise<void> {
-    await this.applicationRepository.nativeDelete({ applicationId });
+    const application = await this.applicationRepository.findOne({ applicationId });
+    if (!application)
+      throw new NotFoundException('Application not found');
+
+    await fs.rmdir(path.join(path.resolve('./'), 'uploads', application.applicationId), { recursive: true });
+
+    await this.contentRepository.nativeDelete({ application: { applicationId } });
+    await this.applicationRepository.removeAndFlush(application);
   }
 }

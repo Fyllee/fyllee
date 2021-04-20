@@ -4,12 +4,13 @@ import { Application } from '../applications/application.entity';
 import { ApplicationsService } from '../applications/applications.service';
 import { AuthService } from '../auth/auth.service';
 import { UserTokenStrategy } from '../auth/user-token.strategy';
+import { Content } from '../contents/content.entity';
 import { User } from './user.entity';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 
 @Module({
-  imports: [MikroOrmModule.forFeature([Application, User])],
+  imports: [MikroOrmModule.forFeature([Application, Content, User])],
   providers: [
     ApplicationsService,
     AuthService,

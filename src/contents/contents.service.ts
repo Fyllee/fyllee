@@ -1,4 +1,5 @@
 import { promises as fs } from 'fs';
+import path from 'path';
 import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import {
@@ -30,7 +31,10 @@ export class ContentsService {
       throw new UnauthorizedException('Invalid token');
 
     const content = new Content(application, file.originalname, file.size);
-    await fs.writeFile(`./uploads/${application.applicationId}/${content.savedName}`, file.buffer);
+    await fs.writeFile(
+      path.join(path.resolve('./'), 'uploads', application.applicationId, content.savedName),
+      file.buffer,
+    );
 
     await this.contentRepository.persistAndFlush(content);
     return content;
@@ -55,6 +59,13 @@ export class ContentsService {
   }
 
   public async removeOne(contentId: string): Promise<void> {
-    await this.contentRepository.nativeDelete({ contentId });
+    const content = await this.contentRepository.findOne({ contentId });
+    if (!content)
+      throw new NotFoundException('Content not found');
+
+    this.contentRepository.remove(content);
+    await this.contentRepository.flush();
+
+    await fs.rm(path.join(path.resolve('./'), 'uploads', content.application.applicationId, content.savedName));
   }
 }
