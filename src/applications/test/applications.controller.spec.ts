@@ -4,6 +4,7 @@ import { Test } from '@nestjs/testing';
 import { AuthService } from '../../auth/auth.service';
 import { mockedUser } from '../../auth/test/__mocks__/user.mock';
 import { UserTokenStrategy } from '../../auth/user-token.strategy';
+import { Content } from '../../contents/content.entity';
 import { User } from '../../users/user.entity';
 import { UsersService } from '../../users/users.service';
 import { Application } from '../application.entity';
@@ -37,6 +38,10 @@ describe('ApplicationsController', () => {
               (param.name === mockedApplication.name ? mockedApplication : null),
             persistAndFlush: jest.fn(),
           },
+        },
+        {
+          provide: getRepositoryToken(Content),
+          useValue: {},
         },
       ],
     }).compile();

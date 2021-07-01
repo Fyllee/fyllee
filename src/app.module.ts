@@ -6,6 +6,7 @@ import { ApplicationsModule } from './applications/applications.module';
 import { AuthModule } from './auth/auth.module';
 import config from './config';
 import { ContentsModule } from './contents/contents.module';
+import { ImageFilterModule } from './image-filter/image-filter.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -21,6 +22,7 @@ import { UsersModule } from './users/users.module';
     ApplicationsModule,
     AuthModule,
     ContentsModule,
+    ImageFilterModule,
     UsersModule,
   ],
 })

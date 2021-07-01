@@ -8,6 +8,7 @@ import { mockedApplication } from '../../applications/test/__mocks__/application
 import { ApplicationTokenStrategy } from '../../auth/application-token.strategy';
 import { AuthService } from '../../auth/auth.service';
 import { mockedUser } from '../../auth/test/__mocks__/user.mock';
+import { ImageFilterService } from '../../image-filter/image-filter.service';
 import { User } from '../../users/user.entity';
 import { UsersService } from '../../users/users.service';
 import { Content } from '../content.entity';
@@ -27,6 +28,7 @@ describe('ContentController', () => {
         AuthService,
         ConfigService,
         ContentsService,
+        ImageFilterService,
         UsersService,
         {
           provide: getRepositoryToken(User),
