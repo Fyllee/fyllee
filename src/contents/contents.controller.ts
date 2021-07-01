@@ -1,4 +1,3 @@
-import path from 'path';
 import {
   BadRequestException,
   Controller,
@@ -16,32 +15,29 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiConsumes,
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiPayloadTooLargeResponse,
+  ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { Express, Request, Response } from 'express';
+import { Express, Response } from 'express';
 import { ApplicationTokenAuthGuard } from '../auth/application-token-auth.guard';
 import { Public } from '../global/decorators/public.decorator';
 import mimeType from '../global/mime-type';
 import { ApplicationRequest } from '../global/types/application-request.interface';
 import type { ContentInformation } from '../global/types/content-information.interface';
 import { ParsedQs } from '../global/types/filter-names.type';
+import { fileFilter } from '../global/utils';
 import { ImageFilterService } from '../image-filter/image-filter.service';
 import type { Content } from './content.entity';
 import { ContentsService } from './contents.service';
 
-type FilterCallback = (error: Error | null, acceptFile: boolean) => void;
-const fileFilter = (_req: Request, file: Express.Multer.File, cb: FilterCallback): void => {
-  const extension = path.extname(file.originalname).replace('.', '');
-  if (mimeType.lookup(extension))
-    cb(null, true);
-  else
-    cb(new BadRequestException('Invalid file type'), false);
-};
-
+@ApiTags('Contents')
+@ApiBearerAuth()
 @UseGuards(ApplicationTokenAuthGuard)
 @Controller('contents')
 export class ContentsController {
@@ -54,6 +50,7 @@ export class ContentsController {
   @ApiBadRequestResponse({ description: 'Returns BAD_REQUEST if no Authorization header was provided, or if no file was provided, or if the file type is invalid' })
   @ApiUnauthorizedResponse({ description: 'Returns UNAUTHORIZE if the provided Authorization header is invalid' })
   @ApiPayloadTooLargeResponse({ description: "Returns PAYLOAD_TOO_LARGE if the given file's size exceeds the maximum limit" })
+  @ApiConsumes(...Object.values(mimeType.types))
   @UseInterceptors(FileInterceptor('file', { limits: { files: 1 }, fileFilter }))
   @Post()
   public async create(
