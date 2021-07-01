@@ -1,45 +1,27 @@
 import path from 'path';
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import type { Sharp } from 'sharp';
 import sharp from 'sharp';
 import type { Content } from '../contents/content.entity';
-import type { Filters, ParsedQs } from '../global/types/filter-names.type';
-import {
-  floatOrUndefined,
-  intOrUndefined,
-  notUndef,
-  validateNumber,
-} from '../global/utils';
+import type { GetContentDto } from '../contents/get-content.dto';
+import { notUndef, validateNumber } from '../global/utils';
 
 @Injectable()
 export class ImageFilterService {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  public static readonly MAX_PIXEL_SIZE = 10_000;
+  constructor(
+    private readonly configService: ConfigService,
+  ) {}
 
-  public parseQueries(queries: ParsedQs): Filters {
-    return {
-      blur: intOrUndefined(queries.blur),
-      pixelate: intOrUndefined(queries.pixelate),
-      opacity: intOrUndefined(queries.opacity),
-      contrast: floatOrUndefined(queries.contrast),
-      rotate: intOrUndefined(queries.rotate),
-      greyscale: String(queries.greyscale) === 'true',
-      sepia: String(queries.sepia) === 'true',
-      opaque: String(queries.opaque) === 'true',
-      mirror: String(queries.mirror),
-      width: intOrUndefined(queries.width),
-      height: intOrUndefined(queries.height),
-    };
-  }
-
-  public async modifyImage(image: Content, requestedFilters: Partial<Filters>): Promise<Buffer> {
+  public async modifyImage(image: Content, requestedFilters: Partial<GetContentDto>): Promise<Buffer> {
     let sharpImage = this.getSharpImage(image);
+    const maxPixelSize = this.configService.get<number>('maxPixelSize');
 
-    if (notUndef(requestedFilters.blur) && validateNumber(requestedFilters.blur, 1, ImageFilterService.MAX_PIXEL_SIZE))
+    if (notUndef(requestedFilters.blur) && validateNumber(requestedFilters.blur, 1, maxPixelSize))
       sharpImage.blur(requestedFilters.blur);
 
     if (notUndef(requestedFilters.pixelate)
-      && validateNumber(requestedFilters.pixelate, 1, ImageFilterService.MAX_PIXEL_SIZE)) {
+      && validateNumber(requestedFilters.pixelate, 1, maxPixelSize)) {
       const { width, height } = await sharpImage.metadata();
       if (width) {
         sharpImage = sharp(

@@ -1,3 +1,4 @@
+import { ConfigService } from '@nestjs/config';
 import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing';
 import { ImageFilterService } from '../image-filter.service';
@@ -7,7 +8,7 @@ describe('ImageFilterService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ImageFilterService],
+      providers: [ImageFilterService, ConfigService],
     }).compile();
 
     service = module.get(ImageFilterService);

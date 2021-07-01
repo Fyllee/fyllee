@@ -11,6 +11,8 @@ import {
   UploadedFile,
   UseGuards,
   UseInterceptors,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
@@ -30,11 +32,11 @@ import { Public } from '../global/decorators/public.decorator';
 import mimeType from '../global/mime-type';
 import { ApplicationRequest } from '../global/types/application-request.interface';
 import type { ContentInformation } from '../global/types/content-information.interface';
-import { ParsedQs } from '../global/types/filter-names.type';
 import { fileFilter } from '../global/utils';
 import { ImageFilterService } from '../image-filter/image-filter.service';
 import type { Content } from './content.entity';
 import { ContentsService } from './contents.service';
+import { GetContentDto } from './get-content.dto';
 
 @ApiTags('Contents')
 @ApiBearerAuth()
@@ -72,8 +74,9 @@ export class ContentsController {
   @ApiOkResponse({ description: 'Returns OK if the file was sent back correctly' })
   @ApiNotFoundResponse({ description: 'Returns NOT_FOUND if no file with the given ID is found' })
   @Public()
+  @UsePipes(new ValidationPipe({ transform: true, transformOptions: { enableImplicitConversion: true } }))
   @Get(':id')
-  public async findOne(@Param('id') id: string, @Query() query: ParsedQs, @Res() res: Response): Promise<void> {
+  public async findOne(@Param('id') id: string, @Query() query: GetContentDto, @Res() res: Response): Promise<void> {
     const content = await this.contentService.findOne(id);
 
     if (content.mimeType.split('/')[0] !== 'image') {
@@ -81,10 +84,8 @@ export class ContentsController {
       return;
     }
 
-    // TODO: Parse & validate queries with pipes and DTOs?
-    const requestedFilters = this.imageFilterService.parseQueries(query);
     // TODO: Put the image process job in a queue?
-    const modifiedImage = await this.imageFilterService.modifyImage(content, requestedFilters);
+    const modifiedImage = await this.imageFilterService.modifyImage(content, query);
 
     res.set('Content-Type', content.mimeType);
     res.send(modifiedImage);
