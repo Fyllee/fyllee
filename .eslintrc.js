@@ -14,13 +14,16 @@ module.exports = {
   },
   rules: {
     'class-methods-use-this': 'off',
-    '@typescript-eslint/no-extraneous-class': ['error', { allowWithDecorator: true }],
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
     'import/prefer-default-export': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'import/no-import-module-exports': 'off',
+
     'node/no-extraneous-import': ['error', { allowModules: ['express'] }],
     'node/callback-return': 'off',
-    'import/no-extraneous-dependencies': 'off',
+
+    '@typescript-eslint/no-extraneous-class': ['error', { allowWithDecorator: true }],
     // Forbid leading underscore for private properties (in nest almost all if not all class properties are private,
     // adding the underscore just impacts readability.)
     '@typescript-eslint/naming-convention': [

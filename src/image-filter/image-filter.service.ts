@@ -75,12 +75,17 @@ export class ImageFilterService {
       sharpImage.removeAlpha();
 
     if (notUndef(requestedFilters.mirror)) {
-      if (requestedFilters.mirror === 'horizontal')
-        sharpImage.flop();
-      else if (requestedFilters.mirror === 'vertical')
-        sharpImage.flip();
-      else if (requestedFilters.mirror === 'both')
-        sharpImage.flip().flop();
+      switch (requestedFilters.mirror) {
+        case 'horizontal':
+          sharpImage.flop();
+          break;
+        case 'vertical':
+          sharpImage.flip();
+          break;
+        case 'both':
+          sharpImage.flip().flop();
+          break;
+      }
     }
 
     if (notUndef(requestedFilters.width) || notUndef(requestedFilters.height))

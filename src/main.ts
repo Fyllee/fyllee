@@ -33,8 +33,8 @@ async function bootstrap(): Promise<void> {
     Logger.log('Documentation mounted on /docs/', 'Bootstrap');
   }
 
-  const PORT = configService.get('PORT');
-  await app.listen(PORT);
+  const PORT = configService.get<number>('PORT');
+  await app.listen(PORT ?? 5000);
 
   Logger.log(`API running on: ${(await app.getUrl()).replace('[::1]', 'localhost')}`, 'Bootstrap');
 }

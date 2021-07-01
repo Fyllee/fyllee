@@ -21,12 +21,12 @@ export class Content {
   token = `${nanoid(64)}.${this.contentId}`;
 
   @Property()
-  @Transform(value => new Date(value.value).getTime())
+  @Transform(({ value }: { value: Date }) => new Date(value).getTime())
   @Exclude()
   createdAt: Date = new Date();
 
   @Property({ onUpdate: () => new Date() })
-  @Transform(value => new Date(value.value).getTime())
+  @Transform(({ value }: { value: Date }) => new Date(value).getTime())
   @Exclude()
   updatedAt: Date = new Date();
 
