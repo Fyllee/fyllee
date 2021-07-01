@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import { Application } from '../../applications/application.entity';
 import { ApplicationsService } from '../../applications/applications.service';
 import { mockedApplication } from '../../applications/test/__mocks__/application.mock';
+import { Content } from '../../contents/content.entity';
 import { User } from '../../users/user.entity';
 import { UsersService } from '../../users/users.service';
 import { AuthService } from '../auth.service';
@@ -28,20 +29,15 @@ describe('AuthService: Login (local)', () => {
         UsersService,
         UserTokenStrategy,
         {
-          provide: getRepositoryToken(User),
+          provide: UsersService,
           useValue: {
-            findOne: (param: Partial<User>): User | null =>
-              (param.username === mockedUser.username ? mockedUser : null),
-            persistAndFlush: jest.fn(),
+            findOne: (username: string): User | null => (username === mockedUser.username ? mockedUser : null),
+            findOneByToken: (): User => mockedUser,
           },
         },
         {
-          provide: getRepositoryToken(Application),
-          useValue: {
-            findOne: (param: Partial<Application>): Application | null =>
-              (param.name === mockedApplication.name ? mockedApplication : null),
-            persistAndFlush: jest.fn(),
-          },
+          provide: ApplicationsService,
+          useValue: {},
         },
       ],
     }).compile();
@@ -110,6 +106,10 @@ describe('AuthService: Login (user-token)', () => {
               (param.name === mockedApplication.name ? mockedApplication : null),
             persistAndFlush: jest.fn(),
           },
+        },
+        {
+          provide: getRepositoryToken(Content),
+          useValue: {},
         },
       ],
     }).compile();

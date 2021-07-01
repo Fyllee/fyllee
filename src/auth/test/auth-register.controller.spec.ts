@@ -5,6 +5,7 @@ import { Test } from '@nestjs/testing';
 import request from 'supertest';
 import { Application } from '../../applications/application.entity';
 import { ApplicationsService } from '../../applications/applications.service';
+import { Content } from '../../contents/content.entity';
 import { User } from '../../users/user.entity';
 import { UsersService } from '../../users/users.service';
 import { AuthController } from '../auth.controller';
@@ -39,6 +40,10 @@ describe('AuthController: Register', () => {
             findOne: jest.fn(),
             persistAndFlush: jest.fn(),
           },
+        },
+        {
+          provide: getRepositoryToken(Content),
+          useValue: {},
         },
       ],
     }).compile();

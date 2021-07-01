@@ -8,6 +8,7 @@ import { ApplicationsService } from '../../applications/applications.service';
 import { AuthService } from '../../auth/auth.service';
 import { expectedUser, mockedUser, password } from '../../auth/test/__mocks__/user.mock';
 import { UserTokenStrategy } from '../../auth/user-token.strategy';
+import { Content } from '../../contents/content.entity';
 import { User } from '../user.entity';
 import { UsersController } from '../users.controller';
 import { UsersService } from '../users.service';
@@ -32,6 +33,10 @@ describe('UsersController: Login', () => {
         },
         {
           provide: getRepositoryToken(Application),
+          useValue: {},
+        },
+        {
+          provide: getRepositoryToken(Content),
           useValue: {},
         },
       ],
