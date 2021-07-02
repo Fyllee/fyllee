@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import type { Sharp } from 'sharp';
 import sharp from 'sharp';
 import type { Content } from '../contents/content.entity';
-import type { GetContentDto } from '../contents/get-content.dto';
+import type { GetContentDto } from '../contents/dto/get-content.dto';
 import { notUndef, validateNumber } from '../global/utils';
 
 @Injectable()

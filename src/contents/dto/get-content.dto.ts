@@ -10,7 +10,7 @@ import {
   Max,
   Min,
 } from 'class-validator';
-import config from '../config';
+import config from '../../config';
 
 type BooleanString = 'false' | 'true';
 

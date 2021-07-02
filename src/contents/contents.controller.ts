@@ -36,7 +36,7 @@ import { fileFilter } from '../global/utils';
 import { ImageFilterService } from '../image-filter/image-filter.service';
 import type { Content } from './content.entity';
 import { ContentsService } from './contents.service';
-import { GetContentDto } from './get-content.dto';
+import { GetContentDto } from './dto/get-content.dto';
 
 @ApiTags('Contents')
 @ApiBearerAuth()
