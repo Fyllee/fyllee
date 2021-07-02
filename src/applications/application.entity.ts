@@ -2,6 +2,7 @@ import {
   Cascade,
   Collection,
   Entity,
+  Index,
   ManyToOne,
   OneToMany,
   PrimaryKey,
@@ -21,6 +22,7 @@ export class Application {
 
   @Property()
   @Expose({ groups: ['TokenIncluded'] })
+  @Index()
   token = `${nanoid(64)}.${this.applicationId}`;
 
   @Property()

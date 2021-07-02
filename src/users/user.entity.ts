@@ -1,6 +1,7 @@
 import {
  Collection,
  Entity,
+ Index,
  OneToMany,
  PrimaryKey,
  Property,
@@ -17,6 +18,7 @@ export class User {
 
   @Property()
   @Expose({ groups: ['TokenIncluded'] })
+  @Index()
   token = `${nanoid(64)}.${this.userId}`;
 
   @Property()
@@ -29,10 +31,12 @@ export class User {
 
   @Property()
   @Unique()
+  @Index()
   username: string;
 
   @Property()
   @Unique()
+  @Index()
   email: string;
 
   @Property()
