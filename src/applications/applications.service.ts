@@ -70,7 +70,7 @@ export class ApplicationsService {
     if (!application)
       throw new NotFoundException('Application not found');
 
-    await fs.rmdir(path.join(path.resolve('./'), 'uploads', application.applicationId), { recursive: true });
+    await fs.rm(path.join(path.resolve('./'), 'uploads', application.applicationId), { recursive: true });
 
     await this.contentRepository.nativeDelete({ application: { applicationId } });
     await this.applicationRepository.removeAndFlush(application);
