@@ -13,8 +13,10 @@ export default {
   },
   type: 'postgresql',
   username: 'bild-admin',
+  dbName: 'bild',
   entities: [Application, Content, User],
-  debug: true,
+  debug: process.env.NODE_ENV === 'development',
   logger: logger.log.bind(logger),
   metadataProvider: TsMorphMetadataProvider,
+  tsNode: process.env.NODE_ENV === 'test',
 } as Options;
