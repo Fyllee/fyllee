@@ -19,7 +19,8 @@ describe('AuthService: Login (local)', () => {
   let authService: AuthService;
   let bcryptCompare: jest.SpyInstance<Promise<boolean>>;
   beforeEach(async () => {
-    bcryptCompare = jest.spyOn(bcrypt, 'compare').mockReturnValue(Promise.resolve(true));
+    // @ts-expect-error ts(2345): Argument of type 'boolean' is not assignable to parameter of type 'never'
+    bcryptCompare = jest.spyOn(bcrypt, 'compare').mockResolvedValue(true);
 
     const moduleFixture = await Test.createTestingModule({
       providers: [
@@ -59,7 +60,7 @@ describe('AuthService: Login (local)', () => {
   });
 
   test('GIVEN wrong password THEN it throws BadRequestException', async () => {
-    bcryptCompare.mockReturnValue(Promise.resolve(false));
+    bcryptCompare.mockResolvedValue(false);
     try {
       await authService.login({
         username: mockedUser.username,

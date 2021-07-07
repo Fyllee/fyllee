@@ -22,7 +22,8 @@ describe('AuthController: Login', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
-    jest.spyOn(bcrypt, 'compare').mockReturnValue(Promise.resolve(true));
+    // @ts-expect-error ts(2345): Argument of type 'boolean' is not assignable to parameter of type 'never'
+    jest.spyOn(bcrypt, 'compare').mockResolvedValue(true);
 
     const moduleFixture = await Test.createTestingModule({
       controllers: [AuthController],
