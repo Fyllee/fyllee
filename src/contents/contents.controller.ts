@@ -78,17 +78,17 @@ export class ContentsController {
   @Get(':id')
   public async findOne(@Param('id') id: string, @Query() query: GetContentDto, @Res() res: Response): Promise<void> {
     const content = await this.contentService.findOne(id);
+    res.header('Content-Type', content.mimeType);
 
     if (content.mimeType.split('/')[0] !== 'image') {
       res.sendFile(`${content.application.applicationId}/${content.savedName}`, { root: 'uploads' });
-      return;
+    } else if (Object.keys(query).length === 0) {
+      res.sendFile(`${content.application.applicationId}/${content.savedName}`, { root: 'uploads' });
+    } else {
+      // TODO: Put the image process job in a queue?
+      const modifiedImage = await this.imageFilterService.modifyImage(content, query);
+      res.send(modifiedImage);
     }
-
-    // TODO: Put the image process job in a queue?
-    const modifiedImage = await this.imageFilterService.modifyImage(content, query);
-
-    res.set('Content-Type', content.mimeType);
-    res.send(modifiedImage);
   }
 
   @ApiOkResponse({ description: 'Returns OK if the file was sent back correctly' })

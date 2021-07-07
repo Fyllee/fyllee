@@ -8,6 +8,7 @@ import { AuthService } from '../auth/auth.service';
 import { ImageFilterService } from '../image-filter/image-filter.service';
 import { User } from '../users/user.entity';
 import { UsersService } from '../users/users.service';
+import { ContentController } from './content.controller';
 import { Content } from './content.entity';
 import { ContentsController } from './contents.controller';
 import { ContentsService } from './contents.service';
@@ -23,7 +24,7 @@ import { ContentsService } from './contents.service';
     ImageFilterService,
     UsersService,
   ],
-  controllers: [ContentsController],
+  controllers: [ContentsController, ContentController],
   exports: [ContentsService],
 })
 export class ContentsModule {}
