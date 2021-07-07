@@ -54,6 +54,7 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "sharp": "^0.28.3",
+    "statuses": "^2.0.1",
     "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
@@ -71,6 +72,7 @@
     "@types/node": "^16.0.0",
     "@types/passport-local": "^1.0.33",
     "@types/sharp": "^0.28.4",
+    "@types/statuses": "^2.0.0",
     "@types/supertest": "^2.0.11",
     "@types/webpack-node-externals": "^2.5.2",
     "@typescript-eslint/eslint-plugin": "^4.28.2",

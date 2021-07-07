@@ -1,5 +1,6 @@
 import { Logger } from '@nestjs/common';
 import morgan from 'morgan';
+import status from 'statuses';
 
 morgan.token('status-colored', (_req, { statusCode }) => {
   const color = statusCode >= 500 ? 31 // Red
@@ -7,10 +8,12 @@ morgan.token('status-colored', (_req, { statusCode }) => {
     : statusCode >= 300 ? 34 // Blue
     : statusCode >= 200 ? 36 // Cyan
     : 37; // White
-  return `\u001B[${color}m${statusCode}\u001B[0m`;
+  return `\u001B[${color}m${statusCode}\u001B[32m`;
 });
 
-const getMorganLine = morgan.compile(':method :url :response-time ms — :status-colored');
+morgan.token('status-text', (_req, { statusCode }) => status(statusCode).toString());
+
+const getMorganLine = morgan.compile(':method :url :response-time ms — :status-colored (:status-text)');
 const routeLogger = new Logger('Endpoint');
 
 export const logger = morgan((tokens, req, res) => {
