@@ -16,9 +16,9 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  afterAll(async (done) => {
-    await app.close();
-    done();
+  afterAll((done) => {
+    void app.close()
+      .then(() => done());
   });
 
   it('Nothing on GET /', async () =>
