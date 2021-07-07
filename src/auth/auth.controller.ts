@@ -22,7 +22,7 @@ import { AuthRegisterDto } from './dto/auth-register.dto';
 import { LocalAuthGuard } from './local-auth.guard';
 
 @ApiTags('Authentication')
-@Controller('auth')
+@Controller({ path: 'auth', version: '1' })
 export class AuthController {
   constructor(
     private readonly authService: AuthService,

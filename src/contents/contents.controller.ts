@@ -41,7 +41,7 @@ import { GetContentDto } from './dto/get-content.dto';
 @ApiTags('Contents')
 @ApiBearerAuth()
 @UseGuards(ApplicationTokenAuthGuard)
-@Controller('contents')
+@Controller({ path: 'contents', version: '1' })
 export class ContentsController {
   constructor(
     private readonly contentService: ContentsService,

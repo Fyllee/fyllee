@@ -1,4 +1,9 @@
-import { ClassSerializerInterceptor, Logger, ValidationPipe } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  Logger,
+  ValidationPipe,
+  VersioningType,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -10,6 +15,7 @@ async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors();
+  app.enableVersioning({ type: VersioningType.URI });
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(
     new ClassSerializerInterceptor(app.get(Reflector)),

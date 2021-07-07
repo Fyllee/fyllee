@@ -28,7 +28,7 @@ import { UpdateApplicationDto } from './dto/update-application.dto';
 @ApiTags('Applications')
 @ApiBearerAuth()
 @UseGuards(UserTokenAuthGuard)
-@Controller('applications')
+@Controller({ path: 'applications', version: '1' })
 export class ApplicationsController {
   constructor(private readonly applicationsService: ApplicationsService) {}
 

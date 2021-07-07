@@ -15,7 +15,7 @@ import { UserRequest } from '../global/types/user-request.interface';
 import { User } from './user.entity';
 
 @ApiTags('Users')
-@Controller('users')
+@Controller({ path: 'users', version: '1' })
 export class UsersController {
   @ApiOkResponse({ description: 'Returns OK if the authentication succeeded and the data was sent' })
   @ApiBadRequestResponse({ description: 'Returns BAD_REQUEST if the token is invalid' })
