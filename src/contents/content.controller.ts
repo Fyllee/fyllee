@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import { ApiDocumentation } from '../global/decorators/document.decorator';
+import { ApiDocumentation } from '../global/decorators';
 import { DOCUMENTATION } from '../global/documentation';
 import { ContentsService } from './contents.service';
 

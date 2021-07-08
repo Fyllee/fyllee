@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsUrl, MaxLength } from 'class-validator';
-import { CanBeEmpty } from '../../global/decorators/canBeEmpty.decorator';
+import { CanBeEmpty } from '../../global/decorators';
 
 export class UpdateApplicationDto {
   @ApiProperty({ required: false, example: 'Demo Application' })

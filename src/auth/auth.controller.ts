@@ -8,7 +8,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiBasicAuth, ApiTags } from '@nestjs/swagger';
-import { ApiDocumentation } from '../global/decorators/document.decorator';
+import { ApiDocumentation } from '../global/decorators';
 import { DOCUMENTATION } from '../global/documentation';
 import { UserRequest } from '../global/types/user-request.interface';
 import { User } from '../users/user.entity';

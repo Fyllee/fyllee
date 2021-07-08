@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
 import type { Observable } from 'rxjs';
-import { IS_PUBLIC_KEY } from '../global/decorators/public.decorator';
+import { IS_PUBLIC_KEY } from '../global/decorators';
 
 @Injectable()
 export class ApplicationTokenAuthGuard extends AuthGuard('application-token') {

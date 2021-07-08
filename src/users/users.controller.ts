@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserTokenAuthGuard } from '../auth/user-token-auth.guard';
-import { ApiDocumentation } from '../global/decorators/document.decorator';
+import { ApiDocumentation } from '../global/decorators';
 import { DOCUMENTATION } from '../global/documentation';
 import { UserRequest } from '../global/types/user-request.interface';
 import { User } from './user.entity';
