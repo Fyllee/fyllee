@@ -42,6 +42,7 @@ describe('AuthService: Login (local)', () => {
         },
       ],
     }).compile();
+
     authService = await moduleFixture.get(AuthService);
   });
 

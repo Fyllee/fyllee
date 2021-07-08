@@ -28,6 +28,7 @@
     "test:all": "npm run lint && npm run test && npm run test:e2e"
   },
   "dependencies": {
+    "@golevelup/ts-jest": "^0.3.1",
     "@mikro-orm/core": "^4.5.7",
     "@mikro-orm/migrations": "^4.5.7",
     "@mikro-orm/nestjs": "^4.2.0",

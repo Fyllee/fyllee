@@ -55,9 +55,10 @@ describe('AuthController: Login', () => {
         },
       ],
     }).compile();
-    app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe());
-    await app.init();
+
+    app = await moduleFixture.createNestApplication()
+      .useGlobalPipes(new ValidationPipe())
+      .init();
   });
 
   test('GIVEN valid data THEN it responds with correct body and statusCode', async () =>

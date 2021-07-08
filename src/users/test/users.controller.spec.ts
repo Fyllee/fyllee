@@ -41,9 +41,11 @@ describe('UsersController: Login', () => {
         },
       ],
     }).compile();
-    app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe());
-    await app.init();
+
+    app = await moduleFixture
+      .createNestApplication()
+      .useGlobalPipes(new ValidationPipe())
+      .init();
   });
 
   test('GIVEN valid token THEN it responds with correct body and statusCode', async () =>

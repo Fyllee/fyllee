@@ -14,6 +14,7 @@ describe('AuthService: Register', () => {
 
   beforeEach(async () => {
     userExists = jest.fn().mockReturnValue(null);
+
     const moduleFixture = await Test.createTestingModule({
       providers: [
         ApplicationsService,
@@ -35,6 +36,7 @@ describe('AuthService: Register', () => {
         },
       ],
     }).compile();
+
     authService = await moduleFixture.get(AuthService);
   });
 

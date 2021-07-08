@@ -5,6 +5,7 @@ import { UsersService } from '../users.service';
 
 describe('UsersService', () => {
   let usersService: UsersService;
+
   beforeEach(async () => {
     const moduleFixture = await Test.createTestingModule({
       providers: [
@@ -15,6 +16,7 @@ describe('UsersService', () => {
         },
       ],
     }).compile();
+
     usersService = await moduleFixture.get(UsersService);
   });
 
