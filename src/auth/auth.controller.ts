@@ -4,11 +4,10 @@ import {
   HttpCode,
   Post,
   Req,
-  SerializeOptions,
   UseGuards,
 } from '@nestjs/common';
 import { ApiBasicAuth, ApiTags } from '@nestjs/swagger';
-import { ApiDocumentation } from '../global/decorators';
+import { ApiDocumentation, SerializerIncludeToken } from '../global/decorators';
 import { DOCUMENTATION } from '../global/documentation';
 import { UserRequest } from '../global/types/user-request.interface';
 import { User } from '../users/user.entity';
@@ -33,7 +32,7 @@ export class AuthController {
   }
 
   @ApiDocumentation(DOCUMENTATION.AUTH.REGISTER)
-  @SerializeOptions({ groups: ['TokenIncluded'] })
+  @SerializerIncludeToken()
   @Post('register')
   public async register(@Body() dto: AuthRegisterDto): Promise<User> {
     return await this.authService.register(dto);

@@ -12,6 +12,7 @@ import {
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { nanoid } from 'nanoid';
 import type { Content } from '../contents/content.entity';
+import { constants } from '../global/constants';
 import { User } from '../users/user.entity';
 
 @Entity()
@@ -21,7 +22,7 @@ export class Application {
   applicationId: string = nanoid(10);
 
   @Property()
-  @Expose({ groups: ['TokenIncluded'] })
+  @Expose({ groups: [constants.TOKEN_INCLUDED] })
   @Index()
   token = `${nanoid(64)}.${this.applicationId}`;
 

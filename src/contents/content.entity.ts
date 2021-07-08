@@ -8,6 +8,7 @@ import {
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { nanoid } from 'nanoid';
 import { Application } from '../applications/application.entity';
+import { constants } from '../global/constants';
 import mime from '../global/mime-type';
 import type { ContentInformation } from '../global/types/content-information.interface';
 
@@ -17,7 +18,7 @@ export class Content {
   contentId: string = nanoid(10);
 
   @Property()
-  @Expose({ groups: ['TokenIncluded'] })
+  @Expose({ groups: [constants.TOKEN_INCLUDED] })
   token = `${nanoid(64)}.${this.contentId}`;
 
   @Property()

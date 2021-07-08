@@ -7,12 +7,11 @@ import {
  Patch,
  Post,
  Req,
- SerializeOptions,
  UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserTokenAuthGuard } from '../auth/user-token-auth.guard';
-import { ApiDocumentation } from '../global/decorators';
+import { ApiDocumentation, SerializerIncludeToken } from '../global/decorators';
 import { DOCUMENTATION } from '../global/documentation';
 import { UserRequest } from '../global/types/user-request.interface';
 import type { Application } from './application.entity';
@@ -28,7 +27,7 @@ export class ApplicationsController {
   constructor(private readonly applicationsService: ApplicationsService) {}
 
   @ApiDocumentation(DOCUMENTATION.APPLICATIONS.CREATE)
-  @SerializeOptions({ groups: ['TokenIncluded'] })
+  @SerializerIncludeToken()
   @Post()
   public async create(@Req() req: UserRequest, @Body() dto: CreateApplicationDto): Promise<Application> {
     return await this.applicationsService.create(req.user.userId, dto);
