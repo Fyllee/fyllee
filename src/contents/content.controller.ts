@@ -5,12 +5,10 @@ import {
   Res,
   VERSION_NEUTRAL,
 } from '@nestjs/common';
-import {
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
+import { ApiDocumentation } from '../global/decorators/document.decorator';
+import { DOCUMENTATION } from '../global/documentation';
 import { ContentsService } from './contents.service';
 
 @ApiTags('Content')
@@ -20,8 +18,7 @@ export class ContentController {
     private readonly contentService: ContentsService,
   ) {}
 
-  @ApiOkResponse({ description: 'Returns OK if the file was sent back correctly' })
-  @ApiNotFoundResponse({ description: 'Returns NOT_FOUND if no file with the given ID is found' })
+  @ApiDocumentation(DOCUMENTATION.CONTENT.FIND_ONE)
   @Get(':id')
   public async findOne(@Param('id') id: string, @Res() res: Response): Promise<void> {
     const content = await this.contentService.findOne(id);

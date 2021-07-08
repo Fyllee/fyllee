@@ -7,14 +7,9 @@ import {
   SerializeOptions,
   UseGuards,
 } from '@nestjs/common';
-import {
-  ApiBadRequestResponse,
-  ApiBasicAuth,
-  ApiCreatedResponse,
-  ApiInternalServerErrorResponse,
-  ApiOkResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBasicAuth, ApiTags } from '@nestjs/swagger';
+import { ApiDocumentation } from '../global/decorators/document.decorator';
+import { DOCUMENTATION } from '../global/documentation';
 import { UserRequest } from '../global/types/user-request.interface';
 import { User } from '../users/user.entity';
 import { AuthService } from './auth.service';
@@ -28,8 +23,7 @@ export class AuthController {
     private readonly authService: AuthService,
   ) {}
 
-  @ApiOkResponse({ description: 'Returns OK if you are logged in' })
-  @ApiBadRequestResponse({ description: 'Returns BAD_REQUEST if username or password was invalid' })
+  @ApiDocumentation(DOCUMENTATION.AUTH.LOGIN)
   @ApiBasicAuth()
   @UseGuards(LocalAuthGuard)
   @HttpCode(200) // Overwrite the default "201 CREATED" for POST requests
@@ -38,9 +32,7 @@ export class AuthController {
     return req.user;
   }
 
-  @ApiCreatedResponse({ description: 'Returns CREATED if your account has been created' })
-  @ApiBadRequestResponse({ description: 'Returns BAD_REQUEST if the username/email is already taken' })
-  @ApiInternalServerErrorResponse({ description: 'Returns INTERNAL_SERVER_ERROR if an unexpected error happened on the backend' })
+  @ApiDocumentation(DOCUMENTATION.AUTH.REGISTER)
   @SerializeOptions({ groups: ['TokenIncluded'] })
   @Post('register')
   public async register(@Body() dto: AuthRegisterDto): Promise<User> {

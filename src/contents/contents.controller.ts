@@ -15,20 +15,12 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import {
-  ApiBadRequestResponse,
-  ApiBearerAuth,
-  ApiConsumes,
-  ApiCreatedResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiPayloadTooLargeResponse,
-  ApiTags,
-  ApiUnauthorizedResponse,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { Express, Response } from 'express';
 import { ApplicationTokenAuthGuard } from '../auth/application-token-auth.guard';
+import { ApiDocumentation } from '../global/decorators/document.decorator';
 import { Public } from '../global/decorators/public.decorator';
+import { DOCUMENTATION } from '../global/documentation';
 import mimeType from '../global/mime-type';
 import { ApplicationRequest } from '../global/types/application-request.interface';
 import type { ContentInformation } from '../global/types/content-information.interface';
@@ -48,10 +40,7 @@ export class ContentsController {
     private readonly imageFilterService: ImageFilterService,
   ) {}
 
-  @ApiCreatedResponse({ description: 'Returns CREATED if the creation succeeded and the data was sent back correctly' })
-  @ApiBadRequestResponse({ description: 'Returns BAD_REQUEST if no Authorization header was provided, or if no file was provided, or if the file type is invalid' })
-  @ApiUnauthorizedResponse({ description: 'Returns UNAUTHORIZE if the provided Authorization header is invalid' })
-  @ApiPayloadTooLargeResponse({ description: "Returns PAYLOAD_TOO_LARGE if the given file's size exceeds the maximum limit" })
+  @ApiDocumentation(DOCUMENTATION.CONTENTS.CREATE)
   @ApiConsumes(...Object.values(mimeType.types))
   @UseInterceptors(FileInterceptor('file', { limits: { files: 1 }, fileFilter }))
   @Post()
@@ -64,15 +53,13 @@ export class ContentsController {
     return await this.contentService.create(req.application.applicationId, file);
   }
 
-  @ApiOkResponse({ description: 'Returns OK if the data was sent back correctly' })
-  @ApiBadRequestResponse({ description: 'Returns BAD_REQUEST if no Authorization header was provided' })
+  @ApiDocumentation(DOCUMENTATION.CONTENTS.FIND_ALL)
   @Get()
   public async findAll(@Req() req: ApplicationRequest): Promise<Content[]> {
     return await this.contentService.findAll(req.application.applicationId);
   }
 
-  @ApiOkResponse({ description: 'Returns OK if the file was sent back correctly' })
-  @ApiNotFoundResponse({ description: 'Returns NOT_FOUND if no file with the given ID is found' })
+  @ApiDocumentation(DOCUMENTATION.CONTENTS.FIND_ONE)
   @Public()
   @UsePipes(new ValidationPipe({ transform: true, transformOptions: { enableImplicitConversion: true } }))
   @Get(':id')
@@ -91,15 +78,13 @@ export class ContentsController {
     }
   }
 
-  @ApiOkResponse({ description: 'Returns OK if the file was sent back correctly' })
-  @ApiNotFoundResponse({ description: 'Returns NOT_FOUND if no file with the given ID is found' })
+  @ApiDocumentation(DOCUMENTATION.CONTENTS.FIND_INFORMATION)
   @Get(':id/information')
   public async findInformation(@Param('id') id: string): Promise<ContentInformation> {
     return await this.contentService.findInformation(id);
   }
 
-  @ApiOkResponse({ description: 'Returns OK if the delete succeeded' })
-  @ApiNotFoundResponse({ description: 'Returns NOT_FOUND if no file with the given ID is found' })
+  @ApiDocumentation(DOCUMENTATION.CONTENTS.REMOVE_ONE)
   @Delete(':id')
   public async removeOne(@Param('id') id: string): Promise<void> {
     await this.contentService.removeOne(id);
