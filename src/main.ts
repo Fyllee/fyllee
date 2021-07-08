@@ -28,8 +28,8 @@ async function bootstrap(): Promise<void> {
 
   if (configService.get('NODE_ENV') === 'development') {
     const config = new DocumentBuilder()
-      .setTitle('Bild')
-      .setDescription('The Bild API description')
+      .setTitle('Fyllee')
+      .setDescription('The Fyllee API description')
       .setVersion('1.0')
       .addBasicAuth()
       .addBearerAuth()

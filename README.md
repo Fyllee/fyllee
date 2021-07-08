@@ -1,8 +1,8 @@
-# Bild
+# Fyllee
 
 A REST API static content hosting platform.
 
-Bild was born from a problem I was encountering while creating SPAs with NextJS. I couldn't dynamically add images to
+Fyllee was born from a problem I was encountering while creating SPAs with NextJS. I couldn't dynamically add images to
 the images folder. So I had no place to store my images, and globally, all my static content. From there came the idea
 to create my own static content storage system. Configured according to my needs, and potentially those of other
 developers who were facing the same problem as me.
@@ -28,7 +28,7 @@ developers who were facing the same problem as me.
 
 ## Table of contents
 
-- [Bild](#bild)
+- [Fyllee](#fyllee)
   - [Table of contents](#table-of-contents)
   - [Installation](#installation)
   - [Usage](#usage)
@@ -36,11 +36,11 @@ developers who were facing the same problem as me.
 
 ## Installation
 
-To install Bild, clone the Github repository and install the node modules. Then create a `.env` file.
+To install Fyllee, clone the Github repository and install the node modules. Then create a `.env` file.
 
 ```bash
-$ git clone https://github.com/mlbonniec/bild.git
-$ cd bild
+$ git clone https://github.com/mlbonniec/bild.git fyllee
+$ cd fyllee
 $ npm install
 $ cp .env.example .env
 ```
@@ -61,7 +61,7 @@ $ npx mikro-orm schema:create --run
 
 ## Usage
 
-You can launch Bild either in development mode or in production mode. Server will be launched on `localhost:5000`,
+You can launch Fyllee either in development mode or in production mode. Server will be launched on `localhost:5000`,
 unless you add `PORT=your port` in the your environment variables.
 You must use Node.js v10.17+, v12+, v14+, but not v15 (or odd-numbered versions in general).
 
