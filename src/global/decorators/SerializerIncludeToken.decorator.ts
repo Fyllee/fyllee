@@ -1,7 +1,7 @@
 import { applyDecorators, SerializeOptions } from '@nestjs/common';
-import { constants } from '../constants';
+import { TOKEN_INCLUDED } from '../constants';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export function SerializerIncludeToken(): MethodDecorator {
-  return applyDecorators(SerializeOptions({ groups: [constants.TOKEN_INCLUDED] }));
+  return applyDecorators(SerializeOptions({ groups: [TOKEN_INCLUDED] }));
 }

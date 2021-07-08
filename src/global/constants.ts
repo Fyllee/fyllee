@@ -1,3 +1,2 @@
-export const constants = {
-  TOKEN_INCLUDED: 'TokenIncluded',
-};
+export const TOKEN_INCLUDED = 'TokenIncluded';
+export const IS_PUBLIC_KEY = 'isPublic';
