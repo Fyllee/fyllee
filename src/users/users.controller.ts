@@ -9,7 +9,7 @@ import { UserTokenAuthGuard } from '../auth/user-token-auth.guard';
 import { ApiDocumentation } from '../global/decorators';
 import { DOCUMENTATION } from '../global/documentation';
 import { UserRequest } from '../global/types/user-request.interface';
-import { User } from './user.entity';
+import { UserResponseDto } from './dto/user-response.dto';
 
 @ApiTags('Users')
 @Controller({ path: 'users', version: '1' })
@@ -18,7 +18,7 @@ export class UsersController {
   @ApiBearerAuth()
   @UseGuards(UserTokenAuthGuard)
   @Get()
-  public find(@Req() req: UserRequest): User {
+  public find(@Req() req: UserRequest): UserResponseDto {
     return req.user;
   }
 }

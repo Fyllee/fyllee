@@ -6,12 +6,14 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBasicAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { ApiDocumentation, SerializerIncludeToken } from '../global/decorators';
 import { DOCUMENTATION } from '../global/documentation';
 import { UserRequest } from '../global/types/user-request.interface';
-import { User } from '../users/user.entity';
+import { UserDto } from '../users/dto/user.dto';
+import type { User } from '../users/user.entity';
 import { AuthService } from './auth.service';
+import { AuthLoginDto } from './dto/auth-login.dto';
 import { AuthRegisterDto } from './dto/auth-register.dto';
 import { LocalAuthGuard } from './local-auth.guard';
 
@@ -23,11 +25,11 @@ export class AuthController {
   ) {}
 
   @ApiDocumentation(DOCUMENTATION.AUTH.LOGIN)
-  @ApiBasicAuth()
   @UseGuards(LocalAuthGuard)
+  @ApiBody({ type: AuthLoginDto })
   @HttpCode(200) // Overwrite the default "201 CREATED" for POST requests
   @Post('login')
-  public login(@Req() req: UserRequest): User {
+  public login(@Req() req: UserRequest): UserDto {
     return req.user;
   }
 

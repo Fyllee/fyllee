@@ -15,10 +15,15 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBearerAuth, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Express, Response } from 'express';
 import { ApplicationTokenAuthGuard } from '../auth/application-token-auth.guard';
-import { ApiDocumentation, Public } from '../global/decorators';
+import { ApiDocumentation, ApplyToAll, Public } from '../global/decorators';
 import { DOCUMENTATION } from '../global/documentation';
 import mimeType from '../global/mime-type';
 import { ApplicationRequest } from '../global/types/application-request.interface';
@@ -27,10 +32,11 @@ import { fileFilter } from '../global/utils';
 import { ImageFilterService } from '../image-filter/image-filter.service';
 import type { Content } from './content.entity';
 import { ContentsService } from './contents.service';
+import { CreateContentDto } from './dto/create-content.dto';
 import { GetContentDto } from './dto/get-content.dto';
 
 @ApiTags('Contents')
-@ApiBearerAuth()
+@ApplyToAll(ApiBearerAuth(), { exclude: ['findOne'] })
 @UseGuards(ApplicationTokenAuthGuard)
 @Controller({ path: 'contents', version: '1' })
 export class ContentsController {
@@ -40,6 +46,7 @@ export class ContentsController {
   ) {}
 
   @ApiDocumentation(DOCUMENTATION.CONTENTS.CREATE)
+  @ApiBody({ type: CreateContentDto })
   @ApiConsumes(...Object.values(mimeType.types))
   @UseInterceptors(FileInterceptor('file', { limits: { files: 1 }, fileFilter }))
   @Post()

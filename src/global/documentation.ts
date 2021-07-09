@@ -1,4 +1,10 @@
 import { HttpStatus } from '@nestjs/common';
+import { IntersectionType, OmitType, PickType } from '@nestjs/swagger';
+import { ApplicationResponseDto } from '../applications/dto/application-response.dto';
+import { ApplicationDto } from '../applications/dto/application.dto';
+import { AuthUserResponseDto } from '../auth/dto/auth-user-response.dto';
+import { ContentResponseDto } from '../contents/dto/content-response.dto';
+import { UserResponseDto } from '../users/dto/user-response.dto';
 
 const AUTHENTICATION_SUCCESS_DATA_SENT = 'Returns OK if the authentication succeeded and the data is sent';
 const NO_AUTHORIZATION_HEADER = 'Returns BAD_REQUEST if no "Authorization" header is provided';
@@ -7,76 +13,108 @@ const NO_DATA_FOUND = 'Returns NOT_FOUND if no data with the provided id is foun
 export const DOCUMENTATION = {
   APPLICATIONS: {
     CREATE: {
-      [HttpStatus.CREATED]: 'Returns CREATED if the creation succeeded and the data is sent',
-      [HttpStatus.BAD_REQUEST]: NO_AUTHORIZATION_HEADER,
+      [HttpStatus.CREATED]: {
+        type: IntersectionType(ApplicationResponseDto, PickType(ApplicationDto, ['token'])),
+        description: 'Returns CREATED if the creation succeeded and the data is sent',
+      },
+      [HttpStatus.BAD_REQUEST]: { description: NO_AUTHORIZATION_HEADER },
     },
     FIND_ALL: {
-      [HttpStatus.OK]: AUTHENTICATION_SUCCESS_DATA_SENT,
-      [HttpStatus.BAD_REQUEST]: NO_AUTHORIZATION_HEADER,
+      [HttpStatus.OK]: {
+        type: ApplicationResponseDto,
+        isArray: true,
+        description: AUTHENTICATION_SUCCESS_DATA_SENT,
+      },
+      [HttpStatus.BAD_REQUEST]: { description: NO_AUTHORIZATION_HEADER },
     },
     FIND_ONE: {
-      [HttpStatus.OK]: AUTHENTICATION_SUCCESS_DATA_SENT,
-      [HttpStatus.BAD_REQUEST]: NO_AUTHORIZATION_HEADER,
+      [HttpStatus.OK]: {
+        type: ApplicationResponseDto,
+        description: AUTHENTICATION_SUCCESS_DATA_SENT,
+      },
+      [HttpStatus.BAD_REQUEST]: { description: NO_AUTHORIZATION_HEADER },
     },
     UPDATE: {
-      [HttpStatus.OK]: AUTHENTICATION_SUCCESS_DATA_SENT,
-      [HttpStatus.BAD_REQUEST]: NO_AUTHORIZATION_HEADER,
-      [HttpStatus.NOT_FOUND]: NO_DATA_FOUND,
+      [HttpStatus.OK]: {
+        type: ApplicationResponseDto,
+        description: AUTHENTICATION_SUCCESS_DATA_SENT,
+      },
+      [HttpStatus.BAD_REQUEST]: { description: NO_AUTHORIZATION_HEADER },
+      [HttpStatus.NOT_FOUND]: { description: NO_DATA_FOUND },
     },
     REMOVE_ONE: {
-      [HttpStatus.OK]: AUTHENTICATION_SUCCESS_DATA_SENT,
-      [HttpStatus.BAD_REQUEST]: NO_AUTHORIZATION_HEADER,
-      [HttpStatus.NOT_FOUND]: NO_DATA_FOUND,
+      [HttpStatus.OK]: { description: AUTHENTICATION_SUCCESS_DATA_SENT },
+      [HttpStatus.BAD_REQUEST]: { description: NO_AUTHORIZATION_HEADER },
+      [HttpStatus.NOT_FOUND]: { description: NO_DATA_FOUND },
     },
   },
 
   AUTH: {
     LOGIN: {
-      [HttpStatus.OK]: 'Returns OK if you are logged in',
-      [HttpStatus.BAD_REQUEST]: 'Returns BAD_REQUEST if username or password is invalid',
+      [HttpStatus.OK]: {
+        type: OmitType(AuthUserResponseDto, ['token']),
+        description: 'Returns OK if you are logged in',
+      },
+      [HttpStatus.BAD_REQUEST]: { description: 'Returns BAD_REQUEST if username or password is invalid' },
     },
     REGISTER: {
-      [HttpStatus.CREATED]: 'Returns CREATED if your account has been created',
-      [HttpStatus.BAD_REQUEST]: 'Returns BAD_REQUEST if the username or email is already taken',
+      [HttpStatus.CREATED]: {
+        type: AuthUserResponseDto,
+        description: 'Returns CREATED if your account has been created',
+      },
+      [HttpStatus.BAD_REQUEST]: { description: 'Returns BAD_REQUEST if the username or email is already taken' },
     },
   },
 
   CONTENT: {
     FIND_ONE: {
-      [HttpStatus.OK]: AUTHENTICATION_SUCCESS_DATA_SENT,
-      [HttpStatus.NOT_FOUND]: NO_DATA_FOUND,
+      [HttpStatus.OK]: { description: AUTHENTICATION_SUCCESS_DATA_SENT },
+      [HttpStatus.NOT_FOUND]: { description: NO_DATA_FOUND },
     },
   },
 
   CONTENTS: {
     CREATE: {
-      [HttpStatus.CREATED]: 'Returns CREATED if the creation succeeded and the data is sent',
-      [HttpStatus.BAD_REQUEST]: 'Returns BAD_REQUEST if no "Authorization" header is provided, or if no file is provided, or if the file type is invalid',
-      [HttpStatus.UNAUTHORIZED]: 'Returns UNAUTHORIZED if the provided "Authorization" header is invalid',
-      [HttpStatus.PAYLOAD_TOO_LARGE]: "Returns PAYLOAD_TOO_LARGE if the provided file's size exceeds the maximum limit",
+      [HttpStatus.CREATED]: {
+        type: ContentResponseDto,
+        description: 'Returns CREATED if the creation succeeded and the data is sent',
+      },
+      [HttpStatus.BAD_REQUEST]: { description: 'Returns BAD_REQUEST if no "Authorization" header is provided, or if no file is provided, or if the file type is invalid' },
+      [HttpStatus.UNAUTHORIZED]: { description: 'Returns UNAUTHORIZED if the provided "Authorization" header is invalid' },
+      [HttpStatus.PAYLOAD_TOO_LARGE]: { description: "Returns PAYLOAD_TOO_LARGE if the provided file's size exceeds the maximum limit" },
     },
     FIND_ALL: {
-      [HttpStatus.OK]: AUTHENTICATION_SUCCESS_DATA_SENT,
-      [HttpStatus.BAD_REQUEST]: NO_AUTHORIZATION_HEADER,
+      [HttpStatus.OK]: {
+        type: ContentResponseDto,
+        isArray: true,
+        description: AUTHENTICATION_SUCCESS_DATA_SENT,
+      },
+      [HttpStatus.BAD_REQUEST]: { description: NO_AUTHORIZATION_HEADER },
     },
     FIND_ONE: {
-      [HttpStatus.OK]: AUTHENTICATION_SUCCESS_DATA_SENT,
-      [HttpStatus.NOT_FOUND]: NO_DATA_FOUND,
+      [HttpStatus.OK]: { description: AUTHENTICATION_SUCCESS_DATA_SENT },
+      [HttpStatus.NOT_FOUND]: { description: NO_DATA_FOUND },
     },
     FIND_INFORMATION: {
-      [HttpStatus.OK]: AUTHENTICATION_SUCCESS_DATA_SENT,
-      [HttpStatus.NOT_FOUND]: NO_DATA_FOUND,
+      [HttpStatus.OK]: {
+        type: ContentResponseDto,
+        description: AUTHENTICATION_SUCCESS_DATA_SENT,
+      },
+      [HttpStatus.NOT_FOUND]: { description: NO_DATA_FOUND },
     },
     REMOVE_ONE: {
-      [HttpStatus.OK]: AUTHENTICATION_SUCCESS_DATA_SENT,
-      [HttpStatus.NOT_FOUND]: NO_DATA_FOUND,
+      [HttpStatus.OK]: { description: AUTHENTICATION_SUCCESS_DATA_SENT },
+      [HttpStatus.NOT_FOUND]: { description: NO_DATA_FOUND },
     },
   },
 
   USERS: {
     FIND_ONE: {
-      [HttpStatus.OK]: AUTHENTICATION_SUCCESS_DATA_SENT,
-      [HttpStatus.BAD_REQUEST]: 'Returns BAD_REQUEST if the provided "Authorization" header is invalid',
+      [HttpStatus.OK]: {
+        type: UserResponseDto,
+        description: AUTHENTICATION_SUCCESS_DATA_SENT,
+      },
+      [HttpStatus.BAD_REQUEST]: { description: 'Returns BAD_REQUEST if the provided "Authorization" header is invalid' },
     },
   },
 };
