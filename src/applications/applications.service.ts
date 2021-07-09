@@ -59,7 +59,7 @@ export class ApplicationsService {
     if (!app)
       throw new NotFoundException('Application not found');
 
-    wrap(app).assign({ displayName: dto.displayName, description: dto.description, website: dto.website });
+    wrap(app).assign({ displayName: dto.displayName ?? '', description: dto.description ?? '', website: dto.website ?? '' });
     await this.applicationRepository.flush();
 
     return app;

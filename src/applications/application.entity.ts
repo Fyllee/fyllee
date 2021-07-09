@@ -40,7 +40,7 @@ export class Application {
   name!: string;
 
   @Property()
-  displayName!: string;
+  displayName: string;
 
   @Property()
   website: string;
