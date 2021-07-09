@@ -1,7 +1,7 @@
 {
   "name": "fyllee",
   "version": "0.2.0",
-  "description": "A web API to host all your content",
+  "description": "The powerful official REST API of the Fyllee content-hosting platform!",
   "authors": [
     "Mathis Le Bonniec",
     "Elliot 'noftaly' Maisl"

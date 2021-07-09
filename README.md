@@ -1,11 +1,6 @@
+<div align="center">
+
 # Fyllee
-
-A REST API static content hosting platform.
-
-Fyllee was born from a problem I was encountering while creating SPAs with NextJS. I couldn't dynamically add images to
-the images folder. So I had no place to store my images, and globally, all my static content. From there came the idea
-to create my own static content storage system. Configured according to my needs, and potentially those of other
-developers who were facing the same problem as me.
 
 <a href="./LICENSE" alt="License">
   <img src="https://img.shields.io/badge/License-Apache-green" />
@@ -26,6 +21,16 @@ developers who were facing the same problem as me.
   <img src="https://img.shields.io/github/stars/mlbonniec/bild?style=social" />
 </a>
 
+</div>
+
+The powerful official REST API of the Fyllee content-hosting platform!
+
+Written in TypeScript with Nest.js, this REST API allows you to login to your account, create and manage your
+applications, and create and manage your contents within your applications.
+
+This GitHub repository is where we develop the Fyllee REST API! You can take a look at the web app repository at
+[fyllee-ui](https://github.com/mlbonniec/bild-ui).
+
 ## Table of contents
 
 - [Fyllee](#fyllee)
@@ -36,7 +41,7 @@ developers who were facing the same problem as me.
 
 ## Installation
 
-To install Fyllee, clone the Github repository and install the node modules. Then create a `.env` file.
+To install Fyllee, clone the GitHub repository and install the Node.js modules. Then create a `.env` file.
 
 ```bash
 $ git clone https://github.com/mlbonniec/bild.git fyllee
@@ -61,13 +66,15 @@ $ npx mikro-orm schema:create --run
 
 ## Usage
 
-You can launch Fyllee either in development mode or in production mode. Server will be launched on `localhost:5000`,
-unless you add `PORT=your port` in the your environment variables.
-You must use Node.js v10.17+, v12+, v14+, but not v15 (or odd-numbered versions in general).
+You can launch Fyllee either in development mode or in production mode. The API will be launched on `localhost:5000`,
+unless you add `PORT=your port` in the your environment variables.\
+You must use Node.js v12+ or v14+, but not v15 (or odd-numbered versions in general). The app has not been tested
+Node.js v16+ yet.
 
 **Development**
 
-You can use the `start:dev` (or `dev`) script to launch the app. It will automatically recompile whenever you save a file.
+You can use the `start:dev` (or `dev`) script to launch the app. It will automatically recompile whenever you save a
+file.
 ```bash
 $ npm run start:dev # or npm run dev
 ```
@@ -82,7 +89,7 @@ $ npm run start
 
 ```bash
 $ npm run lint # Run linting tests (append ":fix" to automatically fix most of the errors)
-$ npm run test # Run unit tests (append ":watch" to automatically restrat them when a file is saved)
+$ npm run test # Run unit tests (append ":watch" to automatically restart them when a file is saved)
 $ npm run test:e2e # Run end-to-end tests
 $ npm run test:cov # Run coverage tests
 $ npm run test:all # Run all tests, except coverage
