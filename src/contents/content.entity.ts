@@ -5,10 +5,9 @@ import {
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
-import { Exclude, Expose, Transform } from 'class-transformer';
+import { Exclude, Transform } from 'class-transformer';
 import { nanoid } from 'nanoid';
 import { Application } from '../applications/application.entity';
-import { TOKEN_INCLUDED } from '../global/constants';
 import mime from '../global/mime-type';
 import type { ContentInformation } from '../global/types/content-information.interface';
 
@@ -16,10 +15,6 @@ import type { ContentInformation } from '../global/types/content-information.int
 export class Content {
   @PrimaryKey()
   contentId: string = nanoid(10);
-
-  @Property()
-  @Expose({ groups: [TOKEN_INCLUDED] })
-  token = `${nanoid(64)}.${this.contentId}`;
 
   @Property()
   @Transform(({ value }: { value: Date }) => new Date(value).getTime())
