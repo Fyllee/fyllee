@@ -1,6 +1,6 @@
 import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import type { AuthRegisterDto } from '../auth/dto/auth-register.dto';
 import type { UsernameEmail } from '../global/types/username-email.interface';
 import { User } from './user.entity';
@@ -28,5 +28,11 @@ export class UsersService {
     const user = new User(dto.username, dto.email, dto.password);
     await this.userRepository.persistAndFlush(user);
     return user;
+  }
+
+  public async removeOne(userId: string): Promise<void> {
+    const user = await this.userRepository.findOne({ userId });
+    if (user)
+      await this.userRepository.removeAndFlush(user);
   }
 }

@@ -116,5 +116,10 @@ export const DOCUMENTATION = {
       },
       [HttpStatus.BAD_REQUEST]: { description: 'Returns BAD_REQUEST if the provided "Authorization" header is invalid' },
     },
+    REMOVE_ONE: {
+      [HttpStatus.OK]: { description: AUTHENTICATION_SUCCESS_DATA_SENT },
+      [HttpStatus.NOT_FOUND]: { description: NO_DATA_FOUND },
+      [HttpStatus.PRECONDITION_FAILED]: { description: 'Returns PRECONDITION_FAILED if the user still owns applications.' },
+    },
   },
 };
