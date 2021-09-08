@@ -1,7 +1,7 @@
 import { HttpStatus } from '@nestjs/common';
-import { IntersectionType, OmitType, PickType } from '@nestjs/swagger';
+import { OmitType } from '@nestjs/swagger';
 import { ApplicationResponseDto } from '../applications/dto/application-response.dto';
-import { ApplicationDto } from '../applications/dto/application.dto';
+import { CreateApplicationResponseDto } from '../applications/dto/create-application-response.dto';
 import { AuthUserResponseDto } from '../auth/dto/auth-user-response.dto';
 import { ContentResponseDto } from '../contents/dto/content-response.dto';
 import { UserResponseDto } from '../users/dto/user-response.dto';
@@ -14,7 +14,7 @@ export const DOCUMENTATION = {
   APPLICATIONS: {
     CREATE: {
       [HttpStatus.CREATED]: {
-        type: IntersectionType(ApplicationResponseDto, PickType(ApplicationDto, ['token'])),
+        type: CreateApplicationResponseDto,
         description: 'Returns CREATED if the creation succeeded and the data is sent',
       },
       [HttpStatus.BAD_REQUEST]: { description: NO_AUTHORIZATION_HEADER },

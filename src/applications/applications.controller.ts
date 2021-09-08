@@ -40,6 +40,7 @@ export class ApplicationsController {
   }
 
   @ApiDocumentation(DOCUMENTATION.APPLICATIONS.FIND_ONE)
+  @SerializerIncludeToken()
   @Get(':id')
   public async findOne(@Param('id') id: string): Promise<Application | null> {
     return await this.applicationsService.findOne(id);

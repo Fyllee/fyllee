@@ -28,6 +28,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @ApiBody({ type: AuthLoginDto })
   @HttpCode(200) // Overwrite the default "201 CREATED" for POST requests
+  @SerializerIncludeToken()
   @Post('login')
   public login(@Req() req: UserRequest): UserDto {
     return req.user;
