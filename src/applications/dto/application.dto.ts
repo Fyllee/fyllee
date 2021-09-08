@@ -12,7 +12,7 @@ import type { Content } from '../../contents/content.entity';
 import { CanBeEmpty } from '../../global/decorators';
 import type { Application } from '../application.entity';
 
-export class ApplicationDto implements Omit<Application, 'owner'> {
+export class ApplicationDto implements Omit<Application, 'getUploadPath' | 'owner'> {
   @ApiProperty({ description: 'The unique id of the application', example: 'ZWYDu15YPD' })
   applicationId: string;
 

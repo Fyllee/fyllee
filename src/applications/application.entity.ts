@@ -1,3 +1,4 @@
+import path from 'path';
 import {
   Cascade,
   Collection,
@@ -62,5 +63,9 @@ export class Application {
     this.displayName = name;
     this.website = website;
     this.description = description;
+  }
+
+  public getUploadPath(): string {
+    return path.join(path.resolve('./'), 'uploads', this.applicationId);
   }
 }

@@ -32,7 +32,7 @@ export class ContentsService {
 
     const content = new Content(application, file.originalname, file.size);
     await fs.writeFile(
-      path.join(path.resolve('./'), 'uploads', application.applicationId, content.savedName),
+      path.join(content.getUploadPath()),
       file.buffer,
     );
 
@@ -66,6 +66,6 @@ export class ContentsService {
     this.contentRepository.remove(content);
     await this.contentRepository.flush();
 
-    await fs.rm(path.join(path.resolve('./'), 'uploads', content.application.applicationId, content.savedName));
+    await fs.rm(content.getUploadPath());
   }
 }

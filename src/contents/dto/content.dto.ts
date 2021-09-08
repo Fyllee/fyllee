@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import type { Content } from '../content.entity';
 
-export class ContentDto implements Omit<Content, 'application' | 'toJSON'> {
+export class ContentDto implements Omit<Content, 'application' | 'getUploadPath' | 'toJSON'> {
   @ApiProperty({ description: 'The unique id of the content' })
   contentId: string;
 

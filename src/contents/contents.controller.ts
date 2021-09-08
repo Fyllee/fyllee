@@ -73,10 +73,8 @@ export class ContentsController {
     const content = await this.contentService.findOne(id);
     res.header('Content-Type', content.mimeType);
 
-    if (content.mimeType.split('/')[0] !== 'image') {
-      res.sendFile(`${content.application.applicationId}/${content.savedName}`, { root: 'uploads' });
-    } else if (Object.keys(query).length === 0) {
-      res.sendFile(`${content.application.applicationId}/${content.savedName}`, { root: 'uploads' });
+    if (content.mimeType.split('/')[0] !== 'image' || Object.keys(query).length === 0) {
+      res.sendFile(content.getUploadPath());
     } else {
       // TODO: Put the image process job in a queue?
       const modifiedImage = await this.imageFilterService.modifyImage(content, query);

@@ -54,6 +54,10 @@ export class Content {
     this.mimeType = typeof mimeType === 'string' ? mimeType : 'unknown';
   }
 
+  public getUploadPath(): string {
+    return path.join(path.resolve('./'), 'uploads', this.application.applicationId, this.savedName);
+  }
+
   public toJSON(): ContentInformation {
     return {
       creation: new Date(this.createdAt).getTime(),

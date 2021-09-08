@@ -1,5 +1,4 @@
 import { promises as fs } from 'fs';
-import path from 'path';
 import { EntityRepository, UniqueConstraintViolationException, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import {
@@ -29,7 +28,7 @@ export class ApplicationsService {
 
     try {
       const app = new Application(user, dto.name, dto.website, dto.description);
-      await fs.mkdir(`./uploads/${app.applicationId}`);
+      await fs.mkdir(app.getUploadPath());
       await this.applicationRepository.persistAndFlush(app);
       return app;
     } catch (error: unknown) {
@@ -70,7 +69,7 @@ export class ApplicationsService {
     if (!application)
       throw new NotFoundException('Application not found');
 
-    await fs.rm(path.join(path.resolve('./'), 'uploads', application.applicationId), { recursive: true });
+    await fs.rm(application.getUploadPath(), { recursive: true });
 
     await this.contentRepository.nativeDelete({ application: { applicationId } });
     await this.applicationRepository.removeAndFlush(application);
