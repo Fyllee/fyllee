@@ -102,6 +102,7 @@ describe('AuthController: Register', () => {
       .expect({
         statusCode: 400,
         message: [
+          'username must match /^[\\w-]*$/ regular expression',
           'username must be a lowercase string',
           'email must be an email',
           'password must be longer than or equal to 6 characters',
