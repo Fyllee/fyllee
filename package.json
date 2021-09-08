@@ -97,16 +97,12 @@
     "typescript": "^4.4.2"
   },
   "engines": {
-    "node": ">=12.0.0 <15.0.0"
+    "node": ">=14.0.0"
   },
   "mikro-orm": {
     "configPaths": [
       "./src/mikro-orm.config.ts",
       "./dist/mikro-orm.config.js"
     ]
-  },
-  "volta": {
-    "node": "14.16.1",
-    "npm": "6.14.12"
   }
 }
