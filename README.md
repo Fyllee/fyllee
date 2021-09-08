@@ -5,20 +5,20 @@
 <a href="./LICENSE" alt="License">
   <img src="https://img.shields.io/badge/License-Apache-green" />
 </a>
-<a href="https://github.com/mlbonniec/bild/commit/master" alt="Commits">
-  <img src="https://img.shields.io/github/commit-activity/m/mlbonniec/bild" />
+<a href="https://github.com/fyllee/fyllee/commit/master" alt="Commits">
+  <img src="https://img.shields.io/github/commit-activity/m/fyllee/fyllee" />
 </a>
-<a href="https://github.com/mlbonniec/bild/commit/master" alt="Last commit">
-  <img src="https://img.shields.io/github/last-commit/mlbonniec/bild/master" />
+<a href="https://github.com/fyllee/fyllee/commit/master" alt="Last commit">
+  <img src="https://img.shields.io/github/last-commit/fyllee/fyllee/master" />
 </a>
-<a href="https://github.com/mlbonniec/bild/graphs/contributors" alt="Contributors">
-  <img src="https://img.shields.io/github/contributors/mlbonniec/bild" />
+<a href="https://github.com/fyllee/fyllee/graphs/contributors" alt="Contributors">
+  <img src="https://img.shields.io/github/contributors/fyllee/fyllee" />
 </a>
-<a href="https://github.com/mlbonniec/bild/issues" alt="Issues">
-  <img src="https://img.shields.io/github/issues-raw/mlbonniec/bild" />
+<a href="https://github.com/fyllee/fyllee/issues" alt="Issues">
+  <img src="https://img.shields.io/github/issues-raw/fyllee/fyllee" />
 </a>
-<a href="https://github.com/mlbonniec/bild" alt="Github stars">
-  <img src="https://img.shields.io/github/stars/mlbonniec/bild?style=social" />
+<a href="https://github.com/fyllee/fyllee" alt="Github stars">
+  <img src="https://img.shields.io/github/stars/fyllee/fyllee?style=social" />
 </a>
 
 </div>
@@ -29,7 +29,7 @@ Written in TypeScript with Nest.js, this REST API allows you to login to your ac
 applications, and create and manage your contents within your applications.
 
 This GitHub repository is where we develop the Fyllee REST API! You can take a look at the web app repository at
-[fyllee-ui](https://github.com/mlbonniec/bild-ui).
+[fyllee-ui](https://github.com/fyllee/fyllee-ui).
 
 ## Table of contents
 
@@ -44,7 +44,7 @@ This GitHub repository is where we develop the Fyllee REST API! You can take a l
 To install Fyllee, clone the GitHub repository and install the Node.js modules. Then create a `.env` file.
 
 ```bash
-$ git clone https://github.com/mlbonniec/bild.git fyllee
+$ git clone https://github.com/fyllee/fyllee.git fyllee
 $ cd fyllee
 $ npm install
 $ cp .env.example .env
@@ -97,4 +97,4 @@ $ npm run test:all # Run all tests, except coverage
 
 ## License
 
-Copyright © 2021 Mathis Le Bonniec & Elliot Maisl. Licensed under the Apache-2.0 license, see [the license](./LICENSE).
+Copyright © 2021 Elliot Maisl & Mathis Le Bonniec. Licensed under the Apache-2.0 license, see [the license](./LICENSE).

@@ -3,9 +3,14 @@
   "version": "0.2.0",
   "description": "The powerful official REST API of the Fyllee content-hosting platform!",
   "authors": [
-    "Mathis Le Bonniec",
-    "Elliot 'noftaly' Maisl"
+    "Elliot 'noftaly' Maisl",
+    "Mathis Le Bonniec"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fyllee/fyllee"
+  },
+  "homepage": "https://github.com/fyllee/fyllee#readme",
   "private": true,
   "license": "Apache-2.0",
   "main": "./dist/main.js",
