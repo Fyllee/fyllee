@@ -1,6 +1,6 @@
 import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import type { AuthRegisterDto } from '../auth/dto/auth-register.dto';
 import type { UsernameEmail } from '../global/types/username-email.interface';
 import { User } from './user.entity';
